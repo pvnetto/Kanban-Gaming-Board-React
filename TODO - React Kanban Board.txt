@@ -1,0 +1,91 @@
+REACT KANBAN BOARD:
+
+1) Escolher um tema legal					DONE
+	> Kanban Board para desenvolvedores de jogos
+
+2) Procurar sites de refer�ncia para o tema			DONE
+	> https://app.hacknplan.com
+	> https://trello.com/
+
+3) Escolher o objetivo do site, como se houvesse um cliente, para que o escopo seja definido				DONE
+	- O objetivo ser� fazer uma vers�o mais simples do hack n plan, poucas estat�sticas etc, apenas os features
+	necess�rios para o kanban board/divis�o de tarefas entre diferentes roles (programador, artista etc)
+	- Usu�rio logado poder�:
+		- Visualizar quais projetos ele faz parte
+		- Criar projeto
+		- Visualizar projeto
+		- Criar board no projeto
+		- Visualizar board no projeto
+		- Adicionar tarefa a um board
+		- Visualizar tarefa
+		- Adicionar tarefa ao backlog do projeto
+		- Adicionar entry no game design log
+			- Semelhante ao design model, mas ter� todos os logs
+		- Gerenciar projeto, que inclui as op��es de:
+			- Adicionar/remover/promover usu�rio ao projeto
+			- Deletar projeto
+			- Mudar configura��es iniciais do projeto, como nome, descri��o etc
+
+	- P�ginas/conte�do:
+		> Tela inicial de login
+			- Bastante simples, apenas um bg, nome do aplicativo e bot�es para login com google, github etc
+		> Barra superior com atalhos de navega��o no lado esquerdo e foto de perfil redonda do lado direito (puxar da auth)
+		> P�gina inicial ou workspace (todos os itens prim�rios s�o op��es da barra lateral, e todos devem possuir �cones):
+			- Bot�o criar projeto
+			- My Dashboard (informa��es sobre o usu�rio):
+				- Bem-vindo fulano
+				- Quais projetos fa�o parte
+				- Projetos fechados
+				- M�tricas BASTANTE SIMPLES (porcentagem de tarefas concluidas/pendentes/arquivadas, num projetos)
+			- Management
+				- Possui um item pra cada projeto do usu�rio, serve meramente como atalho para configura��es do projeto
+		> P�gina de projeto (todos os itens prim�rios s�o op��es da barra lateral, e todos devem possuir �cones):
+			- Bot�o criar board
+			- Project Dashboard
+				- Semelhante ao dashboard do workspace, mas com informa��es do projeto (nome, descri��o, m�tricas simples etc)
+			- Boards:
+				- Abaixo deve ter uma listagem de todos os boards do projeto
+				- P�gina do Board item:
+					- Barra abaixo da navbar, com:
+						- nome do board
+						- quantos dias sobram pra terminar
+						- bot�o de criar tarefa
+					- Barra lateral interna, com lista de todas as roles
+					- Ao clicar em uma role, aparece as tasks pra ela, com 4 colunas fixas: planejadas, em progresso, testando e completo
+			- Backlog:
+				- P�gina bastante semelhante ao board item, mas h� apenas uma coluna
+			- Design log:
+				- Barra abaixo da de navega��o, com:
+					- nome Game Design Logs
+					- bot�o de adicionar log entry
+					- No lado esquerdo, op��es de como ordenar as entries
+				- Abaixo, log entries s�o listadas, apenas com t�tulo e coment�rio, ao clicar expandem para ver conte�do
+			- Management:
+				- Lado esquerdo: Op��es para modificar o projeto
+				- Lado direito: Op��es para convidar membro (apenas por email) e deletar projeto
+			- hr + Voltar para workspace
+			- Minimizar barra
+		> Contato: Ao lado do bot�o de minimizar barra lateral, deve haver links para minhas midias, inicialmente apenas github
+
+
+4) FAZER WIREFRAME								DONE
+	- Escolher paleta de cores:
+		- Cores escuras (em ordem de mais para menos):
+			- #2D2D2A
+			- #312F2F
+			- #565656 ou #5c6d70 ou #6d6a75 ou #bfbdc1
+
+			- #222831 (overlay, azulado)
+		- Cores vibrantes/claras (bright)
+			- #4392f1 (azul)
+			- #f03a47 (vermelho)
+			- #fed766 (amarelo)
+			- #35ff69 ou #04e824 (verde)
+		- FONT COLOR: #f7f7f2
+			
+	- Escolher fontes (um par):
+		- PT Sans e PT Sans Narrow
+
+	- Fonte da logo: Megrim
+	
+5) FAZER SITE
