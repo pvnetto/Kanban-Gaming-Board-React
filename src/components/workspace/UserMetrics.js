@@ -1,4 +1,5 @@
 import React from 'react';
+import PieChart from 'react-minimal-pie-chart';
 
 const MetricsItem = (props) => {
     return (
@@ -12,8 +13,14 @@ const MetricsItem = (props) => {
 const UserMetrics = () => {
     return (
         <div>
-            <img src="" alt="" />
-            <div className="d-flex flex-row justify-content-around align-items-center">
+            <PieChart
+                className="w-50 mx-auto my-2"
+                data={[
+                    { title: 'Pending', value: 10, color: '#E38627' },
+                    { title: 'Closed', value: 15, color: '#C13C37' }
+                ]}
+            />
+            <div className="d-flex flex-row justify-content-around align-items-center mt-4">
                 <MetricsItem label={"Projects"} count={0} />
                 <MetricsItem label={"Total Tasks"} count={0} />
                 <MetricsItem label={"Pending Tasks"} count={0} />

@@ -88,4 +88,15 @@ REACT KANBAN BOARD:
 
 	- Fonte da logo: Megrim
 	
-5) FAZER SITE
+5) FAZER SITE:
+	- Core features:
+		- Adicionar/remover/modificar projeto
+		- Autenticação
+			- Roles
+			- Convidar para projeto
+			- Autorizar outros usuários no projeto
+		- Integração com banco de dados auth0
+	- Experimentar:
+		- PropTypes
+		- Substituir classNames por componentes Bootstrap onde possível
+		- Testes

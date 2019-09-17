@@ -28,6 +28,10 @@
     .logo {
         font-size: 3rem;
     }
+
+    svg {
+        font-size: 1.8rem;
+    }
 }
 
 .logo {
@@ -68,5 +72,19 @@
     &:hover {
         background: $light;
         color: black;
+    }
+}
+
+.container-fluid {
+    svg {
+        font-size: 1.8rem;
+    
+        &.icon-sm {
+            font-size: 0.8rem;
+        }
+
+        &.icon-md {
+            font-size: 1rem;
+        }
     }
 }

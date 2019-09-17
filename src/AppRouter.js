@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import UserWorkspace from './components/workspace/UserWorkspace';
 import ProjectWorkspace from './components/project/ProjectWorkspace';
@@ -9,9 +9,12 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={LoginPage} />
-                <Route exact path="/workspace" component={UserWorkspace} />
-                <Route exact path="/workspace/project/:projectId" component={ProjectWorkspace} />
+                <Route exact path="/" component={LoginPage}>
+                    <Redirect to="/login" />
+                </Route>
+                <Route exact path="/login" component={LoginPage} />
+                <Route path="/workspace" component={UserWorkspace} />
+                <Route path="/workspace/project/:projectId" component={ProjectWorkspace} />
                 <Route component={ErrorPage} />
             </Switch>
         </BrowserRouter>

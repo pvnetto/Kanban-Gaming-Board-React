@@ -2,6 +2,9 @@ import React from 'react';
 import SidenavLogo from './SidenavLogo';
 import SidenavButton from './SidenavButton';
 
+import { faPowerOff, faWindowMinimize } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const Sidenav = (props) => {
     return (
         <div className="sidenav bg-secondary border-2 border-light">
@@ -16,13 +19,13 @@ const Sidenav = (props) => {
 
                 <div className="d-flex flex-column-reverse justify-content-between w-100 h-100">
                     {props.options}
-                    <SidenavButton btnTitle={"Logout"} btnIcon={"LO"} />
+                    <SidenavButton btnTitle={"Logout"} btnIcon={faPowerOff} />
                 </div>
 
                 <hr className="m-1 border border-light" />
 
-                <li className="nav-item p-3 d-flex flex-row justify-content-end">
-                    <i>Min</i>
+                <li className="nav-item p-3 d-flex flex-row justify-content-end align-items-center">
+                    <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faWindowMinimize} />
                 </li>
             </ul>
         </div>
