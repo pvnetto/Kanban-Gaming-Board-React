@@ -1,7 +1,7 @@
 import React from 'react';
-import Sidenav from './Sidenav';
-import NavigationBar from './NavigationBar';
-import SidenavButton from './SidenavButton';
+import Sidenav from '../commons/Sidenav';
+import NavigationBar from '../commons/NavigationBar';
+import SidenavButton from '../commons/SidenavButton';
 
 const ProjectWorkspace = () => {
     const sidenavBtns = [

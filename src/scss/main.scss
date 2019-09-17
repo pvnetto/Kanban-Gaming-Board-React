@@ -1,0 +1,72 @@
+@import '_custom';
+@import '_reset';
+@import '_config';
+
+:root {
+    --sidebar-width: 300px;
+}
+
+.sidenav {
+    width: var(--sidebar-width);            // This is the sidebar's width. The page's content should be offset horizontally by this size.
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    overflow-x: hidden;
+
+    .nav-link {
+        font-size: 1.2rem;
+    
+        &:hover, &.active {
+            background: $primary;
+            color: var(--font-color-secondary);
+        }
+    }
+
+    .logo {
+        font-size: 3rem;
+    }
+}
+
+.logo {
+    font-family: 'Megrim';
+
+    &-red {
+        color: $red;
+    }
+    
+    &-green {
+        color: $green;
+    }
+
+    &-blue {
+        color: $blue;
+    }
+}
+
+.workspace {
+    margin-left: var(--sidebar-width);      // Offsets the content horizontally by the width of the sidebar.
+}
+
+.emphasized {
+    color: var(--font-color-secondary);
+}
+
+.text-sm {
+    font-size: 0.8rem;
+}
+
+.border-2 {
+    border: 2px solid;
+}
+
+.hover-bg-dark {
+    transition: all 0.3s ease;
+    
+    &:hover {
+        background: $light;
+        color: black;
+    }
+}

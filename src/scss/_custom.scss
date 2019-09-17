@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+
+// Override default variables before the import
+$primary: #2D2D2A;
+$secondary: #312F2F;
+$dark: #565656;
+$light: #c4c4c4;
+
+$gray: #C4C4C4;
+$blue: #4392F1;
+$red: #F03A47;
+$green: #35FF69;
+
+// $font-family-sans-serif: "Raleway", sans-serif !default;
+$font-family-base: 'PT Sans', sans-serif !default;
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';

@@ -1,0 +1,21 @@
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: $primary;
+}
+
+body, a {
+    color: var(--font-color-primary);
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+// Resetting bootstrap 4 styles
+.border-light {
+    border-color: rgba($light, 0.3) !important;
+}

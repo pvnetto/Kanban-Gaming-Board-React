@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Megrim&display=swap');
+
+:root {
+    --font-color-primary: #F7F7F2;
+    --font-color-secondary: #FED766;
+}
+
+// Extending bootstrap 4 classes
+.text-blue {
+    color: $blue;
+}
