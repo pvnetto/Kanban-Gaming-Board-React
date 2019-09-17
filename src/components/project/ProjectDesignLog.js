@@ -1,5 +1,5 @@
 import React from 'react';
-import SectionNavbar from './SectionNavbar';
+import SectionNavbar from '../commons/SectionNavbar';
 import DesignLogItem from './DesignLogItem';
 
 
@@ -10,7 +10,9 @@ const ProjectDesignLog = (props) => {
             <SectionNavbar sectionTitle={"My Dashboard"} sectionIcon={"DS"} options={[]} />
 
             <div className="col-12">
-                {props.logEntries.map(logEntry => <DesignLogItem {...logEntry} />)}
+                {props.logEntries ?
+                    props.logEntries.map(logEntry => <DesignLogItem {...logEntry} />)
+                    : "No log entries found :("}
             </div>
         </div>
     );

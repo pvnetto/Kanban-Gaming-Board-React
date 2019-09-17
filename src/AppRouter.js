@@ -14,7 +14,7 @@ const AppRouter = () => {
                 </Route>
                 <Route exact path="/login" component={LoginPage} />
                 <Route path="/workspace" component={UserWorkspace} />
-                <Route path="/workspace/project/:projectId" component={ProjectWorkspace} />
+                <Route path="/project/:projectId" component={ProjectWorkspace} />
                 <Route component={ErrorPage} />
             </Switch>
         </BrowserRouter>

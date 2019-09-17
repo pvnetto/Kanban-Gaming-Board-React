@@ -17,8 +17,10 @@ const Sidenav = (props) => {
 
                 <hr className="m-1 border border-light" />
 
-                <div className="d-flex flex-column-reverse justify-content-between w-100 h-100">
-                    {props.options}
+                <div className="d-flex flex-column justify-content-between w-100 h-100">
+                    <div>
+                        {props.options}
+                    </div>
                     <SidenavButton btnTitle={"Logout"} btnIcon={faPowerOff} />
                 </div>
 

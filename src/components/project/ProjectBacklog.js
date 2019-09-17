@@ -1,7 +1,10 @@
 import React from 'react';
-import { columnTypes } from './BoardColumn';
-import SectionNavbar from './SectionNavbar';
-import SectionSidenav from './SectionSidenav';
+import { columnTypes } from './ColumnTypes';
+import SectionNavbar from '../commons/SectionNavbar';
+import SectionSidenav from '../commons/SectionSidenav';
+import SidenavButton from '../commons/SidenavButton';
+import BoardColumn from './BoardColumn';
+import { Row, Col } from 'react-bootstrap';
 
 const sidenavBtns = [
     <SidenavButton btnTitle={"ALL ITEMS"} btnIcon={"A"} />,
@@ -16,8 +19,8 @@ const sidenavBtns = [
 
 const ProjectBacklog = () => {
     return (
-        <div className="row">
-            <div className="col-12">
+        <Row>
+            <Col xs={12}>
                 <SectionNavbar sectionTitle={"My Dashboard"} sectionIcon={"DS"} options={[]} />
                 <SectionSidenav buttons={sidenavBtns} />
 
@@ -26,9 +29,8 @@ const ProjectBacklog = () => {
                         <BoardColumn type={columnTypes.BACKLOG} tasks={[]} />
                     </div>
                 </div>
-
-            </div>
-        </div>
+            </Col>
+        </Row>
     );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import SectionContainer from '../workspace/SectionContainer';
+import SectionContainer from '../commons/SectionContainer';
 import ProjectEditForm from './ProjectEditForm';
 import ProjectInviteForm from './ProjectInviteForm';
 

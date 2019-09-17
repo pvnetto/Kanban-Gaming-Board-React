@@ -3,34 +3,42 @@ import SectionNavbar from '../commons/SectionNavbar';
 import SectionContainer from '../commons/SectionContainer';
 import UserMetrics from '../workspace/UserMetrics';
 
+import { Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGamepad, faChartPie, faDiceD20 } from '@fortawesome/free-solid-svg-icons';
+
+const ProjectDescSection = ({ title }) => {
+    return (
+        <div className="p-4 mb-2 bg-dark border-2 border-light d-flex flex-column justify-content-center align-items-center">
+            <FontAwesomeIcon className="icon-xl" icon={faDiceD20} />
+            <h1 className="font-weight-bold mt-3">{title}</h1>
+            <p>{"Project description here"}</p>
+        </div>
+    );
+}
+
 const ProjectDashboard = () => {
 
     return (
-        <div className="row">
-            <div className="col-12">
-                {/* Section navbar */}
-                <SectionNavbar sectionTitle={"My Dashboard"} sectionIcon={"DS"} items={[]} />
+        <Row noGutters={true}>
 
-                <div className="col-12">
-                    {/* Left dashboard section */}
-                    <div className="col-6">
-                        <div>
-                            <i>PR</i>
-                            <h3>{"Test Project"}</h3>
-                            <p>{"Project description here"}</p>
-                        </div>
+            <SectionNavbar sectionTitle={"My Dashboard"} sectionIcon={faGamepad} items={[]} />
 
-                        <SectionContainer title={"General Info"} titleIcon={"GI"} items={[<p>{"General info about project"}</p>]} />
-                    </div>
+            <Row noGutters={true} className="w-100 p-2">
+                {/* Left dashboard section */}
+                <Col xs={6}>
+                    <ProjectDescSection title="Test Project" />
 
-                    {/* Right dashboard section */}
-                    <div className="col-6">
-                        <SectionContainer title={"Metrics"} titleIcon={"MTR"} items={[<UserMetrics />]} />
-                    </div>
-                </div>
+                    <SectionContainer title={"General Info"} titleIcon={"GI"} items={[<p>{"General info about project"}</p>]} />
+                </Col>
 
-            </div>
-        </div>
+                {/* Right dashboard section */}
+                <Col xs={6} className="pl-2">
+                    <SectionContainer title={"Metrics"} titleIcon={faChartPie} items={[<UserMetrics />]} />
+                </Col>
+            </Row>
+
+        </Row>
     );
 };
 

@@ -1,34 +1,6 @@
 import React from 'react';
 import TaskItem from './TaskItem';
-
-const columnTypes = {
-    BACKLOG: "Backlog",
-    PLANNED: "Planned",
-    IN_PROGRESS: "In Progress",
-    TESTING: "Testing",
-    COMPLETED: "Completed"
-};
-
-const columnIcon = (type) => {
-    switch (type) {
-        case columnIcon.BACKLOG:
-            return "BL";
-        case columnTypes.PLANNED:
-            return "P";
-        case columnTypes.IN_PROGRESS:
-            return "IP";
-        case columnTypes.TESTING:
-            return "T";
-        case columnTypes.COMPLETED:
-            return "CP";
-        default:
-            return "ICON NOT FOUND";
-    }
-}
-
-Object.freeze(columnTypes);
-
-
+import { columnTypes, columnIcon } from './ColumnTypes';
 
 const BoardColumn = (props) => {
     return (
@@ -44,5 +16,4 @@ const BoardColumn = (props) => {
     );
 };
 
-exports.columnTypes = columnTypes;
 export default BoardColumn;

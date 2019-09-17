@@ -1,26 +1,29 @@
 import React from 'react';
-import SectionSidenav from './SectionSidenav';
-import SidenavButton from './SidenavButton';
+import SectionSidenav from '../commons/SectionSidenav';
+import SectionNavbar from '../commons/SectionNavbar';
+import SidenavButton from '../commons/SidenavButton';
 import BoardColumn from './BoardColumn';
 
-import { columnTypes } from './BoardColumn';
+import { columnTypes } from './ColumnTypes';
+
+import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 
 const sidenavBtns = [
-    <SidenavButton btnTitle={"ALL ITEMS"} btnIcon={"A"} />,
-    <SidenavButton btnTitle={"PROGRAMMING"} btnIcon={"P"} />,
-    <SidenavButton btnTitle={"ART"} btnIcon={"AR"} />,
-    <SidenavButton btnTitle={"DESIGN"} btnIcon={"D"} />,
-    <SidenavButton btnTitle={"WRITING"} btnIcon={"W"} />,
-    <SidenavButton btnTitle={"MARKETING"} btnIcon={"M"} />,
-    <SidenavButton btnTitle={"SOUND"} btnIcon={"S"} />,
-    <SidenavButton btnTitle={"BUGS"} btnIcon={"B"} />
+    <SidenavButton btnTitle={"ALL ITEMS"} btnIcon={faGamepad} />,
+    <SidenavButton btnTitle={"PROGRAMMING"} btnIcon={faGamepad} />,
+    <SidenavButton btnTitle={"ART"} btnIcon={faGamepad} />,
+    <SidenavButton btnTitle={"DESIGN"} btnIcon={faGamepad} />,
+    <SidenavButton btnTitle={"WRITING"} btnIcon={faGamepad} />,
+    <SidenavButton btnTitle={"MARKETING"} btnIcon={faGamepad} />,
+    <SidenavButton btnTitle={"SOUND"} btnIcon={faGamepad} />,
+    <SidenavButton btnTitle={"BUGS"} btnIcon={faGamepad} />
 ];
 
 const ProjectBoard = () => {
     return (
         <div className="row">
             <div className="col-12">
-                <SectionNavbar sectionTitle={"My Dashboard"} sectionIcon={"DS"} options={[]} />
+                <SectionNavbar sectionTitle={"Board"} sectionIcon={faGamepad} options={[]} />
                 <SectionSidenav buttons={sidenavBtns} />
 
                 <div className="col">

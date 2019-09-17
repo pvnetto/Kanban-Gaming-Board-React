@@ -78,13 +78,17 @@
 .container-fluid {
     svg {
         font-size: 1.8rem;
-    
+
         &.icon-sm {
             font-size: 0.8rem;
         }
 
         &.icon-md {
             font-size: 1rem;
+        }
+
+        &.icon-xl {
+            font-size: 6rem;
         }
     }
 }
