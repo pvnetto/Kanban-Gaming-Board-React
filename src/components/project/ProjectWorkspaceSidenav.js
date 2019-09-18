@@ -5,23 +5,17 @@ import Sidenav from '../commons/Sidenav';
 import SidenavLink from '../commons/SidenavLink';
 import SidenavButtonExpand from '../commons/SidenavButtonExpand';
 
+import { createWorkspaceLink, createWorkspaceBtn } from '../commons/SidenavButtonCreator';
+
 const ProjectWorkspaceSidenav = ({ url }) => {
 
-    const createWorkspaceLink = (btnTitle, btnIcon, link) => {
-        return { btnTitle, btnIcon, link, url };
-    };
-
-    const createWorkspaceBtn = (btnTitle, btnIcon) => {
-        return { btnTitle, btnIcon };
-    };
-
     const workspaceLinks = {
-        CREATE: createWorkspaceBtn("CREATE", faPlusSquare),
-        DASHBOARD: createWorkspaceLink("DASHBOARD", faGamepad, "/dashboard"),
-        BOARDS: createWorkspaceBtn("BOARDS", faClipboardList),
-        BACKLOG: createWorkspaceLink("BACKLOG", faList, "/backlog"),
-        DESIGN_LOG: createWorkspaceLink("DESIGN LOG", faEdit, "/design_log"),
-        MANAGEMENT: createWorkspaceLink("MANAGEMENT", faCogs, "/management")
+        CREATE: createWorkspaceBtn("CREATE", faPlusSquare, url),
+        DASHBOARD: createWorkspaceLink("DASHBOARD", faGamepad, "/dashboard", url),
+        BOARDS: createWorkspaceBtn("BOARDS", faClipboardList, url),
+        BACKLOG: createWorkspaceLink("BACKLOG", faList, "/backlog", url),
+        DESIGN_LOG: createWorkspaceLink("DESIGN LOG", faEdit, "/design_log", url),
+        MANAGEMENT: createWorkspaceLink("MANAGEMENT", faCogs, "/management", url)
     };
 
     const createLinks = [
@@ -30,7 +24,7 @@ const ProjectWorkspaceSidenav = ({ url }) => {
     ]
 
     const boardLinks = [
-        createWorkspaceLink("Board 1", faClipboardList, "/boards/1"),
+        createWorkspaceLink("Board 1", faClipboardList, "/boards/1", url),
     ];
 
     const sidenavBtns = [

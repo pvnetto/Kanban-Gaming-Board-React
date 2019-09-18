@@ -16,6 +16,17 @@ const ExpandLink = (props) => {
     );
 }
 
+const ExpandButton = (props) => {
+    return (
+        <p className="nav-link cursor-pointer py-1 pl-3 d-flex flex-row align-items-center" onClick={props.onClick}>
+            <FontAwesomeIcon className="ml-4" style={{ width: '20px' }} icon={props.btnIcon} />
+            <span className="ml-2 text-sm">
+                {" " + props.btnTitle}
+            </span>
+        </p>
+    );
+}
+
 const SidenavButtonExpand = (props) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -29,7 +40,7 @@ const SidenavButtonExpand = (props) => {
             {isExpanded &&
                 props.expandBtns &&
                 <div className="my-1">
-                    {props.expandBtns.map(btn => <ExpandLink {...btn} />)}
+                    {props.expandBtns.map(btn => btn.url ? <ExpandLink {...btn} /> : <ExpandButton {...btn} />)}
                 </div>
             }
         </>
