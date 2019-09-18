@@ -1,9 +1,10 @@
 import React from 'react';
 import SidenavLogo from './SidenavLogo';
-import SidenavButton from './SidenavButton';
+import SidenavLink from './SidenavLink';
 
 import { faPowerOff, faWindowMinimize } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SidenavButton from './SidenavButton';
 
 const Sidenav = (props) => {
     return (
@@ -21,7 +22,7 @@ const Sidenav = (props) => {
                     <div>
                         {props.options}
                     </div>
-                    <SidenavButton btnTitle={"Logout"} btnIcon={faPowerOff} />
+                    <SidenavLink btnTitle={"Logout"} btnIcon={faPowerOff} />
                 </div>
 
                 <hr className="m-1 border border-light" />

@@ -1,3 +1,4 @@
+import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 
 const columnTypes = {
     BACKLOG: "Backlog",
@@ -12,19 +13,37 @@ Object.freeze(columnTypes);
 const columnIcon = (type) => {
     switch (type) {
         case columnIcon.BACKLOG:
-            return "BL";
+            return faDiceD20;
         case columnTypes.PLANNED:
-            return "P";
+            return faDiceD20;
         case columnTypes.IN_PROGRESS:
-            return "IP";
+            return faDiceD20;
         case columnTypes.TESTING:
-            return "T";
+            return faDiceD20;
         case columnTypes.COMPLETED:
-            return "CP";
+            return faDiceD20;
         default:
-            return "ICON NOT FOUND";
+            return faDiceD20;
     }
 };
 
-exports.columnTypes = columnTypes;
-exports.columnIcon = columnIcon;
+const columnBorder = (type) => {
+    switch (type) {
+        case columnIcon.BACKLOG:
+            return 'border-gray';
+        case columnTypes.PLANNED:
+            return 'border-gray';
+        case columnTypes.IN_PROGRESS:
+            return 'border-blue';
+        case columnTypes.TESTING:
+            return 'border-red';
+        case columnTypes.COMPLETED:
+            return 'border-green';
+        default:
+            return 'border-gray';
+    }
+}
+
+export { columnIcon, columnTypes, columnBorder };
+// exports.columnTypes = columnTypes;
+// exports.columnIcon = columnIcon;

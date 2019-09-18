@@ -1,36 +1,24 @@
 import React from 'react';
 import { columnTypes } from './ColumnTypes';
 import SectionNavbar from '../commons/SectionNavbar';
-import SectionSidenav from '../commons/SectionSidenav';
-import SidenavButton from '../commons/SidenavButton';
 import BoardColumn from './BoardColumn';
-import { Row, Col } from 'react-bootstrap';
 
-const sidenavBtns = [
-    <SidenavButton btnTitle={"ALL ITEMS"} btnIcon={"A"} />,
-    <SidenavButton btnTitle={"PROGRAMMING"} btnIcon={"P"} />,
-    <SidenavButton btnTitle={"ART"} btnIcon={"AR"} />,
-    <SidenavButton btnTitle={"DESIGN"} btnIcon={"D"} />,
-    <SidenavButton btnTitle={"WRITING"} btnIcon={"W"} />,
-    <SidenavButton btnTitle={"MARKETING"} btnIcon={"M"} />,
-    <SidenavButton btnTitle={"SOUND"} btnIcon={"S"} />,
-    <SidenavButton btnTitle={"BUGS"} btnIcon={"B"} />
-];
+import { Row, Col } from 'react-bootstrap';
+import { faGamepad } from '@fortawesome/free-solid-svg-icons';
+import BoardSidenav from './BoardSidenav';
 
 const ProjectBacklog = () => {
     return (
-        <Row>
-            <Col xs={12}>
-                <SectionNavbar sectionTitle={"My Dashboard"} sectionIcon={"DS"} options={[]} />
-                <SectionSidenav buttons={sidenavBtns} />
+        <>
+            <SectionNavbar sectionTitle={"Backlog"} sectionIcon={faGamepad} items={[]} />
+            <Row noGutters={true} className="d-flex flex-fill w-100">
+                <BoardSidenav />
 
-                <div className="col">
-                    <div className="col-12">
-                        <BoardColumn type={columnTypes.BACKLOG} tasks={[]} />
-                    </div>
-                </div>
-            </Col>
-        </Row>
+                <Col className="inner-workspace d-flex flex-row align-items-stretch px-4">
+                    <BoardColumn type={columnTypes.BACKLOG} tasks={[]} />
+                </Col>
+            </Row>
+        </ >
     );
 };
 

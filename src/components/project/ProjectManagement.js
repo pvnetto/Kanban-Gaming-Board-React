@@ -2,18 +2,22 @@ import React from 'react';
 import SectionContainer from '../commons/SectionContainer';
 import ProjectEditForm from './ProjectEditForm';
 import ProjectInviteForm from './ProjectInviteForm';
+import { Row, Col } from 'react-bootstrap';
+import ProjectDeleteForm from './ProjectDeleteForm';
 
 const ProjectManagement = () => {
 
     return (
-        <div className="col-12">
-            <div className="col-6">
+        <Row className="p-2" noGutters={true}>
+            <Col xs={12} lg={6} className="pr-2">
                 <SectionContainer title={"Edit Project"} titleIcon={"EPR"} items={[<ProjectEditForm />]} />
-            </div>
-            <div className="col-6">
-                <SectionContainer title={"Management"} titleIcon={"MGMT"} items={[<ProjectInviteForm />, <button>Delete</button>]} />
-            </div>
-        </div>
+            </Col>
+
+            <Col xs={12} lg={6}>
+                <SectionContainer title={"Manage Project Members"} titleIcon={"MGMT"} items={[<ProjectInviteForm />]} />
+                <SectionContainer title={"Manage Project"} titleIcon={"MGMT"} items={[<ProjectDeleteForm />]} />
+            </Col>
+        </Row>
     );
 };
 

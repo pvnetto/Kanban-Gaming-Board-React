@@ -3,19 +3,20 @@
 @import '_config';
 
 :root {
-    --sidebar-width: 300px;
+    --sidenav-width: 300px;
+    --inner-sidenav-width: 200px;
 }
 
-.sidenav {
-    width: var(--sidebar-width);            // This is the sidebar's width. The page's content should be offset horizontally by this size.
+.sidenav-base {
     height: 100%;
     position: fixed;
-    top: 0;
-    left: 0;
+    // top: 0;
+    // left: 0;
     z-index: 1;
     display: flex;
     overflow-x: hidden;
 
+    
     .nav-link {
         font-size: 1.2rem;
     
@@ -24,6 +25,11 @@
             color: var(--font-color-secondary);
         }
     }
+}
+
+.sidenav {
+    @extend .sidenav-base;
+    width: var(--sidenav-width);            // This is the sidebar's width. The page's content should be offset horizontally by this size.
 
     .logo {
         font-size: 3rem;
@@ -32,6 +38,25 @@
     svg {
         font-size: 1.8rem;
     }
+}
+
+.workspace {
+    margin-left: var(--sidenav-width);      // Offsets the content horizontally by the width of the sidebar.
+}
+
+.inner-sidenav {
+    @extend .sidenav-base;
+    width: var(--inner-sidenav-width);
+
+    position: fixed;
+
+    .nav-link {
+        font-size: 0.9rem;
+    }
+}
+
+.inner-workspace {
+    margin-left: var(--inner-sidenav-width);      // Offsets the content horizontally by the width of the sidebar.
 }
 
 .logo {
@@ -48,10 +73,6 @@
     &-blue {
         color: $blue;
     }
-}
-
-.workspace {
-    margin-left: var(--sidebar-width);      // Offsets the content horizontally by the width of the sidebar.
 }
 
 .emphasized {
@@ -91,4 +112,40 @@
             font-size: 6rem;
         }
     }
+
+    &.full-height {
+        height: 100vh;
+    }
+}
+
+.border-gray {
+    border-color: rgba($gray, 1.0) !important;
+    color: $gray;
+}
+
+.border-blue {
+    border-color: rgba($blue, 1.0) !important;
+    color: $blue;
+}
+
+.border-red {
+    border-color: rgba($red, 1.0) !important;
+    color: $red;
+}
+
+.border-green {
+    border-color: rgba($green, 1.0) !important;
+    color: $green;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.disable-select {
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
 }

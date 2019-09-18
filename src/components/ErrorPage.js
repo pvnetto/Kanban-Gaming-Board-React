@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from '../../node_modules/react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 const ErrorPage = () => {
     return (

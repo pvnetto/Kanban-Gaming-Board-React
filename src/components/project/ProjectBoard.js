@@ -1,48 +1,41 @@
 import React from 'react';
-import SectionSidenav from '../commons/SectionSidenav';
 import SectionNavbar from '../commons/SectionNavbar';
-import SidenavButton from '../commons/SidenavButton';
 import BoardColumn from './BoardColumn';
 
 import { columnTypes } from './ColumnTypes';
 
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
-
-const sidenavBtns = [
-    <SidenavButton btnTitle={"ALL ITEMS"} btnIcon={faGamepad} />,
-    <SidenavButton btnTitle={"PROGRAMMING"} btnIcon={faGamepad} />,
-    <SidenavButton btnTitle={"ART"} btnIcon={faGamepad} />,
-    <SidenavButton btnTitle={"DESIGN"} btnIcon={faGamepad} />,
-    <SidenavButton btnTitle={"WRITING"} btnIcon={faGamepad} />,
-    <SidenavButton btnTitle={"MARKETING"} btnIcon={faGamepad} />,
-    <SidenavButton btnTitle={"SOUND"} btnIcon={faGamepad} />,
-    <SidenavButton btnTitle={"BUGS"} btnIcon={faGamepad} />
-];
+import { Row, Col } from 'react-bootstrap';
+import BoardSidenav from './BoardSidenav';
 
 const ProjectBoard = () => {
     return (
-        <div className="row">
-            <div className="col-12">
-                <SectionNavbar sectionTitle={"Board"} sectionIcon={faGamepad} options={[]} />
-                <SectionSidenav buttons={sidenavBtns} />
 
-                <div className="col">
-                    <div className="col-3">
+        <>
+            <SectionNavbar sectionTitle={"Board"} sectionIcon={faGamepad} items={[]} />
+            <Row noGutters={true} className="d-flex flex-fill w-100">
+                <BoardSidenav />
+
+                <Col className="inner-workspace d-flex flex-row align-items-stretch">
+                    <Col xs={3}>
                         <BoardColumn type={columnTypes.PLANNED} tasks={[]} />
-                    </div>
-                    <div className="col-3">
-                        <BoardColumn type={columnTypes.IN_PROGRESS} tasks={[]} />
-                    </div>
-                    <div className="col-3">
-                        <BoardColumn type={columnTypes.TESTING} tasks={[]} />
-                    </div>
-                    <div className="col-3">
-                        <BoardColumn type={columnTypes.COMPLETED} tasks={[]} />
-                    </div>
-                </div>
+                    </Col>
 
-            </div>
-        </div>
+                    <Col xs={3}>
+                        <BoardColumn type={columnTypes.IN_PROGRESS} tasks={[]} />
+                    </Col>
+
+                    <Col xs={3}>
+                        <BoardColumn type={columnTypes.TESTING} tasks={[]} />
+                    </Col>
+
+                    <Col xs={3}>
+                        <BoardColumn type={columnTypes.COMPLETED} tasks={[]} />
+                    </Col>
+                </Col>
+            </Row>
+
+        </ >
     );
 };
 
