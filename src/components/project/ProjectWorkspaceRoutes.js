@@ -6,7 +6,7 @@ import ProjectBoard from './ProjectBoard';
 import ProjectBacklog from './ProjectBacklog';
 import ProjectDesignLog from './ProjectDesignLog';
 import ProjectManagement from './ProjectManagement';
-import ErrorPage from '../ErrorPage';
+import ErrorPage from '../commons/ErrorPage';
 
 
 const ProjectWorkspaceRoutes = (props) => {

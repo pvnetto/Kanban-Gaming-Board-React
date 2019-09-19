@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import LoginPage from './components/LoginPage';
-import UserWorkspace from './components/workspace/UserWorkspace';
+import LoginPage from './components/login/LoginPage';
+import UserWorkspace from './components/user/UserWorkspace';
 import ProjectWorkspace from './components/project/ProjectWorkspace';
-import ErrorPage from './components/ErrorPage';
+import ErrorPage from './components/commons/ErrorPage';
 
 const AppRouter = () => {
     return (

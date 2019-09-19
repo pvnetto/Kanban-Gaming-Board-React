@@ -6,7 +6,7 @@ import NavigationBar from '../commons/NavigationBar';
 
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import ErrorPage from '../ErrorPage';
+import ErrorPage from '../commons/ErrorPage';
 
 const WorkspaceRoutes = (props) => {
     return (

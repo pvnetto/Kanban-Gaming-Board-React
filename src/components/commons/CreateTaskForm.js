@@ -3,40 +3,34 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 
 const CreateTaskForm = () => {
     return (
-        <Form className="d-flex flex-column" >
+        <Form >
             <Form.Group>
                 <Form.Label>Title: </Form.Label>
-                <Form.Control required type="text" placeholder="Enter board name" />
+                <Form.Control type="text" placeholder="Enter board name" />
             </Form.Group>
 
-            <Form.Group as={Row}>
-                <Col sm={12} className="p-0">
-                    <Form.Label column sm={2}>Board: </Form.Label>
+            <Form.Row>
+                <Form.Group as={Col} md="6">
+                    <Form.Label>Board:</Form.Label>
+                    <Form.Control as="select" column>
+                        <option>Board 1</option>
+                    </Form.Control>
+                </Form.Group>
 
-                    <Col sm={10}>
-                        <Form.Control as="select" column>
-                            <option>Board 1</option>
-                        </Form.Control>
-                    </Col>
-                </Col>
-
-                <Col sm={12} className="p-0">
-                    <Form.Label column sm={2}>Category: </Form.Label>
-
-                    <Col sm={10}>
-                        <Form.Control as="select">
-                            <option>Programmer</option>
-                            <option>Artist</option>
-                            <option>Game Designer</option>
-                            <option>Sound</option>
-                            <option>Bugs</option>
-                        </Form.Control>
-                    </Col>
-                </Col>
-            </Form.Group>
+                <Form.Group as={Col} md="6">
+                    <Form.Label>Category:</Form.Label>
+                    <Form.Control as="select">
+                        <option>Programmer</option>
+                        <option>Artist</option>
+                        <option>Game Designer</option>
+                        <option>Sound</option>
+                        <option>Bugs</option>
+                    </Form.Control>
+                </Form.Group>
+            </Form.Row>
 
 
-            <Button className="align-self-start" variant="dark">Create Task</Button>
+            <Button className="float-right" variant="dark">Create Task</Button>
         </Form>
     );
 };

@@ -7,6 +7,45 @@
     --inner-sidenav-width: 200px;
 }
 
+.bg-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 70%);
+}
+
+.logo {
+    font-family: 'Megrim';
+
+    &-red {
+        color: $red;
+    }
+    
+    &-green {
+        color: $green;
+    }
+
+    &-blue {
+        color: $blue;
+    }
+
+    &-md {
+        font-size: 3.5rem;
+
+        .capital {
+            font-size: 4rem;
+        }
+    }
+
+    &-lg {
+        font-size: 5.5rem;
+
+        .capital {
+            font-size: 6.5rem;
+        }
+    }
+}
+
 .sidenav-base {
     height: 100%;
     position: fixed;
@@ -57,22 +96,6 @@
 
 .inner-workspace {
     margin-left: var(--inner-sidenav-width);      // Offsets the content horizontally by the width of the sidebar.
-}
-
-.logo {
-    font-family: 'Megrim';
-
-    &-red {
-        color: $red;
-    }
-    
-    &-green {
-        color: $green;
-    }
-
-    &-blue {
-        color: $blue;
-    }
 }
 
 .emphasized {
@@ -136,6 +159,27 @@
 .border-green {
     border-color: rgba($green, 1.0) !important;
     color: $green;
+}
+
+@mixin customBtn($bg-color) {
+    background-color: rgba($bg-color, 0.8);
+    color: $white;
+
+    &:hover {
+        background-color: rgba($bg-color, 1.0);
+    }
+}
+
+.btn-blue {
+    @include customBtn($blue);
+}
+
+.btn-red {
+    @include customBtn($red);
+}
+
+.btn-green {
+    @include customBtn($green);
 }
 
 .cursor-pointer{

@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 
 const CreateProjectForm = () => {
     return (
-        <Form className="d-flex flex-column" >
+        <Form >
             <Form.Group>
                 <Form.Label>Project Name: </Form.Label>
                 <Form.Control required type="text" placeholder="Enter project name" />
@@ -18,7 +18,7 @@ const CreateProjectForm = () => {
                 <Form.Control required type="text" as="textarea" rows="8" />
             </Form.Group>
 
-            <Button className="align-self-end" variant="dark">Create Board</Button>
+            <Button className="float-right" variant="dark">Create Project</Button>
         </Form>
     );
 };

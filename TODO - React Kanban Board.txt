@@ -98,5 +98,6 @@ REACT KANBAN BOARD:
 		- Integração com banco de dados auth0
 	- Experimentar:
 		- PropTypes
+		- Form validation (pure HTML or Formik, check https://react-bootstrap.github.io/components/forms/)
 		- Substituir classNames por componentes Bootstrap onde possível
 		- Testes
