@@ -1,8 +1,9 @@
 import React from 'react';
-import SectionContainer from '../commons/SectionContainer';
+import { Row, Col } from 'react-bootstrap';
+
+import SectionContainer from '../../commons/SectionContainer';
 import ProjectEditForm from './ProjectEditForm';
 import ProjectInviteForm from './ProjectInviteForm';
-import { Row, Col } from 'react-bootstrap';
 import ProjectDeleteForm from './ProjectDeleteForm';
 
 const ProjectManagement = () => {

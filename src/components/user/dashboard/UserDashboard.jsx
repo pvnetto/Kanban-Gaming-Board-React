@@ -1,8 +1,8 @@
 import React from 'react';
-import ProjectItem from '../project/ProjectItem';
-import UserMetrics from './UserMetrics';
-import SectionContainer from '../commons/SectionContainer'
-import SectionNavbar from '../commons/SectionNavbar';
+import ProjectItem from '../../commons/ProjectItem';
+import UserMetrics from '../UserMetrics';
+import SectionContainer from '../../commons/SectionContainer'
+import SectionNavbar from '../../commons/SectionNavbar';
 
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/free-solid-svg-icons';

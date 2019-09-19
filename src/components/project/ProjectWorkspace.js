@@ -1,8 +1,8 @@
 import React from 'react';
 import NavigationBar from '../commons/NavigationBar';
-import ProjectWorkspaceRoutes from './ProjectWorkspaceRoutes';
+import ProjectWorkspaceRoutes from './routes';
 import { Container } from 'react-bootstrap';
-import ProjectWorkspaceSidenav from './ProjectWorkspaceSidenav';
+import ProjectWorkspaceSidenav from './sidenav';
 
 
 const ProjectWorkspace = (props) => {

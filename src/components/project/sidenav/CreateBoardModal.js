@@ -1,6 +1,6 @@
 import React from 'react';
 import CreateBoardForm from './CreateBoardForm';
-import ModalBase from './ModalBase';
+import ModalBase from '../../commons/ModalBase';
 
 const CreateBoardModal = ({ showModal, handleClose }) => {
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import CreateTaskForm from './CreateTaskForm';
-import ModalBase from './ModalBase';
+import ModalBase from '../../commons/ModalBase';
 
 const CreateTaskModal = ({ showModal, handleClose }) => {
     return (

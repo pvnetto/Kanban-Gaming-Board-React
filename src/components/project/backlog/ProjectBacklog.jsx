@@ -1,11 +1,12 @@
 import React from 'react';
-import { columnTypes } from './ColumnTypes';
-import SectionNavbar from '../commons/SectionNavbar';
-import BoardColumn from './BoardColumn';
-
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
-import BoardSidenav from './BoardSidenav';
+
+import SectionNavbar from '../../commons/SectionNavbar';
+import { columnTypes } from '../commons/boards/ColumnTypes';
+import BoardColumn from '../commons/boards/BoardColumn';
+import BoardSidenav from '../commons/boards/BoardSidenav';
+
 
 const ProjectBacklog = () => {
     return (

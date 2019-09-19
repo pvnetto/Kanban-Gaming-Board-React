@@ -1,8 +1,7 @@
 import React from 'react';
-import SectionNavbar from '../commons/SectionNavbar';
+import SectionNavbar from '../../commons/SectionNavbar';
 import DesignLogItem from './DesignLogItem';
 import { Row, Col } from 'react-bootstrap';
-
 
 const ProjectDesignLog = (props) => {
 

@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-import Sidenav from '../commons/Sidenav';
-import SidenavLink from '../commons/SidenavLink';
-import SidenavButtonExpand from '../commons/SidenavButtonExpand';
-import CreateBoardModal from '../commons/CreateBoardModal';
-import CreateTaskModal from '../commons/CreateTaskModal';
+import Sidenav from '../../commons/sidenav/Sidenav';
+import SidenavLink from '../../commons/sidenav/SidenavLink';
+import SidenavButtonExpand from '../../commons/sidenav/SidenavButtonExpand';
+import { createWorkspaceLink, createWorkspaceBtn } from '../../commons/sidenav/SidenavButtonCreator';
+import CreateBoardModal from './CreateBoardModal';
+import CreateTaskModal from './CreateTaskModal';
 
-import { createWorkspaceLink, createWorkspaceBtn } from '../commons/SidenavButtonCreator';
 
 const ProjectWorkspaceSidenav = ({ url }) => {
 
+    // Sidenav hooks
     const [showCreateBoard, setShowCreateBoard] = useState(false);
     const [showCreateTask, setShowCreateTask] = useState(false);
 
@@ -30,6 +31,7 @@ const ProjectWorkspaceSidenav = ({ url }) => {
         setShowCreateTask(false);
     }
 
+    // Sidenav buttons configurations
     const workspaceLinks = {
         CREATE: createWorkspaceBtn("CREATE", faPlusSquare, url),
         DASHBOARD: createWorkspaceLink("DASHBOARD", faGamepad, "/dashboard", url),
@@ -48,6 +50,7 @@ const ProjectWorkspaceSidenav = ({ url }) => {
         createWorkspaceLink("Board 1", faClipboardList, "/boards/1", url),
     ];
 
+    // Sidenav buttons components
     const sidenavBtns = [
         <SidenavButtonExpand {...workspaceLinks.CREATE} expandBtns={createLinks} />,
         <SidenavLink {...workspaceLinks.DASHBOARD} />,
@@ -60,6 +63,7 @@ const ProjectWorkspaceSidenav = ({ url }) => {
     const optionBtns = [
         <SidenavLink btnTitle={"Back to Workspace"} btnIcon={faArrowLeft} url={"/workspace"} />
     ];
+
 
     return (
         <>

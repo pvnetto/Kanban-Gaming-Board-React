@@ -1,12 +1,12 @@
 import React from 'react';
-import SectionNavbar from '../commons/SectionNavbar';
-import BoardColumn from './BoardColumn';
-
-import { columnTypes } from './ColumnTypes';
-
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { Row, Col } from 'react-bootstrap';
-import BoardSidenav from './BoardSidenav';
+
+import SectionNavbar from '../../commons/SectionNavbar';
+import BoardColumn from '../commons/boards/BoardColumn';
+import BoardSidenav from '../commons/boards/BoardSidenav';
+import { columnTypes } from '../commons/boards/ColumnTypes';
+
 
 const ProjectBoard = () => {
     return (

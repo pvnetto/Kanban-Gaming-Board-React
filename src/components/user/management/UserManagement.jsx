@@ -1,9 +1,9 @@
 import React from 'react';
-import SectionContainer from '../commons/SectionContainer';
-import ProjectItem from '../project/ProjectItem';
+import SectionContainer from '../../commons/SectionContainer';
+import ProjectItem from '../../commons/ProjectItem';
 
 import { Row, Col } from 'react-bootstrap'
-import { faDiceD20 } from '../../../node_modules/@fortawesome/free-solid-svg-icons';
+import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 
 const UserManagement = () => {
     const projectItems = [

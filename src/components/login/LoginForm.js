@@ -10,9 +10,9 @@ const LoginForm = () => {
             </form>
 
             <div className="d-flex flex-column pt-4">
-                <button className="btn btn-lg btn-green mb-1">Login with Google</button>
-                <button className="btn btn-lg btn-blue mb-1">Login with Facebook</button>
-                <button className="btn btn-lg btn-primary mb-1">Login with GitHub</button>
+                <button className="btn btn-lg btn-green mb-2">Login with Google</button>
+                <button className="btn btn-lg btn-blue mb-2">Login with Facebook</button>
+                <button className="btn btn-lg btn-primary mb-2">Login with GitHub</button>
             </div>
         </div>
     );

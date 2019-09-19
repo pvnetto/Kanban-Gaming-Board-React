@@ -1,7 +1,7 @@
 import React from 'react';
-import TaskItem from './TaskItem';
+import TaskItem from '../tasks/TaskItem';
 import { columnTypes, columnIcon, columnBorder } from './ColumnTypes';
-import { FontAwesomeIcon } from '../../../node_modules/@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const BoardColumn = (props) => {
     return (

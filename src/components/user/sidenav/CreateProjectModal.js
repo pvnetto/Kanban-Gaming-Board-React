@@ -1,6 +1,6 @@
 import React from 'react';
 import CreateProjectForm from './CreateProjectForm';
-import ModalBase from './ModalBase';
+import ModalBase from '../../commons/ModalBase';
 
 import { Modal } from 'react-bootstrap';
 

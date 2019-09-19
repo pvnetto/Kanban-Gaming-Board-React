@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { faPlusSquare, faGamepad, faCogs } from '@fortawesome/free-solid-svg-icons';
-import CreateProjectModal from '../commons/CreateProjectModal';
 
-import SidenavLink from '../commons/SidenavLink';
-import SidenavButton from '../commons/SidenavButton';
-import Sidenav from '../commons/Sidenav';
+import CreateProjectModal from './CreateProjectModal';
+import Sidenav from '../../commons/sidenav/Sidenav';
+import SidenavLink from '../../commons/sidenav/SidenavLink';
+import SidenavButton from '../../commons/sidenav/SidenavButton';
 
 const UserWorkspaceSidenav = (props) => {
     const [showModal, setShowModal] = useState(false);

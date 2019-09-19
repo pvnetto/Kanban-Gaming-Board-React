@@ -6,16 +6,16 @@ const CreateProjectForm = () => {
         <Form >
             <Form.Group>
                 <Form.Label>Project Name: </Form.Label>
-                <Form.Control required type="text" placeholder="Enter project name" />
+                <Form.Control type="text" placeholder="Enter project name" />
             </Form.Group>
 
             <Form.Group>
                 <Form.Label>Project Description: </Form.Label>
-                <Form.Control required type="text" as="textarea" rows="3" placeholder="Enter project description" />
+                <Form.Control type="text" as="textarea" rows="3" placeholder="Enter project description" />
             </Form.Group>
             <Form.Group>
                 <Form.Label>General info: </Form.Label>
-                <Form.Control required type="text" as="textarea" rows="8" />
+                <Form.Control type="text" as="textarea" rows="8" />
             </Form.Group>
 
             <Button className="float-right" variant="dark">Create Project</Button>

@@ -1,7 +1,7 @@
 import React from 'react';
-import SectionNavbar from '../commons/SectionNavbar';
-import SectionContainer from '../commons/SectionContainer';
-import UserMetrics from '../user/UserMetrics';
+import SectionNavbar from '../../commons/SectionNavbar';
+import SectionContainer from '../../commons/SectionContainer';
+import UserMetrics from '../../user/UserMetrics';
 
 import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
