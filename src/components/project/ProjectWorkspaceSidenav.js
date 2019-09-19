@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import Sidenav from '../commons/Sidenav';
 import SidenavLink from '../commons/SidenavLink';
 import SidenavButtonExpand from '../commons/SidenavButtonExpand';
+import CreateBoardModal from '../commons/CreateBoardModal';
+import CreateTaskModal from '../commons/CreateTaskModal';
 
 import { createWorkspaceLink, createWorkspaceBtn } from '../commons/SidenavButtonCreator';
 
 const ProjectWorkspaceSidenav = ({ url }) => {
+
+    const [showCreateBoard, setShowCreateBoard] = useState(false);
+    const [showCreateTask, setShowCreateTask] = useState(false);
+
+    const handleOpenBoardModal = () => {
+        setShowCreateBoard(true);
+    }
+
+    const handleCloseBoardModal = () => {
+        setShowCreateBoard(false);
+    }
+
+    const handleOpenTaskModal = () => {
+        setShowCreateTask(true);
+    }
+
+    const handleCloseTaskModal = () => {
+        setShowCreateTask(false);
+    }
 
     const workspaceLinks = {
         CREATE: createWorkspaceBtn("CREATE", faPlusSquare, url),
@@ -19,8 +40,8 @@ const ProjectWorkspaceSidenav = ({ url }) => {
     };
 
     const createLinks = [
-        createWorkspaceBtn("Board", faList),
-        createWorkspaceBtn("Task", faEdit)
+        createWorkspaceBtn("Board", faList, handleOpenBoardModal),
+        createWorkspaceBtn("Task", faEdit, handleOpenTaskModal)
     ]
 
     const boardLinks = [
@@ -41,7 +62,12 @@ const ProjectWorkspaceSidenav = ({ url }) => {
     ];
 
     return (
-        <Sidenav buttons={sidenavBtns} options={optionBtns} />
+        <>
+            <CreateBoardModal showModal={showCreateBoard} handleClose={handleCloseBoardModal} />
+            <CreateTaskModal showModal={showCreateTask} handleClose={handleCloseTaskModal} />
+
+            <Sidenav buttons={sidenavBtns} options={optionBtns} />
+        </>
     );
 }
 

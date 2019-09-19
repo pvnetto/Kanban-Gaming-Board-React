@@ -7,11 +7,6 @@ import SidenavButton from '../commons/SidenavButton';
 import Sidenav from '../commons/Sidenav';
 
 const UserWorkspaceSidenav = (props) => {
-    const sidenavBtns = [
-        <SidenavLink btnTitle={"MY DASHBOARD"} btnIcon={faGamepad} url={`${props.url}`} link={"/dashboard"} />,
-        <SidenavLink btnTitle={"MANAGEMENT"} btnIcon={faCogs} url={`${props.url}`} link={"/management"} />
-    ];
-
     const [showModal, setShowModal] = useState(false);
 
     const handleOpenModal = () => {
@@ -22,10 +17,17 @@ const UserWorkspaceSidenav = (props) => {
         setShowModal(false);
     }
 
+    const sidenavBtns = [
+        <SidenavButton btnTitle={"CREATE PROJECT"} btnIcon={faPlusSquare} onClick={handleOpenModal} />,
+        <SidenavLink btnTitle={"MY DASHBOARD"} btnIcon={faGamepad} url={`${props.url}`} link={"/dashboard"} />,
+        <SidenavLink btnTitle={"MANAGEMENT"} btnIcon={faCogs} url={`${props.url}`} link={"/management"} />
+    ];
+
+
     return (
         <>
             <CreateProjectModal showModal={showModal} handleClose={handleCloseModal} />
-            <Sidenav buttons={[<SidenavButton btnTitle={"CREATE PROJECT"} btnIcon={faPlusSquare} onClick={handleOpenModal} />, ...sidenavBtns]} options={[]} />
+            <Sidenav buttons={sidenavBtns} options={[]} />
         </>
     );
 }

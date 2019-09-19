@@ -11,14 +11,14 @@ const CreateProjectForm = () => {
 
             <Form.Group>
                 <Form.Label>Project Description: </Form.Label>
-                <Form.Control required as="textarea" rows="3" type="text" placeholder="Enter project description" />
+                <Form.Control required type="text" as="textarea" rows="3" placeholder="Enter project description" />
             </Form.Group>
             <Form.Group>
                 <Form.Label>General info: </Form.Label>
-                <Form.Control required as="textarea" rows="8" type="text" />
+                <Form.Control required type="text" as="textarea" rows="8" />
             </Form.Group>
 
-            <Button className="align-self-end" variant="dark">Create</Button>
+            <Button className="align-self-end" variant="dark">Create Board</Button>
         </Form>
     );
 };

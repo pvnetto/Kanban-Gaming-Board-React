@@ -8,7 +8,7 @@ import SidenavLink from './SidenavLink';
 const ExpandLink = (props) => {
     return (
         <NavLink className="nav-link py-1 pl-3 d-flex flex-row align-items-center" to={`${props.url || ''}${props.link || ''}`}>
-            <FontAwesomeIcon className="ml-4" style={{ width: '20px' }} icon={props.btnIcon} />
+            <FontAwesomeIcon className="ml-4" style={{ width: '15px' }} icon={props.btnIcon} />
             <span className="ml-2 text-sm">
                 {" " + props.btnTitle}
             </span>
@@ -19,7 +19,7 @@ const ExpandLink = (props) => {
 const ExpandButton = (props) => {
     return (
         <p className="nav-link cursor-pointer py-1 pl-3 d-flex flex-row align-items-center" onClick={props.onClick}>
-            <FontAwesomeIcon className="ml-4" style={{ width: '20px' }} icon={props.btnIcon} />
+            <FontAwesomeIcon className="ml-4" style={{ width: '15px' }} icon={props.btnIcon} />
             <span className="ml-2 text-sm">
                 {" " + props.btnTitle}
             </span>

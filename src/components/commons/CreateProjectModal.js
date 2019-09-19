@@ -1,22 +1,12 @@
-import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import React from 'react';
 import CreateProjectForm from './CreateProjectForm';
+import ModalBase from './ModalBase';
+
+import { Modal } from 'react-bootstrap';
 
 const CreateProjectModal = ({ showModal, handleClose }) => {
-
     return (
-        <Modal show={showModal} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Create Project</Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body>
-                <CreateProjectForm />
-            </Modal.Body>
-
-            <Modal.Footer>
-            </Modal.Footer>
-        </Modal>
+        <ModalBase showModal={showModal} handleClose={handleClose} title="Create Project" items={[<CreateProjectForm />]} />
     );
 };
 
