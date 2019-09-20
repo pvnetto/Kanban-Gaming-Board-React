@@ -9,6 +9,15 @@ import { columnTypes } from '../commons/boards/ColumnTypes';
 
 
 const ProjectBoard = () => {
+    const tasks = [
+        {
+            name: "Programming task",
+            description: "Program something",
+            category: "Programming",
+            status: "Planned"
+        },
+    ]
+
     return (
 
         <>
@@ -18,7 +27,7 @@ const ProjectBoard = () => {
 
                 <Col className="inner-workspace d-flex flex-row align-items-stretch">
                     <Col xs={3}>
-                        <BoardColumn type={columnTypes.PLANNED} tasks={[]} />
+                        <BoardColumn type={columnTypes.PLANNED} tasks={tasks} />
                     </Col>
 
                     <Col xs={3}>

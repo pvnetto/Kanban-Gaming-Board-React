@@ -102,6 +102,10 @@
     color: var(--font-color-secondary);
 }
 
+.understated {
+    color: $gray;
+}
+
 .text-sm {
     font-size: 0.8rem;
 }
@@ -141,24 +145,45 @@
     }
 }
 
+@mixin borderLightenHover($color) {
+    &-hover {
+        &:hover {
+            border-color: lighten($color, 5%) !important;
+        }
+    }
+}
+
 .border-gray {
-    border-color: rgba($gray, 1.0) !important;
+    border-color: $gray !important;
     color: $gray;
+
+    @include borderLightenHover($gray);
 }
 
 .border-blue {
-    border-color: rgba($blue, 1.0) !important;
+    border-color: $blue !important;
     color: $blue;
+
+    @include borderLightenHover($blue);
 }
 
 .border-red {
     border-color: rgba($red, 1.0) !important;
     color: $red;
+
+    @include borderLightenHover($red);
 }
 
 .border-green {
     border-color: rgba($green, 1.0) !important;
     color: $green;
+
+    @include borderLightenHover($green);
+}
+
+.border-yellow {
+    border-color: rgba($yellow, 1.0) !important;
+    color: $yellow;
 }
 
 @mixin customBtn($bg-color) {
@@ -180,6 +205,51 @@
 
 .btn-green {
     @include customBtn($green);
+}
+
+.bg-dark {
+    &-hover {
+        &:hover {
+            background-color: lighten($dark, 5%) !important;
+        }
+    }
+}
+
+.bg-gray {
+    background-color: $gray;
+    color: $white;
+
+    .understated {
+        color: black;
+    }
+}
+
+.bg-blue {
+    background-color: $blue;
+    color: $white;
+}
+
+.bg-red {
+    background-color: $red;
+    color: $white;
+}
+
+.bg-green {
+    background-color: $green;
+
+    color: black;
+}
+
+.hover-icon-secondary {
+    &:hover {
+        svg {
+            color: var(--font-color-secondary);
+        }
+    }
+
+    svg {
+        transition: all 0.3s ease;
+    }
 }
 
 .cursor-pointer{

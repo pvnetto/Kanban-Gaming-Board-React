@@ -12,7 +12,10 @@ const BoardColumn = (props) => {
                     <FontAwesomeIcon icon={columnIcon(props.type)} className="mr-3" /> {props.type} {props.tasks.length}
                 </p>
             </div>
-            {props.tasks.map((task, idx) => <TaskItem key={idx} index={idx} {...task} />)}
+
+            <div className="w-100 d-flex flex-column justify-content-start align-items-center flex-fill my-3">
+                {props.tasks.map((task, idx) => <TaskItem key={idx} index={idx} {...task} />)}
+            </div>
 
             <div className={"w-100 p-3 border-bottom " + columnBorder(props.type)}></div>
         </div>
