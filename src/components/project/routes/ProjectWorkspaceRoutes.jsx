@@ -10,10 +10,11 @@ import ErrorPage from '../../commons/ErrorPage';
 
 
 const ProjectWorkspaceRoutes = (props) => {
+
     return (
         <Switch>
-            <Route exact path={`${props.url}/dashboard`} component={ProjectDashboard} />
-            <Route exact path={`${props.url}/boards/:boardId`} component={ProjectBoard} />
+            <Route exact path={`${props.url}/dashboard`} render={(routeProps) => <ProjectDashboard {...routeProps} user={props.user} project={props.project} />} />
+            <Route exact path={`${props.url}/boards/:boardId`} render={(routeProps) => <ProjectBoard {...routeProps} boards={props.project.boards} />} />
             <Route exact path={`${props.url}/backlog`} component={ProjectBacklog} />
             <Route exact path={`${props.url}/design_log`} component={ProjectDesignLog} />
             <Route exact path={`${props.url}/management`} component={ProjectManagement} />

@@ -16,12 +16,8 @@ const WelcomeSection = ({ username }) => {
     );
 }
 
-const UserDashboard = () => {
-    const projectItems = [
-        <ProjectItem />,
-        <ProjectItem />,
-        <ProjectItem />,
-    ];
+const UserDashboard = (props) => {
+    const projectItems = props.user.projects.map(project => <ProjectItem {...project} />)
 
     return (
         <Row noGutters={true}>
@@ -31,7 +27,7 @@ const UserDashboard = () => {
             <Row noGutters={true} className="w-100 p-2">
                 {/* Left dashboard section */}
                 <Col xs={6}>
-                    <WelcomeSection username="Paiva" />
+                    <WelcomeSection username={props.user.name} />
                     <SectionContainer title={"Your Projects"} titleIcon={faDiceD20} items={projectItems} noItemsMsg={"You don't have any active projects."} />
                     <SectionContainer title={"Closed Projects"} titleIcon={faHourglassEnd} items={[]} noItemsMsg={"You don’t have any closed projects."} />
                 </Col>

@@ -4,17 +4,17 @@ import { faDiceD20, faAlignJustify } from '@fortawesome/free-solid-svg-icons';
 
 import { Link } from 'react-router-dom';
 
-const ProjectItem = () => {
+const ProjectItem = (props) => {
     return (
-        <Link to="/project/1">
+        <Link to={`/project/${props.id}${props.redirect || ''}`}>
             <div className="p-3 d-flex flex-row align-items-center hover-bg-dark">
                 <FontAwesomeIcon className="mr-3" icon={faDiceD20} />
                 <div className="text-sm">
-                    <p className="font-weight-bold">Project Name</p>
-                    <p><FontAwesomeIcon className="icon-sm" icon={faAlignJustify} /> This is the project description</p>
+                    <p className="font-weight-bold">{props.title}</p>
+                    <p><FontAwesomeIcon className="icon-sm mr-2" icon={faAlignJustify} />{props.description}</p>
                 </div>
             </div>
-        </Link>
+        </Link >
     );
 };
 

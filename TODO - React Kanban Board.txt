@@ -89,6 +89,9 @@ REACT KANBAN BOARD:
 	- Fonte da logo: Megrim
 	
 5) FAZER SITE:
+	- Features:
+		- Minimizar sidebar
+		- 
 	- Core features:
 		- Adicionar/remover/modificar projeto
 		- Autenticação

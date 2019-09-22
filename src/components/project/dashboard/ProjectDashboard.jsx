@@ -7,17 +7,17 @@ import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faChartPie, faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 
-const ProjectDescSection = ({ title }) => {
+const ProjectDescSection = ({ title, description }) => {
     return (
         <div className="p-4 mb-2 bg-dark border-2 border-light d-flex flex-column justify-content-center align-items-center">
             <FontAwesomeIcon className="icon-xl" icon={faDiceD20} />
             <h1 className="font-weight-bold mt-3">{title}</h1>
-            <p>{"Project description here"}</p>
+            <p>{description}</p>
         </div>
     );
 }
 
-const ProjectDashboard = () => {
+const ProjectDashboard = (props) => {
 
     return (
         <Row noGutters={true}>
@@ -27,9 +27,9 @@ const ProjectDashboard = () => {
             <Row noGutters={true} className="w-100 p-2">
                 {/* Left dashboard section */}
                 <Col xs={6}>
-                    <ProjectDescSection title="Test Project" />
+                    <ProjectDescSection {...props.project} />
 
-                    <SectionContainer title={"General Info"} titleIcon={"GI"} items={[<p>{"General info about project"}</p>]} />
+                    <SectionContainer title={"General Info"} titleIcon={"GI"} items={[<p>{props.project.generalInfo}</p>]} />
                 </Col>
 
                 {/* Right dashboard section */}

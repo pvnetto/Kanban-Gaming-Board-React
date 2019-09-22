@@ -9,7 +9,7 @@ import CreateBoardModal from './CreateBoardModal';
 import CreateTaskModal from './CreateTaskModal';
 
 
-const ProjectWorkspaceSidenav = ({ url }) => {
+const ProjectWorkspaceSidenav = ({ url, boards }) => {
 
     // Sidenav hooks
     const [showCreateBoard, setShowCreateBoard] = useState(false);
@@ -46,9 +46,7 @@ const ProjectWorkspaceSidenav = ({ url }) => {
         createWorkspaceBtn("Task", faEdit, handleOpenTaskModal)
     ]
 
-    const boardLinks = [
-        createWorkspaceLink("Board 1", faClipboardList, "/boards/1", url),
-    ];
+    const boardLinks = boards.map(board => createWorkspaceLink(board.title, faClipboardList, `/boards/${board.title}`, url));
 
     // Sidenav buttons components
     const sidenavBtns = [

@@ -1,11 +1,7 @@
 @import '_custom';
 @import '_reset';
 @import '_config';
-
-:root {
-    --sidenav-width: 300px;
-    --inner-sidenav-width: 200px;
-}
+@import '_navigation';
 
 .bg-overlay {
     position: absolute;
@@ -44,58 +40,6 @@
             font-size: 6.5rem;
         }
     }
-}
-
-.sidenav-base {
-    height: 100%;
-    position: fixed;
-    // top: 0;
-    // left: 0;
-    z-index: 1;
-    display: flex;
-    overflow-x: hidden;
-
-    
-    .nav-link {
-        font-size: 1.2rem;
-    
-        &:hover, &.active {
-            background: $primary;
-            color: var(--font-color-secondary);
-        }
-    }
-}
-
-.sidenav {
-    @extend .sidenav-base;
-    width: var(--sidenav-width);            // This is the sidebar's width. The page's content should be offset horizontally by this size.
-
-    .logo {
-        font-size: 3rem;
-    }
-
-    svg {
-        font-size: 1.8rem;
-    }
-}
-
-.workspace {
-    margin-left: var(--sidenav-width);      // Offsets the content horizontally by the width of the sidebar.
-}
-
-.inner-sidenav {
-    @extend .sidenav-base;
-    width: var(--inner-sidenav-width);
-
-    position: fixed;
-
-    .nav-link {
-        font-size: 0.9rem;
-    }
-}
-
-.inner-workspace {
-    margin-left: var(--inner-sidenav-width);      // Offsets the content horizontally by the width of the sidebar.
 }
 
 .emphasized {
@@ -207,12 +151,16 @@
     @include customBtn($green);
 }
 
-.bg-dark {
+@mixin lightenBgOnHover($color) {
     &-hover {
         &:hover {
-            background-color: lighten($dark, 5%) !important;
+            background-color: lighten($color, 5%) !important;
         }
     }
+}
+
+.bg-dark {
+    @include lightenBgOnHover($dark);
 }
 
 .bg-gray {
@@ -222,22 +170,29 @@
     .understated {
         color: black;
     }
+
+    @include lightenBgOnHover($gray);
 }
 
 .bg-blue {
     background-color: $blue;
     color: $white;
+
+    @include lightenBgOnHover($blue);
 }
 
 .bg-red {
     background-color: $red;
     color: $white;
+
+    @include lightenBgOnHover($red);
 }
 
 .bg-green {
     background-color: $green;
 
     color: black;
+    @include lightenBgOnHover($green);
 }
 
 .hover-icon-secondary {

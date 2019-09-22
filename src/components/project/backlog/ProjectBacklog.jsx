@@ -3,10 +3,9 @@ import { Row, Col } from 'react-bootstrap';
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 
 import SectionNavbar from '../../commons/SectionNavbar';
-import { columnTypes } from '../commons/boards/ColumnTypes';
 import BoardColumn from '../commons/boards/BoardColumn';
 import BoardSidenav from '../commons/boards/BoardSidenav';
-
+import TaskStatus from '../../commons/TaskStatus';
 
 const ProjectBacklog = () => {
     return (
@@ -16,7 +15,7 @@ const ProjectBacklog = () => {
                 <BoardSidenav />
 
                 <Col className="inner-workspace d-flex flex-row align-items-stretch px-4">
-                    <BoardColumn type={columnTypes.BACKLOG} tasks={[]} />
+                    <BoardColumn type={TaskStatus.BACKLOG} tasks={[]} />
                 </Col>
             </Row>
         </ >

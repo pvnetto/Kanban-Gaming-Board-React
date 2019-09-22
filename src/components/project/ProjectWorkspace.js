@@ -6,16 +6,17 @@ import ProjectWorkspaceSidenav from './sidenav';
 
 
 const ProjectWorkspace = (props) => {
-
+    const projectId = props.match.params.projectId;
+    const currentProject = props.user.projects.find(element => element.id == projectId);
 
     return (
         <>
-            <ProjectWorkspaceSidenav {...props.match} />
+            <ProjectWorkspaceSidenav {...props.match} boards={currentProject.boards} />
 
             <Container fluid={true} className="full-height bg-primary p-0">
                 <div className="workspace d-flex flex-column h-100">
-                    <NavigationBar />
-                    <ProjectWorkspaceRoutes {...props.match} />
+                    <NavigationBar user={props.user} />
+                    <ProjectWorkspaceRoutes {...props.match} user={props.user} project={currentProject} />
                 </div>
             </Container>
 

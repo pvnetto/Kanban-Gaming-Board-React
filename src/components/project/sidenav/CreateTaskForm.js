@@ -6,7 +6,7 @@ const CreateTaskForm = () => {
         <Form >
             <Form.Group>
                 <Form.Label>Title: </Form.Label>
-                <Form.Control type="text" placeholder="Enter board name" />
+                <Form.Control type="text" placeholder="Enter task name" />
             </Form.Group>
 
             <Form.Row>

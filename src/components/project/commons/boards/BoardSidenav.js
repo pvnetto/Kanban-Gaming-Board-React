@@ -4,17 +4,17 @@ import { faGamepad, faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 import SidenavButton from '../../../commons/sidenav/SidenavButton';
 import { createWorkspaceLink, createWorkspaceBtn } from '../../../commons/sidenav/SidenavButtonCreator';
 
-const BoardSidenav = () => {
+const BoardSidenav = ({ categories, onClick, activeCategory }) => {
 
     const boardBtns = [
-        createWorkspaceBtn("ALL ITEMS", faGamepad),
-        createWorkspaceBtn("PROGRAMMING", faDiceD20),
-        createWorkspaceBtn("ART", faGamepad),
-        createWorkspaceBtn("DESIGN", faGamepad),
-        createWorkspaceBtn("WRITING", faGamepad),
-        createWorkspaceBtn("MARKETING", faGamepad),
-        createWorkspaceBtn("SOUND", faGamepad),
-        createWorkspaceBtn("BUGS", faGamepad),
+        createWorkspaceBtn(categories.ALL, faGamepad),
+        createWorkspaceBtn(categories.PROGRAMMING, faDiceD20),
+        createWorkspaceBtn(categories.ART, faGamepad),
+        createWorkspaceBtn(categories.DESIGN, faGamepad),
+        createWorkspaceBtn(categories.WRITING, faGamepad),
+        createWorkspaceBtn(categories.MARKETING, faGamepad),
+        createWorkspaceBtn(categories.SOUND, faGamepad),
+        createWorkspaceBtn(categories.BUGS, faGamepad),
     ];
 
     return (
@@ -22,7 +22,7 @@ const BoardSidenav = () => {
         <div className="position-absolute">
             <div className="inner-sidenav bg-dark border-2 border-light">
                 <ul className="navbar-nav w-100 d-flex flex-column justify-content-start">
-                    {boardBtns.map(btn => <SidenavButton {...btn} />)}
+                    {boardBtns.map(btn => <SidenavButton {...btn} onClick={() => onClick(btn.btnTitle)} active={activeCategory == btn.btnTitle} />)}
                 </ul>
             </div>
         </div>

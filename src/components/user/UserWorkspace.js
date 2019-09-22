@@ -12,8 +12,8 @@ const UserWorkspace = (props) => {
             <UserWorkspaceSidenav url={props.match.url} />
             <Container fluid={true} className="bg-primary p-0">
                 <div className="workspace">
-                    <NavigationBar />
-                    <UserWorkspaceRoutes {...props.match} />
+                    <NavigationBar user={props.user} />
+                    <UserWorkspaceRoutes {...props.match} user={props.user} />
                 </div>
             </Container>
         </>

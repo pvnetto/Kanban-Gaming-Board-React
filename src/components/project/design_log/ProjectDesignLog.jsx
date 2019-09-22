@@ -17,11 +17,9 @@ const ProjectDesignLog = (props) => {
         <Row noGutters={true}>
             <SectionNavbar sectionTitle={"Design Logs"} sectionIcon={"DS"} options={[]} />
             <Col xs={12} className="p-4 d-flex flex-row">
+                {/* props.logEntries */}
                 {entries ?
                     entries.map(entry => <DesignLogItem {...entry} />) : "No log entries found :("}
-                {/* {props.logEntries ?
-                    props.logEntries.map(logEntry => <DesignLogItem {...logEntry} />)
-                    : "No log entries found :("} */}
             </Col>
         </Row>
     );
