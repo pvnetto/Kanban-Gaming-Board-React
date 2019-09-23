@@ -1,5 +1,6 @@
 :root {
-    --sidenav-width: 300px;
+    --sidenav-width: 60px;
+    --sidenav-width-expand: 300px;
     --inner-sidenav-width: 200px;
 }
 
@@ -23,7 +24,12 @@
 
 .sidenav {
     @extend .sidenav-base;
-    width: var(--sidenav-width);            // This is the sidebar's width. The page's content should be offset horizontally by this size.
+
+    width: var(--sidenav-width);
+
+    &.expand {
+        width: var(--sidenav-width-expand);            // This is the sidebar's width. The page's content should be offset horizontally by this size.
+    }
 
     .logo {
         font-size: 3rem;
@@ -35,7 +41,11 @@
 }
 
 .workspace {
-    margin-left: var(--sidenav-width);      // Offsets the content horizontally by the width of the sidebar.
+    margin-left: var(--sidenav-width); 
+
+    &.expand {
+        margin-left: var(--sidenav-width-expand);      // Offsets the content horizontally by the width of the sidebar.
+    }
 }
 
 .inner-sidenav {

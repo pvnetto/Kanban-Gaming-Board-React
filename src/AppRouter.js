@@ -5,7 +5,7 @@ import UserWorkspace from './components/user/UserWorkspace';
 import ProjectWorkspace from './components/project/ProjectWorkspace';
 import ErrorPage from './components/commons/ErrorPage';
 
-import Categories from './components/commons/Categories';
+import { categories } from './components/commons/Categories';
 import TaskStatus from './components/commons/TaskStatus';
 
 const AppRouter = () => {
@@ -14,37 +14,37 @@ const AppRouter = () => {
         {
             name: "Prototype the movement system",
             description: "Rules for the movement system can be found here: ",
-            category: Categories.PROGRAMMING,
+            category: categories.PROGRAMMING,
             status: TaskStatus.PLANNED
         },
         {
             name: "Prototype the xxx system",
             description: "Rules for the xxx system can be found here: ",
-            category: Categories.PROGRAMMING,
+            category: categories.PROGRAMMING,
             status: TaskStatus.IN_PROGRESS
         },
         {
             name: "Prototype the zzzz system",
             description: "Rules for the zzzz system can be found here: ",
-            category: Categories.PROGRAMMING,
+            category: categories.PROGRAMMING,
             status: TaskStatus.TESTING
         },
         {
             name: "Do some art",
             description: "References: ",
-            category: Categories.ART,
+            category: categories.ART,
             status: TaskStatus.PLANNED
         },
         {
             name: "Update the design log",
             description: "",
-            category: Categories.DESIGN,
+            category: categories.DESIGN,
             status: TaskStatus.PLANNED
         },
         {
             name: "Begin the project",
             description: "",
-            category: Categories.PROGRAMMING,
+            category: categories.PROGRAMMING,
             status: TaskStatus.COMPLETED
         },
     ];
@@ -53,6 +53,23 @@ const AppRouter = () => {
         {
             title: "My First Board",
             tasks: tasks
+        }
+    ];
+
+    const logs = [
+        {
+            id: 0,
+            title: "Why it would be nice to change everything",
+            content: "The reason we should everything is because I want to change everything",
+            date: new Date(),
+            author: "Member 1"
+        },
+        {
+            id: 1,
+            title: "I don't think we should change everything anymore",
+            content: "Yes, I'm sorry....",
+            date: new Date(),
+            author: "Member 1"
         }
     ];
 
@@ -74,7 +91,8 @@ const AppRouter = () => {
             description: "This is a car simulation project for study purposes only",
             generalInfo: "This project was motivated by a need to understand more about how physics for game development works",
             boards: boards,
-            members: members
+            members: members,
+            logs: logs
         }
     ];
 

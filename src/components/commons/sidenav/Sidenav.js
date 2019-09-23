@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SidenavLogo from './SidenavLogo';
 import SidenavLink from './SidenavLink';
 
@@ -7,14 +7,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SidenavButton from './SidenavButton';
 
 const Sidenav = (props) => {
+
+    let [isExpanded, setExpanded] = useState(true);
+
+    const toggleExpanded = () => {
+        setExpanded(!isExpanded);
+        props.onExpand();
+    }
+
     return (
-        <div className="sidenav bg-secondary border-2 border-light">
+        <div className={`sidenav ${isExpanded ? 'expand' : ''} bg-secondary border-2 border-light`}>
             <ul className="navbar-nav w-100">
                 <SidenavLogo />
 
                 <hr className="m-1 border border-light" />
 
-                {props.buttons}
+                <div>
+                    {props.children(isExpanded)}
+                </div>
 
                 <hr className="m-1 border border-light" />
 
@@ -22,12 +32,12 @@ const Sidenav = (props) => {
                     <div>
                         {props.options}
                     </div>
-                    <SidenavLink btnTitle={"Logout"} btnIcon={faPowerOff} />
+                    <SidenavLink btnTitle={"Logout"} btnIcon={faPowerOff} isExpanded={isExpanded} />
                 </div>
 
                 <hr className="m-1 border border-light" />
 
-                <li className="nav-item p-3 d-flex flex-row justify-content-end align-items-center">
+                <li onClick={toggleExpanded} className="nav-item p-3 d-flex flex-row justify-content-end align-items-center">
                     <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faWindowMinimize} />
                 </li>
             </ul>

@@ -10,11 +10,11 @@ const DesignLogItem = (props) => {
     }
 
     return (
-        <div onClick={toggleShowContent} className="hover-icon-secondary flex-fill p-2 bg-dark bg-dark-hover border border-light disable-select">
+        <div onClick={toggleShowContent} className="hover-icon-secondary flex-fill p-2 mb-2 bg-dark bg-dark-hover border border-light disable-select">
             <div>
                 <p className="d-flex flex-row align-items-center">
                     <FontAwesomeIcon style={{ width: '15px' }} className="mr-2" icon={showContent ? faMinus : faPlus} />
-                    <span className="font-weight-bold mr-1">Log #{props.index}:</span>
+                    <span className="font-weight-bold mr-1">Log #{props.id}:</span>
                     {props.title}
                 </p>
             </div>

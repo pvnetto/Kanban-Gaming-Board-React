@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UserWorkspaceSidenav from './sidenav';
 import UserWorkspaceRoutes from './routes';
 import NavigationBar from '../commons/NavigationBar';
@@ -7,11 +7,17 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const UserWorkspace = (props) => {
 
+    // TODO: Replace with Context
+    let [expandWorkspace, setExpandWorkspace] = useState(true);
+    const toggleExpandWorkspace = () => {
+        setExpandWorkspace(!expandWorkspace);
+    }
+
     return (
         <>
-            <UserWorkspaceSidenav url={props.match.url} />
+            <UserWorkspaceSidenav url={props.match.url} onExpand={toggleExpandWorkspace} />
             <Container fluid={true} className="bg-primary p-0">
-                <div className="workspace">
+                <div className={`workspace ${expandWorkspace ? 'expand' : ''}`}>
                     <NavigationBar user={props.user} />
                     <UserWorkspaceRoutes {...props.match} user={props.user} />
                 </div>

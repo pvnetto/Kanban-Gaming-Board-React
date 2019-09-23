@@ -6,7 +6,6 @@ import UserManagement from '../management';
 import ErrorPage from '../../commons/ErrorPage';
 
 const UserWorkspaceRoutes = (props) => {
-    console.log(props);
     return (
         <Switch>
             <Route exact path={`${props.url}/dashboard`} render={(routeProps) => <UserDashboard {...routeProps} user={props.user} />} />

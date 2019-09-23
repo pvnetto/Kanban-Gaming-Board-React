@@ -28,16 +28,16 @@ const ExpandButton = (props) => {
 }
 
 const SidenavButtonExpand = (props) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [show, setShow] = useState(false);
 
     const toggleExpand = () => {
-        setIsExpanded(!isExpanded);
+        setShow(!show);
     }
 
     return (
         <>
             <SidenavButton {...props} onClick={toggleExpand} />
-            {isExpanded &&
+            {show &&
                 props.expandBtns &&
                 <div className="my-1">
                     {props.expandBtns.map(btn => btn.url ? <ExpandLink {...btn} /> : <ExpandButton {...btn} />)}

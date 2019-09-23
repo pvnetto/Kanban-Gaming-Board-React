@@ -17,17 +17,20 @@ const UserWorkspaceSidenav = (props) => {
         setShowModal(false);
     }
 
-    const sidenavBtns = [
-        <SidenavButton btnTitle={"CREATE PROJECT"} btnIcon={faPlusSquare} onClick={handleOpenModal} />,
-        <SidenavLink btnTitle={"MY DASHBOARD"} btnIcon={faGamepad} url={`${props.url}`} link={"/dashboard"} />,
-        <SidenavLink btnTitle={"MANAGEMENT"} btnIcon={faCogs} url={`${props.url}`} link={"/management"} />
-    ];
-
+    const renderSidenavButtons = (isExpanded) => (
+        <>
+            <SidenavButton btnTitle={"CREATE PROJECT"} btnIcon={faPlusSquare} onClick={handleOpenModal} isExpanded={isExpanded} />
+            <SidenavLink btnTitle={"MY DASHBOARD"} btnIcon={faGamepad} url={`${props.url}`} link={"/dashboard"} isExpanded={isExpanded} />
+            <SidenavLink btnTitle={"MANAGEMENT"} btnIcon={faCogs} url={`${props.url}`} link={"/management"} isExpanded={isExpanded} />
+        </>
+    )
 
     return (
         <>
             <CreateProjectModal showModal={showModal} handleClose={handleCloseModal} />
-            <Sidenav buttons={sidenavBtns} options={[]} />
+            <Sidenav options={[]} onExpand={props.onExpand}>
+                {renderSidenavButtons}
+            </Sidenav>
         </>
     );
 }

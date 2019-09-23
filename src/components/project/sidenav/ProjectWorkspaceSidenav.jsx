@@ -9,7 +9,7 @@ import CreateBoardModal from './CreateBoardModal';
 import CreateTaskModal from './CreateTaskModal';
 
 
-const ProjectWorkspaceSidenav = ({ url, boards }) => {
+const ProjectWorkspaceSidenav = ({ url, boards, onExpand }) => {
 
     // Sidenav hooks
     const [showCreateBoard, setShowCreateBoard] = useState(false);
@@ -49,14 +49,16 @@ const ProjectWorkspaceSidenav = ({ url, boards }) => {
     const boardLinks = boards.map(board => createWorkspaceLink(board.title, faClipboardList, `/boards/${board.title}`, url));
 
     // Sidenav buttons components
-    const sidenavBtns = [
-        <SidenavButtonExpand {...workspaceLinks.CREATE} expandBtns={createLinks} />,
-        <SidenavLink {...workspaceLinks.DASHBOARD} />,
-        <SidenavButtonExpand {...workspaceLinks.BOARDS} expandBtns={boardLinks} />,
-        <SidenavLink {...workspaceLinks.BACKLOG} />,
-        <SidenavLink {...workspaceLinks.DESIGN_LOG} />,
-        <SidenavLink {...workspaceLinks.MANAGEMENT} />
-    ];
+    const renderSidenavBtns = (isExpanded) => (
+        <>
+            <SidenavButtonExpand {...workspaceLinks.CREATE} expandBtns={createLinks} isExpanded={isExpanded} />
+            <SidenavLink {...workspaceLinks.DASHBOARD} isExpanded={isExpanded} />
+            <SidenavButtonExpand {...workspaceLinks.BOARDS} expandBtns={boardLinks} isExpanded={isExpanded} />
+            <SidenavLink {...workspaceLinks.BACKLOG} isExpanded={isExpanded} />
+            <SidenavLink {...workspaceLinks.DESIGN_LOG} isExpanded={isExpanded} />
+            <SidenavLink {...workspaceLinks.MANAGEMENT} isExpanded={isExpanded} />
+        </>
+    );
 
     const optionBtns = [
         <SidenavLink btnTitle={"Back to Workspace"} btnIcon={faArrowLeft} url={"/workspace"} />
@@ -68,7 +70,9 @@ const ProjectWorkspaceSidenav = ({ url, boards }) => {
             <CreateBoardModal showModal={showCreateBoard} handleClose={handleCloseBoardModal} />
             <CreateTaskModal showModal={showCreateTask} handleClose={handleCloseTaskModal} />
 
-            <Sidenav buttons={sidenavBtns} options={optionBtns} />
+            <Sidenav options={optionBtns} onExpand={onExpand}>
+                {renderSidenavBtns}
+            </Sidenav>
         </>
     );
 }

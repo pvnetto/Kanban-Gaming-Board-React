@@ -1,4 +1,4 @@
-const Categories = {
+const categories = {
     PROGRAMMING: "Programming",
     ART: "Art",
     DESIGN: "Design",
@@ -8,6 +8,10 @@ const Categories = {
     BUGS: "Bugs"
 };
 
-Object.freeze(Categories);
+Object.freeze(categories);
 
-export default Categories;
+let allCategories = {};
+allCategories = Object.assign(allCategories, categories);
+allCategories.ALL = "All Items";
+
+export { categories, allCategories };
