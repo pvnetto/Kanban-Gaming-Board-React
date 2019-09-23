@@ -18,7 +18,7 @@ const Sidenav = (props) => {
     return (
         <div className={`sidenav ${isExpanded ? 'expand' : ''} bg-secondary border-2 border-light`}>
             <ul className="navbar-nav w-100">
-                <SidenavLogo />
+                <SidenavLogo isExpanded={isExpanded} />
 
                 <hr className="m-1 border border-light" />
 
@@ -26,12 +26,7 @@ const Sidenav = (props) => {
                     {props.children(isExpanded)}
                 </div>
 
-                <hr className="m-1 border border-light" />
-
-                <div className="d-flex flex-column justify-content-between w-100 h-100">
-                    <div>
-                        {props.options}
-                    </div>
+                <div className="d-flex flex-column justify-content-end w-100 h-100">
                     <SidenavLink btnTitle={"Logout"} btnIcon={faPowerOff} isExpanded={isExpanded} />
                 </div>
 

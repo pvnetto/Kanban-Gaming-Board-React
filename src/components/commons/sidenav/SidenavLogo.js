@@ -1,8 +1,8 @@
 import React from 'react';
 
-const SidenavLogo = () => {
+const SidenavLogo = ({ isExpanded }) => {
     return (
-        <li className="nav-item logo text-center p-1">
+        <li className={`${isExpanded ? 'expand' : ''} nav-item logo text-center p-1`}>
             <span className="logo-blue">K </span>
             <span className="logo-red">G </span>
             <span className="logo-green">B</span>

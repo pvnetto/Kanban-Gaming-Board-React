@@ -57,20 +57,19 @@ const ProjectWorkspaceSidenav = ({ url, boards, onExpand }) => {
             <SidenavLink {...workspaceLinks.BACKLOG} isExpanded={isExpanded} />
             <SidenavLink {...workspaceLinks.DESIGN_LOG} isExpanded={isExpanded} />
             <SidenavLink {...workspaceLinks.MANAGEMENT} isExpanded={isExpanded} />
+
+            <hr className="m-1 border border-light" />
+
+            <SidenavLink btnTitle={"Back to Workspace"} btnIcon={faArrowLeft} url={"/workspace"} isExpanded={isExpanded} />
         </>
     );
-
-    const optionBtns = [
-        <SidenavLink btnTitle={"Back to Workspace"} btnIcon={faArrowLeft} url={"/workspace"} />
-    ];
-
 
     return (
         <>
             <CreateBoardModal showModal={showCreateBoard} handleClose={handleCloseBoardModal} />
             <CreateTaskModal showModal={showCreateTask} handleClose={handleCloseTaskModal} />
 
-            <Sidenav options={optionBtns} onExpand={onExpand}>
+            <Sidenav onExpand={onExpand}>
                 {renderSidenavBtns}
             </Sidenav>
         </>
