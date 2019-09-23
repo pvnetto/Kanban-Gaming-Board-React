@@ -29,12 +29,16 @@ const ProjectDashboard = (props) => {
                 <Col xs={6}>
                     <ProjectDescSection {...props.project} />
 
-                    <SectionContainer title={"General Info"} titleIcon={"GI"} items={[<p>{props.project.generalInfo}</p>]} />
+                    <SectionContainer title={"General Info"} titleIcon={"GI"} >
+                        <p>{props.project.generalInfo}</p>
+                    </SectionContainer>
                 </Col>
 
                 {/* Right dashboard section */}
                 <Col xs={6} className="pl-2">
-                    <SectionContainer title={"Metrics"} titleIcon={faChartPie} items={[<UserMetrics />]} />
+                    <SectionContainer title={"Metrics"} titleIcon={faChartPie}>
+                        <UserMetrics />
+                    </SectionContainer>
                 </Col>
             </Row>
 

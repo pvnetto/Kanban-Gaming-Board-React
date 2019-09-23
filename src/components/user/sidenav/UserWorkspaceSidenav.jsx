@@ -27,7 +27,7 @@ const UserWorkspaceSidenav = (props) => {
 
     return (
         <>
-            <CreateProjectModal showModal={showModal} handleClose={handleCloseModal} />
+            <CreateProjectModal showModal={showModal} handleClose={handleCloseModal} addProject={props.addProject} />
             <Sidenav options={[]} onExpand={props.onExpand}>
                 {renderSidenavButtons}
             </Sidenav>

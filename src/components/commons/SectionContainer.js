@@ -13,12 +13,7 @@ const SectionContainer = (props) => {
             </div>
 
             <div className="m-3">
-                {props.items.length > 0 ?
-                    props.items :
-                    <p className="text-center">
-                        {props.noItemsMsg}
-                    </p>
-                }
+                {props.children}
                 <hr className="border-top-1 border-light" />
             </div>
 

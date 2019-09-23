@@ -16,7 +16,7 @@ const ProjectWorkspace = (props) => {
 
     return (
         <>
-            <ProjectWorkspaceSidenav {...props.match} boards={currentProject.boards} onExpand={toggleExpandWorkspace} />
+            <ProjectWorkspaceSidenav {...props.match} boards={currentProject.boards} addBoard={props.addBoard} addTask={props.addTask} onExpand={toggleExpandWorkspace} />
 
             <Container fluid={true} className="full-height bg-primary p-0">
                 <div className={`workspace ${expandWorkspace ? 'expand' : ''} d-flex flex-column h-100`}>

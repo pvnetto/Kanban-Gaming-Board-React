@@ -3,7 +3,7 @@ import UserWorkspaceSidenav from './sidenav';
 import UserWorkspaceRoutes from './routes';
 import NavigationBar from '../commons/NavigationBar';
 
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 const UserWorkspace = (props) => {
 
@@ -15,7 +15,7 @@ const UserWorkspace = (props) => {
 
     return (
         <>
-            <UserWorkspaceSidenav url={props.match.url} onExpand={toggleExpandWorkspace} />
+            <UserWorkspaceSidenav url={props.match.url} onExpand={toggleExpandWorkspace} addProject={props.addProject} />
             <Container fluid={true} className="bg-primary p-0">
                 <div className={`workspace ${expandWorkspace ? 'expand' : ''}`}>
                     <NavigationBar user={props.user} />

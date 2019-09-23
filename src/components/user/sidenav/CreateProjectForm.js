@@ -1,24 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-const CreateProjectForm = () => {
+const CreateProjectForm = ({ addProject }) => {
+
+    let [title, setTitle] = useState("");
+    let [description, setDescription] = useState("");
+    let [generalInfo, setGeneralInfo] = useState("");
+
+    const onClick = () => {
+        setTitle("");
+        setDescription("");
+        setGeneralInfo("");
+        addProject(title, description, generalInfo, "Paivaaaa");
+    }
+
     return (
         <Form >
             <Form.Group>
-                <Form.Label>Project Name: </Form.Label>
-                <Form.Control type="text" placeholder="Enter project name" />
+                <Form.Label>Project Title: </Form.Label>
+                <Form.Control value={title} type="text" placeholder="Enter project title" onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>
 
             <Form.Group>
                 <Form.Label>Project Description: </Form.Label>
-                <Form.Control type="text" as="textarea" rows="3" placeholder="Enter project description" />
+                <Form.Control value={description} type="text" as="textarea" rows="3" placeholder="Enter project description" onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>General info: </Form.Label>
-                <Form.Control type="text" as="textarea" rows="8" />
+                <Form.Control value={generalInfo} type="text" as="textarea" rows="8"
+                    placeholder={"Enter general info about the project"} onChange={(e) => setGeneralInfo(e.target.value)} />
             </Form.Group>
 
-            <Button className="float-right" variant="dark">Create Project</Button>
+            <Button onClick={onClick} className="float-right" variant="dark">Create Project</Button>
         </Form>
     );
 };

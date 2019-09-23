@@ -18,6 +18,7 @@ const WelcomeSection = ({ username }) => {
 
 const UserDashboard = (props) => {
     const projectItems = props.user.projects.map(project => <ProjectItem {...project} />)
+    const closedProjects = [];
 
     return (
         <Row noGutters={true}>
@@ -28,13 +29,24 @@ const UserDashboard = (props) => {
                 {/* Left dashboard section */}
                 <Col xs={6}>
                     <WelcomeSection username={props.user.name} />
-                    <SectionContainer title={"Your Projects"} titleIcon={faDiceD20} items={projectItems} noItemsMsg={"You don't have any active projects."} />
-                    <SectionContainer title={"Closed Projects"} titleIcon={faHourglassEnd} items={[]} noItemsMsg={"You don’t have any closed projects."} />
+                    <SectionContainer title={"Your Projects"} titleIcon={faDiceD20}>
+                        {projectItems.length > 0 ?
+                            projectItems :
+                            <p className="text-center">You have no active projects.</p>}
+                    </SectionContainer>
+
+                    <SectionContainer title={"Closed Projects"} titleIcon={faHourglassEnd} >
+                        {closedProjects.length > 0 ?
+                            closedProjects :
+                            <p className="text-center">You have no closed projects.</p>}
+                    </SectionContainer>
                 </Col>
 
                 {/* Right dashboard section */}
                 <Col xs={6} className="pl-2">
-                    <SectionContainer title={"Metrics"} titleIcon={faChartPie} items={[<UserMetrics />]} />
+                    <SectionContainer title={"Metrics"} titleIcon={faChartPie}>
+                        <UserMetrics />
+                    </SectionContainer>
                 </Col>
             </Row>
 

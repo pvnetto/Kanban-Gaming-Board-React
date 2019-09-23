@@ -1,28 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
 
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { SingleDatePicker } from 'react-dates';
 
-const CreateBoardForm = () => {
+const CreateBoardForm = ({ addBoard, projectId }) => {
+
+    let [title, setTitle] = useState("");
+    let [description, setDescription] = useState("");
 
     let [startDate, setStartDate] = useState(null);
-    let [startFocused, setStartFocused] = useState(null);
+    let [startFocused, setStartFocused] = useState(false);
 
     let [endDate, setEndDate] = useState(null);
-    let [endFocused, setEndFocused] = useState(null);
+    let [endFocused, setEndFocused] = useState(false);
+
+    const onClick = () => {
+        addBoard(projectId, title, description, startDate, endDate);
+
+        setTitle("");
+        setDescription("");
+        setStartDate(null);
+        setEndDate(null);
+    }
 
     return (
         <Form >
             <Form.Group>
-                <Form.Label>Board Name: </Form.Label>
-                <Form.Control type="text" placeholder="Enter board name" />
+                <Form.Label>Board Title: </Form.Label>
+                <Form.Control value={title} type="text" placeholder="Enter board title" onChange={(e) => setTitle(e.target.value)} />
             </Form.Group>
 
             <Form.Group>
                 <Form.Label>Board Description: </Form.Label>
-                <Form.Control type="text" as="textarea" rows="3" placeholder="Enter project description" />
+                <Form.Control value={description} type="text" as="textarea" rows="3" placeholder="Enter board description" onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
 
 
@@ -32,15 +44,15 @@ const CreateBoardForm = () => {
                     <SingleDatePicker
                         date={startDate}
                         onDateChange={newDate => setStartDate(newDate)}
-                        focused={startFocused} // PropTypes.bool
-                        onFocusChange={({ newFocus }) => setStartFocused({ newFocus })}
+                        focused={startFocused}
+                        onFocusChange={(newFocus) => setStartFocused(newFocus.focused)}
                         onClose={() => {
-                            setStartFocused(null);
+                            setStartFocused(false);
                         }}
                         id="board_start"
                         keepOpenOnDateSelect={false}
                         openDirection="down"
-                        placeholder={"Start"}
+                        placeholder={"Start Date"}
                     />
                 </Form.Group>
 
@@ -50,11 +62,11 @@ const CreateBoardForm = () => {
                         date={endDate}
                         onDateChange={newDate => setEndDate(newDate)}
                         focused={endFocused} // PropTypes.bool
-                        onFocusChange={({ newFocus }) => setEndFocused({ newFocus })}
+                        onFocusChange={(newFocus) => setEndFocused(newFocus.focused)}
                         onClose={() => {
-                            setEndFocused(null);
+                            setEndFocused(false);
                         }}
-                        id="board_start"
+                        id="board_end"
                         keepOpenOnDateSelect={false}
                         openDirection="down"
                         placeholder={"End Date"}
@@ -62,7 +74,7 @@ const CreateBoardForm = () => {
                 </Form.Group>
             </Form.Row>
 
-            <Button className="float-right" variant="dark">Create Board</Button>
+            <Button className="float-right" variant="dark" onClick={onClick}>Create Board</Button>
         </Form>
     );
 };

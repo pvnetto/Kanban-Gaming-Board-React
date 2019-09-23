@@ -11,12 +11,19 @@ const ProjectManagement = () => {
     return (
         <Row className="p-2" noGutters={true}>
             <Col xs={12} lg={6} className="pr-2">
-                <SectionContainer title={"Edit Project"} titleIcon={"EPR"} items={[<ProjectEditForm />]} />
+                <SectionContainer title={"Edit Project"} titleIcon={"EPR"}>
+                    <ProjectEditForm />
+                </SectionContainer>
             </Col>
 
             <Col xs={12} lg={6}>
-                <SectionContainer title={"Manage Project Members"} titleIcon={"MGMT"} items={[<ProjectInviteForm />]} />
-                <SectionContainer title={"Manage Project"} titleIcon={"MGMT"} items={[<ProjectDeleteForm />]} />
+                <SectionContainer title={"Manage Project Members"} titleIcon={"MGMT"}>
+                    <ProjectInviteForm />
+                </SectionContainer>
+
+                <SectionContainer title={"Manage Project"} titleIcon={"MGMT"}>
+                    <ProjectDeleteForm />
+                </SectionContainer>
             </Col>
         </Row>
     );

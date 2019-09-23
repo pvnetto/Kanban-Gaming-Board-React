@@ -90,10 +90,12 @@ REACT KANBAN BOARD:
 	
 5) FAZER SITE:
 	- Features:
-		- Minimizar sidebar
+		- Minimizar sidebar				DONE
 		- 
 	- Core features:
-		- Adicionar/remover/modificar projeto
+		- Adicionar/remover projeto
+		- Adicionar/remover board
+		- Adicionar/remover tarefa
 		- Autenticação
 			- Roles
 			- Convidar para projeto

@@ -12,7 +12,11 @@ const UserManagement = (props) => {
 
         <Row noGutters={true}>
             <Col className="w-100 p-2" xs={4}>
-                <SectionContainer title={"Your Projects"} titleIcon={faDiceD20} items={projectItems} />
+                <SectionContainer title={"Your Projects"} titleIcon={faDiceD20} items={projectItems}>
+                    {projectItems.length > 0 ?
+                        projectItems :
+                        <p className="text-center">You don't have any project to manage.</p>}
+                </ SectionContainer>
             </Col>
         </Row>
     );

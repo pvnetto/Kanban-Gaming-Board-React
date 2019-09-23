@@ -9,7 +9,7 @@ import CreateBoardModal from './CreateBoardModal';
 import CreateTaskModal from './CreateTaskModal';
 
 
-const ProjectWorkspaceSidenav = ({ url, boards, onExpand }) => {
+const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard, addTask }) => {
 
     // Sidenav hooks
     const [showCreateBoard, setShowCreateBoard] = useState(false);
@@ -66,8 +66,8 @@ const ProjectWorkspaceSidenav = ({ url, boards, onExpand }) => {
 
     return (
         <>
-            <CreateBoardModal showModal={showCreateBoard} handleClose={handleCloseBoardModal} />
-            <CreateTaskModal showModal={showCreateTask} handleClose={handleCloseTaskModal} />
+            <CreateBoardModal showModal={showCreateBoard} handleClose={handleCloseBoardModal} addBoard={addBoard} projectId={params.projectId} />
+            <CreateTaskModal showModal={showCreateTask} handleClose={handleCloseTaskModal} addTask={addTask} boards={boards} projectId={params.projectId} />
 
             <Sidenav onExpand={onExpand}>
                 {renderSidenavBtns}
