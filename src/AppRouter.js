@@ -131,6 +131,15 @@ const AppRouter = () => {
         setAlert({ show: true, msg: `${title} project was succesfully created.` })
     }
 
+    const editProject = (projectId, title, description, generalInfo) => {
+        let currentProject = projects.find(project => project.id == projectId);
+        currentProject.title = title;
+        currentProject.description = description;
+        currentProject.generalInfo = generalInfo;
+
+        setAlert({show: true, msg: `${currentProject.title} was succesfully edited.`});
+    }
+
     const addBoard = (projectId, title, description, startDate, endDate) => {
         let newBoard = {
             title,
@@ -192,7 +201,7 @@ const AppRouter = () => {
                 </Route>
                 <Route exact path="/login" component={LoginPage} />
                 <Route path="/workspace" render={(routeProps) => <UserWorkspace {...routeProps} user={user} addProject={addProject} />} />
-                <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ user, addBoard, addTask, addLog }} />} />
+                <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ user, addBoard, addTask, addLog, editProject }} />} />
                 <Route component={ErrorPage} />
             </Switch>
         </BrowserRouter>

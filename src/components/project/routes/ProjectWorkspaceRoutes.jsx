@@ -28,7 +28,7 @@ const ProjectWorkspaceRoutes = (props) => {
                 return <ProjectDesignLog {...routeProps} projectId={projectId} addLog={props.addLog} logEntries={props.project.logs} />
             }} />
 
-            <Route exact path={`${props.url}/management`} component={ProjectManagement} />
+            <Route exact path={`${props.url}/management`} render={(routeProps) => <ProjectManagement {...routeProps} {...props} />} />
 
             <Route exact path={`${props.url}`}>
                 <Redirect to={`${props.url}/dashboard`} />

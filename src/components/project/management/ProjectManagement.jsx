@@ -6,13 +6,13 @@ import ProjectEditForm from './ProjectEditForm';
 import ProjectInviteForm from './ProjectInviteForm';
 import ProjectDeleteForm from './ProjectDeleteForm';
 
-const ProjectManagement = () => {
+const ProjectManagement = ({ project, editProject }) => {
 
     return (
         <Row className="p-2" noGutters={true}>
             <Col xs={12} lg={6} className="pr-2">
                 <SectionContainer title={"Edit Project"} titleIcon={"EPR"}>
-                    <ProjectEditForm />
+                    <ProjectEditForm {...{ project, editProject }} />
                 </SectionContainer>
             </Col>
 
