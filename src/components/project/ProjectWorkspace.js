@@ -21,7 +21,7 @@ const ProjectWorkspace = (props) => {
             <Container fluid={true} className="full-height bg-primary p-0">
                 <div className={`workspace ${expandWorkspace ? 'expand' : ''} d-flex flex-column h-100`}>
                     <NavigationBar user={props.user} />
-                    <ProjectWorkspaceRoutes {...props.match} user={props.user} project={currentProject} />
+                    <ProjectWorkspaceRoutes {...props.match} user={props.user} project={currentProject} addLog={props.addLog} />
                 </div>
             </Container>
 

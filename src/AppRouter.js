@@ -157,6 +157,21 @@ const AppRouter = () => {
         setAlert({ show: true, msg: `${name} task was succesfully created.` })
     }
 
+    const addLog = (projectId, title, content) => {
+        let newLog = {
+            id: logs.length,
+            title,
+            content,
+            date: new Date(),
+            author: user.name
+        };
+        
+        let project = projects.find(project => project.id == projectId);
+        project.logs.push(newLog);
+
+        setAlert({ show: true, msg: `Log #${newLog.id} was added.` })
+    }
+
     return (
         <BrowserRouter>
             <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
@@ -167,7 +182,7 @@ const AppRouter = () => {
                 </Route>
                 <Route exact path="/login" component={LoginPage} />
                 <Route path="/workspace" render={(routeProps) => <UserWorkspace {...routeProps} user={user} addProject={addProject} />} />
-                <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} user={user} addBoard={addBoard} addTask={addTask} />} />
+                <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ user, addBoard, addTask, addLog }} />} />
                 <Route component={ErrorPage} />
             </Switch>
         </BrowserRouter>

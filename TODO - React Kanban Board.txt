@@ -89,24 +89,23 @@ REACT KANBAN BOARD:
 	- Fonte da logo: Megrim
 	
 5) FAZER SITE:
-	- Features:
-		- Minimizar sidebar				DONE
-		- Add task em board e backlog
-		- Add design log na página de design log
 	- Core features:
-		- Adicionar projeto
+		- Adicionar projeto							DONE
 			- Editar projeto (nome, descrição etc)
 			- Remover projeto (fechar)
-		- Adicionar board
+		- Adicionar board							DONE
 			- Remover board (fechar)
 		- Adicionar tarefa
 			- Remover tarefa
+		- Adicionar design log						DONE
+			- Remover design log
 		- Métricas simples para usuário/projeto
 		- Autenticação
 			- Roles
 			- Convidar para projeto
 			- Autorizar outros usuários no projeto
 		- Integração com banco de dados firebase
+		- 
 	- Experimentar:
 		- Context API
 		- PropTypes

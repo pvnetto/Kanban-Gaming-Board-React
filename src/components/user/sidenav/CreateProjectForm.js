@@ -8,10 +8,11 @@ const CreateProjectForm = ({ addProject }) => {
     let [generalInfo, setGeneralInfo] = useState("");
 
     const onClick = () => {
+        addProject(title, description, generalInfo, "Paivaaaa");
+
         setTitle("");
         setDescription("");
         setGeneralInfo("");
-        addProject(title, description, generalInfo, "Paivaaaa");
     }
 
     return (
