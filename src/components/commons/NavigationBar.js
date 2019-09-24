@@ -6,7 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 
 const NavigationBar = (props) => {
     return (
-        <Row noGutters={true} className="w-100 bg-dark border-2 border-light pl-3 py-2">
+        <Row noGutters={true} className="w-100 bg-dark border-2 border-light pl-3 py-1">
             <Col xs={12} className="d-flex flex-row justify-content-between align-items-center">
                 <div>
                     <FontAwesomeIcon className="icon-md mr-2" icon={faCodeBranch} />

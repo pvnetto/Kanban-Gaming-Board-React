@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 import SectionNavbar from '../../../commons/SectionNavbar';
+import SectionNavbarButton from '../../../commons/SectionNavbarButton';
 import BoardSidenav from './BoardSidenav';
 import BoardColumn from './BoardColumn';
 import { allCategories } from '../../../commons/Categories';
@@ -29,7 +30,10 @@ const BoardContainer = (props) => {
 
     return (
         <>
-            <SectionNavbar sectionTitle={props.title} sectionIcon={faGamepad} items={[]} />
+            <SectionNavbar sectionTitle={props.title} sectionIcon={faGamepad}>
+                <SectionNavbarButton btnTitle={"Add Task"} btnIcon={faPlusSquare} />
+            </SectionNavbar>
+            
             <Row noGutters={true} className="d-flex flex-fill w-100">
                 <BoardSidenav onClick={setCategory} activeCategory={category} />
 

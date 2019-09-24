@@ -91,17 +91,24 @@ REACT KANBAN BOARD:
 5) FAZER SITE:
 	- Features:
 		- Minimizar sidebar				DONE
-		- 
+		- Add task em board e backlog
+		- Add design log na página de design log
 	- Core features:
-		- Adicionar/remover projeto
-		- Adicionar/remover board
-		- Adicionar/remover tarefa
+		- Adicionar projeto
+			- Editar projeto (nome, descrição etc)
+			- Remover projeto (fechar)
+		- Adicionar board
+			- Remover board (fechar)
+		- Adicionar tarefa
+			- Remover tarefa
+		- Métricas simples para usuário/projeto
 		- Autenticação
 			- Roles
 			- Convidar para projeto
 			- Autorizar outros usuários no projeto
-		- Integração com banco de dados auth0
+		- Integração com banco de dados firebase
 	- Experimentar:
+		- Context API
 		- PropTypes
 		- Form validation (pure HTML or Formik, check https://react-bootstrap.github.io/components/forms/)
 		- Substituir classNames por componentes Bootstrap onde possível

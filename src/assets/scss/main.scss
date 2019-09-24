@@ -139,16 +139,36 @@
     }
 }
 
-.btn-blue {
-    @include customBtn($blue);
+.btn {
+    &-blue {
+        @include customBtn($blue);
+    }
+
+    &-red {
+        @include customBtn($red);
+    }
+
+    &-green {
+        @include customBtn($green);
+    }
 }
 
-.btn-red {
-    @include customBtn($red);
-}
+.transparent-btn {
+    &-warning {
+        background: none !important;
+        color: var(--font-color-primary);
+        
+        &:hover, &:active, &:focus, &:active:focus {
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
 
-.btn-green {
-    @include customBtn($green);
+        &:hover {
+            color: var(--font-color-secondary);
+        }
+
+    }
 }
 
 @mixin lightenBgOnHover($color) {

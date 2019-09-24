@@ -22,6 +22,7 @@ const UserWorkspaceSidenav = (props) => {
             <SidenavButton btnTitle={"CREATE PROJECT"} btnIcon={faPlusSquare} onClick={handleOpenModal} isExpanded={isExpanded} />
             <SidenavLink btnTitle={"MY DASHBOARD"} btnIcon={faGamepad} url={`${props.url}`} link={"/dashboard"} isExpanded={isExpanded} />
             <SidenavLink btnTitle={"MANAGEMENT"} btnIcon={faCogs} url={`${props.url}`} link={"/management"} isExpanded={isExpanded} />
+            <hr className="m-1 border border-light"/>
         </>
     )
 
