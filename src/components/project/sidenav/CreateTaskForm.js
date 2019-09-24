@@ -37,6 +37,7 @@ const CreateTaskForm = ({ addTask, projectId, boards }) => {
                 <Form.Group as={Col} md="6">
                     <Form.Label>Board:</Form.Label>
                     <Form.Control column="true" as="select" value={board} onChange={(e) => setBoard(e.target.value)}>
+                        <option value=""></option>
                         {boards.map((board, i) => <option key={i}>{board.title}</option>)}
                     </Form.Control>
                 </Form.Group>

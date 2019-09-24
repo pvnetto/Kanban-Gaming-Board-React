@@ -5,8 +5,9 @@ import Sidenav from '../../commons/sidenav/Sidenav';
 import SidenavLink from '../../commons/sidenav/SidenavLink';
 import SidenavButtonExpand from '../../commons/sidenav/SidenavButtonExpand';
 import { createWorkspaceLink, createWorkspaceBtn } from '../../commons/sidenav/SidenavButtonCreator';
-import CreateBoardModal from './CreateBoardModal';
-import CreateTaskModal from './CreateTaskModal';
+import ModalBase from '../../commons/ModalBase';
+import CreateBoardForm from './CreateBoardForm';
+import CreateTaskForm from './CreateTaskForm';
 
 
 const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard, addTask }) => {
@@ -14,22 +15,6 @@ const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard, addT
     // Sidenav hooks
     const [showCreateBoard, setShowCreateBoard] = useState(false);
     const [showCreateTask, setShowCreateTask] = useState(false);
-
-    const handleOpenBoardModal = () => {
-        setShowCreateBoard(true);
-    }
-
-    const handleCloseBoardModal = () => {
-        setShowCreateBoard(false);
-    }
-
-    const handleOpenTaskModal = () => {
-        setShowCreateTask(true);
-    }
-
-    const handleCloseTaskModal = () => {
-        setShowCreateTask(false);
-    }
 
     // Sidenav buttons configurations
     const workspaceLinks = {
@@ -42,8 +27,8 @@ const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard, addT
     };
 
     const createLinks = [
-        createWorkspaceBtn("Board", faList, handleOpenBoardModal),
-        createWorkspaceBtn("Task", faEdit, handleOpenTaskModal)
+        createWorkspaceBtn("Board", faList, () => setShowCreateBoard(true)),
+        createWorkspaceBtn("Task", faEdit, () => setShowCreateTask(true))
     ]
 
     const boardLinks = boards.map(board => createWorkspaceLink(board.title, faClipboardList, `/boards/${board.title}`, url));
@@ -66,8 +51,13 @@ const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard, addT
 
     return (
         <>
-            <CreateBoardModal showModal={showCreateBoard} handleClose={handleCloseBoardModal} addBoard={addBoard} projectId={params.projectId} />
-            <CreateTaskModal showModal={showCreateTask} handleClose={handleCloseTaskModal} addTask={addTask} boards={boards} projectId={params.projectId} />
+            <ModalBase title={"Create Board"} showModal={showCreateBoard} handleClose={() => setShowCreateBoard(false)}>
+                <CreateBoardForm addBoard={addBoard} projectId={params.projectId} />
+            </ModalBase>
+
+            <ModalBase showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} title="Create Task">
+                <CreateTaskForm addTask={addTask} boards={boards} projectId={params.projectId} />
+            </ ModalBase>
 
             <Sidenav onExpand={onExpand}>
                 {renderSidenavBtns}

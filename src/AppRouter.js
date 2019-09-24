@@ -48,6 +48,8 @@ let tasks = [
     },
 ];
 
+let backlogTasks = [];
+
 let boards = [
     {
         title: "My First Board",
@@ -93,6 +95,7 @@ let projects = [
         description: "This is a car simulation project for study purposes only",
         generalInfo: "This project was motivated by a need to understand more about how physics for game development works",
         boards: boards,
+        backlog: backlogTasks,
         members: members,
         logs: logs
     }
@@ -118,6 +121,7 @@ const AppRouter = () => {
             description,
             generalInfo,
             boards: [],
+            backlog: [],
             members: [author],
             logs: []
         };
@@ -151,8 +155,14 @@ const AppRouter = () => {
         };
 
         let project = projects.find(project => project.id == projectId);
-        let board = project.boards.find(board => board.title == boardTitle);
-        board.tasks.push(newTask);
+        if (boardTitle == "") {
+            newTask.status = TaskStatus.BACKLOG;
+            project.backlog.push(newTask);
+        }
+        else {
+            let board = project.boards.find(board => board.title == boardTitle);
+            board.tasks.push(newTask);
+        }
 
         setAlert({ show: true, msg: `${name} task was succesfully created.` })
     }
@@ -165,7 +175,7 @@ const AppRouter = () => {
             date: new Date(),
             author: user.name
         };
-        
+
         let project = projects.find(project => project.id == projectId);
         project.logs.push(newLog);
 

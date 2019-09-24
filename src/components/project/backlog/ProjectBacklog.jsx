@@ -5,7 +5,7 @@ import TaskStatus from '../../commons/TaskStatus';
 
 const ProjectBacklog = (props) => {
     return (
-        <BoardContainer title={"Backlog"} boardId={props.match.params.boardId} boards={props.boards}>
+        <BoardContainer title={"Backlog"} boardId={props.match.params.boardId} {...props}>
             {[TaskStatus.BACKLOG]}
         </BoardContainer>
     );
