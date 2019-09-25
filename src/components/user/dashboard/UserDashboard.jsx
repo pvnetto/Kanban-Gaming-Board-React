@@ -10,7 +10,7 @@ import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/f
 
 const WelcomeSection = ({ username }) => {
     return (
-        <div className="p-4 mb-2 bg-dark border-2 border-light d-flex flex-row justify-content-center">
+        <div className="p-4 mb-2 bg-dark border-2 border-radius-5 border-light d-flex flex-row justify-content-center">
             <h3 className="font-weight-bold">Welcome, {username}!</h3>
         </div>
     );

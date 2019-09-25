@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const SectionContainer = (props) => {
     return (
-        <div className="bg-dark border-2 border-light mb-2">
+        <div className="bg-dark border-2 border-radius-5 border-light mb-2">
             <div className="m-3">
                 <h4 className="ml-2 emphasized d-flex flex-row align-items-center">
                     <FontAwesomeIcon className="mr-2" icon={props.titleIcon} />

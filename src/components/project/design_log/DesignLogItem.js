@@ -10,7 +10,7 @@ const DesignLogItem = (props) => {
     }
 
     return (
-        <div onClick={toggleShowContent} className="hover-icon-secondary flex-fill p-2 mb-2 bg-dark bg-dark-hover border border-light disable-select">
+        <div onClick={toggleShowContent} className="hover-icon-secondary flex-fill p-2 mb-2 bg-dark bg-dark-hover border border-radius-5 border-light disable-select">
             <div>
                 <p className="d-flex flex-row align-items-center">
                     <FontAwesomeIcon style={{ width: '15px' }} className="mr-2" icon={showContent ? faMinus : faPlus} />

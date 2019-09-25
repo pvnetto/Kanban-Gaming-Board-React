@@ -1,9 +1,10 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import TaskItem from '../tasks/TaskItem';
 import TaskStatus from '../../../commons/TaskStatus';
+import TaskItem from '../tasks/TaskItem';
 
 const columnIcon = (status) => {
     switch (status) {
@@ -39,23 +40,37 @@ const columnBorder = (status) => {
     }
 }
 
+const getDroppableStyle = isDraggingOver => {
+    return isDraggingOver ? 'bg-blue' : '';
+}
+
 const BoardColumn = (props) => {
 
+    let id = props.type == 'Planned' ? 0 : 1;
+
     return (
-        <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-between py-4">
+        <Droppable droppableId={`droppable-${props.type}`}>
+            {(provided, snapshot) => (
+                <div ref={provided.innerRef}
+                    className={`w-100 h-100 d-flex flex-column align-items-center justify-content-start py-4 ${getDroppableStyle(snapshot.isDraggingOver)}`}>
 
-            <div className={`w-100 px-3 pb-3 border-bottom ${columnBorder(props.type)}`}>
-                <p className="d-flex flex-row align-items-center justify-content-center text-center">
-                    <FontAwesomeIcon icon={columnIcon(props.type)} className="mr-3" /> {props.type} {props.tasks.length}
-                </p>
-            </div>
 
-            <div className="w-100 d-flex flex-column justify-content-start align-items-center flex-fill my-3">
-                {props.tasks.map((task, idx) => <TaskItem key={idx} index={idx} {...task} />)}
-            </div>
+                    <div className={`w-100 px-3 pb-3 border-bottom ${columnBorder(props.type)}`}>
+                        <p className="d-flex flex-row align-items-center justify-content-center text-center">
+                            <FontAwesomeIcon icon={columnIcon(props.type)} className="mr-3" /> {props.type} {props.tasks.length}
+                        </p>
+                    </div>
 
-            <div className={"w-100 p-3 border-bottom " + columnBorder(props.type)}></div>
-        </div>
+                    <div className="w-100 d-flex flex-column justify-content-start align-items-stretch flex-fill my-3">
+                        {props.tasks.map((task, idx) => <TaskItem key={task.id} index={idx} {...task} />)}
+                    </div>
+
+                    <div className={`w-100 p-3 border-bottom ${columnBorder(props.type)}`}></div>
+
+                    {provided.placeholder}
+                </div>
+            )}
+        </Droppable>
     );
 };
 

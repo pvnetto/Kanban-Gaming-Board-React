@@ -10,10 +10,10 @@ import { allCategories } from '../../../commons/Categories';
 import ModalBase from '../../../commons/ModalBase';
 import CreateTaskForm from '../../sidenav/CreateTaskForm';
 
-const BoardColumnWrapper = ({ cols, type, tasks }) => {
+const BoardColumnWrapper = ({ cols, type, tasks, updateTask }) => {
     return (
         <Col xs={cols}>
-            <BoardColumn type={type} tasks={tasks.filter(task => task.status === type)} />
+            <BoardColumn type={type} tasks={tasks.filter(task => task.status === type)} updateTask={updateTask} />
         </Col>
     )
 }
@@ -43,7 +43,7 @@ const BoardContainer = (props) => {
 
                 <Col className="inner-workspace d-flex flex-row align-items-stretch">
                     {
-                        React.Children.map(props.children, (status) => <BoardColumnWrapper cols={12 / props.children.length} type={status} tasks={tasks} />)
+                        React.Children.map(props.children, (status) => <BoardColumnWrapper cols={12 / props.children.length} type={status} tasks={tasks} updateTask={props.updateTask} />)
                     }
                 </Col>
             </Row>

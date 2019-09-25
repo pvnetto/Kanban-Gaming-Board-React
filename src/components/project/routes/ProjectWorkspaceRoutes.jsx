@@ -17,7 +17,7 @@ const ProjectWorkspaceRoutes = (props) => {
         <Switch>
             <Route exact path={`${props.url}/dashboard`} render={(routeProps) => <ProjectDashboard {...routeProps} user={props.user} project={props.project} />} />
             <Route exact path={`${props.url}/boards/:boardId`} render={(routeProps) => {
-                return <ProjectBoard {...routeProps} project={props.project} boards={props.project.boards} addTask={props.addTask} />
+                return <ProjectBoard {...routeProps} project={props.project} boards={props.project.boards} addTask={props.addTask} updateTask={props.updateTask} />
             }} />
 
             <Route exact path={`${props.url}/backlog`} render={(routeProps) => {

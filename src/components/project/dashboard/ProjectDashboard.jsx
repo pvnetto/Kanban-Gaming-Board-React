@@ -9,7 +9,7 @@ import { faGamepad, faChartPie, faDiceD20 } from '@fortawesome/free-solid-svg-ic
 
 const ProjectDescSection = ({ title, description }) => {
     return (
-        <div className="p-4 mb-2 bg-dark border-2 border-light d-flex flex-column justify-content-center align-items-center">
+        <div className="p-4 mb-2 bg-dark border-2 border-radius-5 border-light d-flex flex-column justify-content-center align-items-center">
             <FontAwesomeIcon className="icon-xl" icon={faDiceD20} />
             <h1 className="font-weight-bold mt-3">{title}</h1>
             <p>{description}</p>

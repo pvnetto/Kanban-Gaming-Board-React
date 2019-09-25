@@ -9,38 +9,47 @@ import { categories } from './components/commons/Categories';
 import TaskStatus from './components/commons/TaskStatus';
 import PageAlert from './components/commons/PageAlert';
 
+import { DragDropContext } from 'react-beautiful-dnd';
+
 let tasks = [
     {
+        id: 0,
         name: "Prototype the movement system",
         description: "Rules for the movement system can be found here: ",
         category: categories.PROGRAMMING,
-        status: TaskStatus.PLANNED
+        status: TaskStatus.PLANNED,
+        orderInCol: 2
     },
     {
+        id: 1,
         name: "Prototype the xxx system",
         description: "Rules for the xxx system can be found here: ",
         category: categories.PROGRAMMING,
         status: TaskStatus.IN_PROGRESS
     },
     {
+        id: 2,
         name: "Prototype the zzzz system",
         description: "Rules for the zzzz system can be found here: ",
         category: categories.PROGRAMMING,
         status: TaskStatus.TESTING
     },
     {
+        id: 3,
         name: "Do some art",
         description: "References: ",
         category: categories.ART,
         status: TaskStatus.PLANNED
     },
     {
+        id: 4,
         name: "Update the design log",
         description: "",
         category: categories.DESIGN,
         status: TaskStatus.PLANNED
     },
     {
+        id: 5,
         name: "Begin the project",
         description: "",
         category: categories.PROGRAMMING,
@@ -137,7 +146,7 @@ const AppRouter = () => {
         currentProject.description = description;
         currentProject.generalInfo = generalInfo;
 
-        setAlert({show: true, msg: `${currentProject.title} was succesfully edited.`});
+        setAlert({ show: true, msg: `${currentProject.title} was succesfully edited.` });
     }
 
     const addBoard = (projectId, title, description, startDate, endDate) => {
@@ -157,6 +166,7 @@ const AppRouter = () => {
 
     const addTask = (projectId, boardTitle, name, description, category) => {
         let newTask = {
+            id: tasks.length,
             name,
             description,
             category,
@@ -176,6 +186,16 @@ const AppRouter = () => {
         setAlert({ show: true, msg: `${name} task was succesfully created.` })
     }
 
+    const updateTask = (taskID, status) => {
+        let newTask = tasks.find(task => task.id == taskID);
+        newTask.status = status;
+
+        // tasks.push(newTask);
+
+        console.log(newTask);
+        setAlert({ show: true, msg: `Task updated.` })
+    }
+
     const addLog = (projectId, title, content) => {
         let newLog = {
             id: logs.length,
@@ -191,20 +211,41 @@ const AppRouter = () => {
         setAlert({ show: true, msg: `Log #${newLog.id} was added.` })
     }
 
-    return (
-        <BrowserRouter>
-            <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
+    const onDragEnd = (result) => {
+        const { source, destination } = result;
 
-            <Switch>
-                <Route exact path="/" component={LoginPage}>
-                    <Redirect to="/login" />
-                </Route>
-                <Route exact path="/login" component={LoginPage} />
-                <Route path="/workspace" render={(routeProps) => <UserWorkspace {...routeProps} user={user} addProject={addProject} />} />
-                <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ user, addBoard, addTask, addLog, editProject }} />} />
-                <Route component={ErrorPage} />
-            </Switch>
-        </BrowserRouter>
+        // If the draggable was dropped outside of a droppable, don't do anything
+        if (!destination) {
+            return;
+        }
+
+        // If the draggable was dropped on the same droppable column, reorder the list
+        if (source.droppableId === destination.droppableId) {
+            console.log("reordering");
+        }
+
+        // If the draggable was dropped on another droppable column, move it
+        else {
+            console.log("moving");
+        }
+    }
+
+    return (
+        <DragDropContext onDragEnd={onDragEnd}>
+            <BrowserRouter>
+                <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
+
+                <Switch>
+                    <Route exact path="/" component={LoginPage}>
+                        <Redirect to="/login" />
+                    </Route>
+                    <Route exact path="/login" component={LoginPage} />
+                    <Route path="/workspace" render={(routeProps) => <UserWorkspace {...routeProps} user={user} addProject={addProject} />} />
+                    <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ user, addBoard, addTask, updateTask, addLog, editProject }} />} />
+                    <Route component={ErrorPage} />
+                </Switch>
+            </BrowserRouter>
+        </DragDropContext>
     );
 };
 
