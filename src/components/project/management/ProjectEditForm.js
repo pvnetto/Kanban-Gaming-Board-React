@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import BoardsContext from '../../contexts/BoardsContext';
 
-const ProjectEditForm = ({ project, editProject }) => {
+const ProjectEditForm = () => {
 
-    let [title, setTitle] = useState(project.title);
-    let [description, setDescription] = useState(project.description);
-    let [generalInfo, setGeneralInfo] = useState(project.generalInfo);
+    let [title, setTitle] = useState("");
+    let [description, setDescription] = useState("");
+    let [generalInfo, setGeneralInfo] = useState("");
+
+    let {project, editProject} = useContext(BoardsContext);
+
+    // Initializing state on useEffect, instead of initializing with props as default values
+    useEffect(() => {
+        setTitle(project.title);
+        setDescription(project.description);
+        setGeneralInfo(project.generalInfo);
+    }, [])
 
     const onClick = () => {
-        editProject(project.id, title, description, generalInfo);
+        editProject(title, description, generalInfo);
     }
 
     return (

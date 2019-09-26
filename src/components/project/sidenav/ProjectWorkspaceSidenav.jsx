@@ -10,7 +10,7 @@ import CreateBoardForm from './CreateBoardForm';
 import CreateTaskForm from './CreateTaskForm';
 
 
-const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard, addTask }) => {
+const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard }) => {
 
     // Sidenav hooks
     const [showCreateBoard, setShowCreateBoard] = useState(false);
@@ -56,7 +56,7 @@ const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard, addT
             </ModalBase>
 
             <ModalBase showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} title="Create Task">
-                <CreateTaskForm addTask={addTask} boards={boards} projectId={params.projectId} />
+                <CreateTaskForm boards={boards} projectId={params.projectId} />
             </ ModalBase>
 
             <Sidenav onExpand={onExpand}>

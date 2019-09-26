@@ -15,20 +15,20 @@ const ProjectWorkspaceRoutes = (props) => {
 
     return (
         <Switch>
-            <Route exact path={`${props.url}/dashboard`} render={(routeProps) => <ProjectDashboard {...routeProps} user={props.user} project={props.project} />} />
+            <Route exact path={`${props.url}/dashboard`} component={ProjectDashboard} />
             <Route exact path={`${props.url}/boards/:boardId`} render={(routeProps) => {
-                return <ProjectBoard {...routeProps} project={props.project} boards={props.project.boards} addTask={props.addTask} updateTask={props.updateTask} />
+                return <ProjectBoard {...routeProps} addTask={props.addTask} updateTask={props.updateTask} />
             }} />
 
             <Route exact path={`${props.url}/backlog`} render={(routeProps) => {
-                return <ProjectBacklog {...routeProps} project={props.project} boards={props.project.boards} addTask={props.addTask} />
+                return <ProjectBacklog {...routeProps} addTask={props.addTask} />
             }} />
 
             <Route exact path={`${props.url}/design_log`} render={(routeProps) => {
-                return <ProjectDesignLog {...routeProps} projectId={projectId} addLog={props.addLog} logEntries={props.project.logs} />
+                return <ProjectDesignLog {...routeProps} addLog={props.addLog} />
             }} />
 
-            <Route exact path={`${props.url}/management`} render={(routeProps) => <ProjectManagement {...routeProps} {...props} />} />
+            <Route exact path={`${props.url}/management`} component={ProjectManagement} />
 
             <Route exact path={`${props.url}`}>
                 <Redirect to={`${props.url}/dashboard`} />

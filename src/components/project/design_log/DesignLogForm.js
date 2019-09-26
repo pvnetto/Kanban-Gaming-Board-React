@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-const DesignLogForm = ({ addLog, projectId }) => {
+const DesignLogForm = ({ addLog }) => {
 
     let [title, setTitle] = useState("");
     let [content, setContent] = useState("");
 
     const onClick = () => {
-        addLog(projectId, title, content);
+        addLog(title, content);
 
         setTitle("");
         setContent("");

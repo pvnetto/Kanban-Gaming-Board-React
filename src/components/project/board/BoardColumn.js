@@ -3,8 +3,8 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import TaskStatus from '../../../commons/TaskStatus';
-import TaskItem from '../tasks/TaskItem';
+import TaskStatus from '../../commons/TaskStatus';
+import TaskItem from '../commons/tasks/TaskItem';
 
 const columnIcon = (status) => {
     switch (status) {

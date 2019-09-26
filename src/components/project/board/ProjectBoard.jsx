@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import BoardContainer from '../commons/boards/BoardContainer';
+import BoardContainer from './BoardContainer';
 import TaskStatus from '../../commons/TaskStatus';
 
 const ProjectBoard = (props) => {

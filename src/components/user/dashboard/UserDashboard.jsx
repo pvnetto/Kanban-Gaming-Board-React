@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ProjectItem from '../../commons/ProjectItem';
 import UserMetrics from '../UserMetrics';
 import SectionContainer from '../../commons/SectionContainer'
@@ -6,6 +6,8 @@ import SectionNavbar from '../../commons/SectionNavbar';
 
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/free-solid-svg-icons';
+import ProjectsContext from '../../contexts/ProjectContext';
+import UserContext from '../../contexts/UserContext';
 
 
 const WelcomeSection = ({ username }) => {
@@ -17,7 +19,10 @@ const WelcomeSection = ({ username }) => {
 }
 
 const UserDashboard = (props) => {
-    const projectItems = props.user.projects.map(project => <ProjectItem {...project} />)
+    const userContext = useContext(UserContext);
+    const projectsContext = useContext(ProjectsContext);
+
+    const projectItems = projectsContext.projects.map(project => <ProjectItem {...project} />)
     const closedProjects = [];
 
     return (
@@ -28,7 +33,7 @@ const UserDashboard = (props) => {
             <Row noGutters={true} className="w-100 p-2">
                 {/* Left dashboard section */}
                 <Col xs={6}>
-                    <WelcomeSection username={props.user.name} />
+                    <WelcomeSection username={userContext.name} />
                     <SectionContainer title={"Your Projects"} titleIcon={faDiceD20}>
                         {projectItems.length > 0 ?
                             projectItems :

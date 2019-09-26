@@ -97,7 +97,7 @@ REACT KANBAN BOARD:
 			- Remover board (fechar)
 		- Adicionar tarefa							DONE
 			- Adicionar ao backlog					DONE
-			- Mover tarefa (mudar status)
+			- Mover tarefa (mudar status)			DONE
 			- Remover tarefa
 		- Adicionar design log						DONE
 			- Remover design log

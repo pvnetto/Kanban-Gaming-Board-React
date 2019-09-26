@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import SectionContainer from '../../commons/SectionContainer';
 import ProjectItem from '../../commons/ProjectItem';
 
 import { Row, Col } from 'react-bootstrap'
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
+import ProjectsContext from '../../contexts/ProjectContext';
 
 const UserManagement = (props) => {
-    const projectItems = props.user.projects.map(project => <ProjectItem {...project} redirect={'/management'} />);
+    const projectsContext = useContext(ProjectsContext);
+    const projectItems = projectsContext.projects.map(project => <ProjectItem {...project} redirect={'/management'} />);
 
     return (
 

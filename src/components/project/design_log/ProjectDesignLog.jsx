@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,16 +7,34 @@ import SectionNavbar from '../../commons/SectionNavbar';
 import DesignLogItem from './DesignLogItem';
 import SectionNavbarButton from '../../commons/SectionNavbarButton';
 import DesignLogForm from './DesignLogForm';
+import { mockLogs } from '../../../mock';
+import UserContext from '../../contexts/UserContext';
 
-const ProjectDesignLog = (props) => {
+const ProjectDesignLog = () => {
 
     let [showModal, setShowModal] = useState(false);
+    let [logs, setLogs] = useState([...mockLogs]);
+
+    const { name } = useContext(UserContext);
+
+    const addLog = (title, content) => {
+        let newLog = {
+            id: logs.length,
+            title,
+            content,
+            date: new Date(),
+            author: name
+        };
+
+        setLogs([...logs, newLog]);
+        // setAlert({ show: true, msg: `Log #${newLog.id} was added.` })
+    }
 
     return (
         <Row noGutters={true}>
 
             <ModalBase title="Add Design Log" showModal={showModal} handleClose={() => setShowModal(false)}>
-                <DesignLogForm {...props} />
+                <DesignLogForm addLog={addLog} />
             </ModalBase>
 
             <SectionNavbar sectionTitle={"Design Logs"} sectionIcon={"DS"}>
@@ -24,8 +42,8 @@ const ProjectDesignLog = (props) => {
             </SectionNavbar>
 
             <Col xs={12} className="p-4 d-flex flex-column-reverse">
-                {props.logEntries ?
-                    props.logEntries.map(entry => <DesignLogItem {...entry} />) :
+                {logs ?
+                    logs.map(entry => <DesignLogItem {...entry} />) :
                     "No log entries found :("}
             </Col>
         </Row>

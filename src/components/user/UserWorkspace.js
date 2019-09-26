@@ -4,6 +4,7 @@ import UserWorkspaceRoutes from './routes';
 import NavigationBar from '../commons/NavigationBar';
 
 import { Container } from 'react-bootstrap';
+import { UserProvider } from '../contexts/UserContext';
 
 const UserWorkspace = (props) => {
 
@@ -18,7 +19,7 @@ const UserWorkspace = (props) => {
             <UserWorkspaceSidenav url={props.match.url} onExpand={toggleExpandWorkspace} addProject={props.addProject} />
             <Container fluid={true} className="bg-primary p-0">
                 <div className={`workspace ${expandWorkspace ? 'expand' : ''}`}>
-                    <NavigationBar user={props.user} />
+                    <NavigationBar />
                     <UserWorkspaceRoutes {...props.match} user={props.user} />
                 </div>
             </Container>

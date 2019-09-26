@@ -8,8 +8,8 @@ import ErrorPage from '../../commons/ErrorPage';
 const UserWorkspaceRoutes = (props) => {
     return (
         <Switch>
-            <Route exact path={`${props.url}/dashboard`} render={(routeProps) => <UserDashboard {...routeProps} user={props.user} />} />
-            <Route exact path={`${props.url}/management`} render={(routeProps) => <UserManagement {...routeProps} user={props.user} />} />
+            <Route exact path={`${props.url}/dashboard`} render={(routeProps) => <UserDashboard {...routeProps} />} />
+            <Route exact path={`${props.url}/management`} render={(routeProps) => <UserManagement {...routeProps} />} />
 
             <Route exact path={`${props.url}`}>
                 <Redirect to={`${props.url}/dashboard`} />

@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 
 import { categories } from '../../commons/Categories';
+import BoardsContext from '../../contexts/BoardsContext';
 
-const CreateTaskForm = ({ addTask, projectId, boards }) => {
+const CreateTaskForm = () => {
 
-    const defaultBoard = boards[0] ? boards[0].title : '';
-
-    let [board, setBoard] = useState(defaultBoard);
+    let [board, setBoard] = useState({});
     let [name, setName] = useState("");
     let [description, setDescription] = useState("");
     let [category, setCategory] = useState(categories.ART);
 
-    const onClick = () => {
-        addTask(projectId, board, name, description, category);
+    let { boards, addTask } = useContext(BoardsContext);
 
-        setBoard(defaultBoard);
+    useEffect(() => {
+        const defaultBoard = boards[0] ? boards[0].title : '';
+        setBoard({ ...defaultBoard });
+    }, []);
+
+    const onClick = () => {
+        const defaultBoard = boards[0] ? boards[0].title : '';
+
+        addTask(board, name, description, category);
+
+        // Resetting form
+        setBoard({ ...defaultBoard });
         setName("");
         setDescription("");
         setCategory(categories.ART);

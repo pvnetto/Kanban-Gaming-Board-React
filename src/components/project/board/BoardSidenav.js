@@ -1,9 +1,9 @@
 import React from 'react';
 import { faGamepad, faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 
-import SidenavButton from '../../../commons/sidenav/SidenavButton';
-import { createWorkspaceLink, createWorkspaceBtn } from '../../../commons/sidenav/SidenavButtonCreator';
-import { allCategories } from '../../../commons/Categories';
+import SidenavButton from '../../commons/sidenav/SidenavButton';
+import { createWorkspaceLink, createWorkspaceBtn } from '../../commons/sidenav/SidenavButtonCreator';
+import { allCategories } from '../../commons/Categories';
 
 const BoardSidenav = ({ onClick, activeCategory }) => {
 

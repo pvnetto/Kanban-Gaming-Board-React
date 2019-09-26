@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
+import { SingleDatePicker } from 'react-dates';
 
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-import { SingleDatePicker } from 'react-dates';
 
-const CreateBoardForm = ({ addBoard, projectId }) => {
+import BoardsContext from '../../contexts/BoardsContext';
+
+const CreateBoardForm = () => {
 
     let [title, setTitle] = useState("");
     let [description, setDescription] = useState("");
@@ -16,8 +18,10 @@ const CreateBoardForm = ({ addBoard, projectId }) => {
     let [endDate, setEndDate] = useState(null);
     let [endFocused, setEndFocused] = useState(false);
 
+    let { addBoard } = useContext(BoardsContext);
+
     const onClick = () => {
-        addBoard(projectId, title, description, startDate, endDate);
+        addBoard(title, description, startDate, endDate);
 
         setTitle("");
         setDescription("");
