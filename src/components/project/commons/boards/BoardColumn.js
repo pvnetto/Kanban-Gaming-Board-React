@@ -49,7 +49,7 @@ const BoardColumn = (props) => {
     let id = props.type == 'Planned' ? 0 : 1;
 
     return (
-        <Droppable droppableId={`droppable-${props.type}`}>
+        <Droppable droppableId={`${props.type}`}>
             {(provided, snapshot) => (
                 <div ref={provided.innerRef}
                     className={`w-100 h-100 d-flex flex-column align-items-center justify-content-start py-4 ${getDroppableStyle(snapshot.isDraggingOver)}`}>

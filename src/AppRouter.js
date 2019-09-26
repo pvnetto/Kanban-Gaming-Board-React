@@ -18,7 +18,6 @@ let tasks = [
         description: "Rules for the movement system can be found here: ",
         category: categories.PROGRAMMING,
         status: TaskStatus.PLANNED,
-        orderInCol: 2
     },
     {
         id: 1,
@@ -211,6 +210,37 @@ const AppRouter = () => {
         setAlert({ show: true, msg: `Log #${newLog.id} was added.` })
     }
 
+    const reorder = (list, srcTask, destTask) => {
+        const result = Array.from(list);
+
+        let srcTaskIdInList = tasks.findIndex(task => task.id == srcTask.id);
+        let destTaskIdInList = tasks.findIndex(task => task.id == destTask.id);
+
+        const [removed] = result.splice(srcTaskIdInList, 1);
+        result.splice(destTaskIdInList, 0, removed);
+
+        return result;
+    }
+
+    const move = (srcType, destType, srcIdx, destIdx) => {
+        let srcTypeTasks = tasks.filter(task => task.status == srcType);
+        let destTypeTasks = tasks.filter(task => task.status == destType);
+
+        // Updating source task type to the same as destination task
+        let srcTask = srcTypeTasks[srcIdx];
+        let srcTaskIdInList = tasks.findIndex(task => task.id == srcTask.id);
+        tasks[srcTaskIdInList].status = destType;
+
+        // Repositioning source task
+        let destTask = destTypeTasks[destIdx];
+        // If there's a destination a task, the source task takes its place
+        if (destTask) {
+            tasks = reorder(tasks, srcTask, destTask);
+        }
+
+        return tasks;
+    }
+
     const onDragEnd = (result) => {
         const { source, destination } = result;
 
@@ -221,12 +251,18 @@ const AppRouter = () => {
 
         // If the draggable was dropped on the same droppable column, reorder the list
         if (source.droppableId === destination.droppableId) {
-            console.log("reordering");
+            let typeTasks = tasks.filter(task => task.status == destination.droppableId);
+            let srcTask = typeTasks[source.index];
+            let destTask = typeTasks[destination.index];
+            tasks = reorder(tasks, srcTask, destTask);
+
+            user.projects[0].boards[0].tasks = tasks;
         }
 
         // If the draggable was dropped on another droppable column, move it
         else {
-            console.log("moving");
+            tasks = move(source.droppableId, destination.droppableId, source.index, destination.index);
+            user.projects[0].boards[0].tasks = tasks;
         }
     }
 
