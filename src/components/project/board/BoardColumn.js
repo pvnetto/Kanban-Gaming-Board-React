@@ -1,5 +1,5 @@
 import React from 'react';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -45,8 +45,6 @@ const getDroppableStyle = isDraggingOver => {
 }
 
 const BoardColumn = (props) => {
-
-    let id = props.type == 'Planned' ? 0 : 1;
 
     return (
 

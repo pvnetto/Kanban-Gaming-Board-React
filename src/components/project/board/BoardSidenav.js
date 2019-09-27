@@ -2,7 +2,7 @@ import React from 'react';
 import { faGamepad, faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 
 import SidenavButton from '../../commons/sidenav/SidenavButton';
-import { createWorkspaceLink, createWorkspaceBtn } from '../../commons/sidenav/SidenavButtonCreator';
+import { createWorkspaceBtn } from '../../commons/sidenav/SidenavButtonCreator';
 import { allCategories } from '../../commons/Categories';
 
 const BoardSidenav = ({ onClick, activeCategory }) => {
@@ -23,7 +23,7 @@ const BoardSidenav = ({ onClick, activeCategory }) => {
         <div className="position-absolute">
             <div className="inner-sidenav bg-dark border-2 border-light">
                 <ul className="navbar-nav w-100 d-flex flex-column justify-content-start">
-                    {boardBtns.map(btn => <SidenavButton {...btn} isExpanded={true} onClick={() => onClick(btn.btnTitle)} active={activeCategory == btn.btnTitle} />)}
+                    {boardBtns.map(btn => <SidenavButton {...btn} isExpanded={true} onClick={() => onClick(btn.btnTitle)} active={activeCategory === btn.btnTitle} />)}
                 </ul>
             </div>
         </div>

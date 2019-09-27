@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Col } from 'react-bootstrap';
 
 import { categories } from '../../commons/Categories';
 import BoardsContext from '../../contexts/BoardsContext';

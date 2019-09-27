@@ -3,8 +3,6 @@ import { Dropdown } from 'react-bootstrap';
 import { Draggable } from 'react-beautiful-dnd';
 import "./TaskItem.scss";
 
-const grid = 8;
-
 const getDraggableStyle = (isDragging, draggableStyle) => {
     return {
         userSelect: 'none',

@@ -11,8 +11,6 @@ import ErrorPage from '../../commons/ErrorPage';
 
 const ProjectWorkspaceRoutes = (props) => {
 
-    const projectId = props.params.projectId;
-
     return (
         <Switch>
             <Route exact path={`${props.url}/dashboard`} component={ProjectDashboard} />

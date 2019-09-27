@@ -19,7 +19,7 @@ const ProjectWorkspace = (props) => {
 
     useEffect(() => {
         const projectId = props.match.params.projectId;
-        const currentProject = projects.find(element => element.id == projectId);
+        const currentProject = projects.find(element => element.id === parseInt(projectId));
         setProject({ ...currentProject });
     }, []);
 
@@ -29,13 +29,12 @@ const ProjectWorkspace = (props) => {
             description,
             startDate,
             endDate
-        }
+        };
 
         setBoards([...boards, newBoard]);
         // setAlert({ show: true, msg: `${title} board was succesfully created.` });
     }
 
-    
     // TODO: Optimize to avoid passing all the text through context, and passing only necessary tasks instead
     const addTask = (board, name, description, category) => {
         let newTask = {

@@ -10,7 +10,7 @@ const ProjectBacklog = (props) => {
     let { tasks } = useContext(BoardsContext);
 
     useEffect(() => {
-        const backlogTasks = tasks.filter(task => task.status == TaskStatus.BACKLOG);
+        const backlogTasks = tasks.filter(task => task.status === TaskStatus.BACKLOG);
         setBoardTasks([...backlogTasks]);
     }, [tasks]);
 

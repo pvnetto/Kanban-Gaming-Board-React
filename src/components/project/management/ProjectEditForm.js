@@ -8,14 +8,14 @@ const ProjectEditForm = () => {
     let [description, setDescription] = useState("");
     let [generalInfo, setGeneralInfo] = useState("");
 
-    let {project, editProject} = useContext(BoardsContext);
+    let { project, editProject } = useContext(BoardsContext);
 
     // Initializing state on useEffect, instead of initializing with props as default values
     useEffect(() => {
         setTitle(project.title);
         setDescription(project.description);
         setGeneralInfo(project.generalInfo);
-    }, [])
+    }, []);
 
     const onClick = () => {
         editProject(title, description, generalInfo);

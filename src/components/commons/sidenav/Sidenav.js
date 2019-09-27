@@ -4,7 +4,6 @@ import SidenavLink from './SidenavLink';
 
 import { faPowerOff, faWindowMinimize } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SidenavButton from './SidenavButton';
 
 const Sidenav = (props) => {
 

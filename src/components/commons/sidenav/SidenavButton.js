@@ -1,6 +1,5 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from 'react-bootstrap';
 
 const SidenavButton = ({ btnTitle, btnIcon, onClick, active, isExpanded }) => {
     return (

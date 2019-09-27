@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Row, Col } from 'react-bootstrap';
-import { faGamepad, faPlusSquare, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 import SectionNavbar from '../../commons/SectionNavbar';
 import SectionNavbarButton from '../../commons/SectionNavbarButton';
@@ -42,8 +42,8 @@ const BoardContainer = (props) => {
     const reorder = (list, srcTask, destTask) => {
         const result = Array.from(list);
 
-        let srcTaskIdInList = tasks.findIndex(task => task.id == srcTask.id);
-        let destTaskIdInList = tasks.findIndex(task => task.id == destTask.id);
+        let srcTaskIdInList = tasks.findIndex(task => task.id === srcTask.id);
+        let destTaskIdInList = tasks.findIndex(task => task.id === destTask.id);
 
         const [removed] = result.splice(srcTaskIdInList, 1);
         result.splice(destTaskIdInList, 0, removed);
@@ -53,12 +53,12 @@ const BoardContainer = (props) => {
 
     const move = (srcType, destType, srcIdx, destIdx) => {
         let tasksCopy = [...tasks];
-        let srcTypeTasks = tasksCopy.filter(task => task.status == srcType);
-        let destTypeTasks = tasksCopy.filter(task => task.status == destType);
+        let srcTypeTasks = tasksCopy.filter(task => task.status === srcType);
+        let destTypeTasks = tasksCopy.filter(task => task.status === destType);
 
         // Updating source task type to the same as destination task
         let srcTask = srcTypeTasks[srcIdx];
-        let srcTaskIdInList = tasksCopy.findIndex(task => task.id == srcTask.id);
+        let srcTaskIdInList = tasksCopy.findIndex(task => task.id === srcTask.id);
         tasksCopy[srcTaskIdInList].status = destType;
 
         // Repositioning source task
@@ -82,7 +82,7 @@ const BoardContainer = (props) => {
         let tasksCopy = [...tasks];
         // If the draggable was dropped on the same droppable column, reorder the list
         if (source.droppableId === destination.droppableId) {
-            let typeTasks = tasksCopy.filter(task => task.status == destination.droppableId);
+            let typeTasks = tasksCopy.filter(task => task.status === destination.droppableId);
             let srcTask = typeTasks[source.index];
             let destTask = typeTasks[destination.index];
             tasksCopy = reorder(tasksCopy, srcTask, destTask);

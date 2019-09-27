@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { DragDropContext } from 'react-beautiful-dnd';
 
 import LoginPage from './components/login/LoginPage';
 import UserWorkspace from './components/user/UserWorkspace';
 import ProjectWorkspace from './components/project/ProjectWorkspace';
 import ErrorPage from './components/commons/ErrorPage';
 
-import { categories } from './components/commons/Categories';
-import TaskStatus from './components/commons/TaskStatus';
 import PageAlert from './components/commons/PageAlert';
 
 import { UserProvider } from './components/contexts/UserContext';
 import { ProjectsProvider } from './components/contexts/ProjectContext';
 
-import { projects as mockProjects, mockTasks, mockLogs } from './mock';
+import { projects as mockProjects, mockTasks } from './mock';
 
 const AppRouter = () => {
 
@@ -44,7 +41,7 @@ const AppRouter = () => {
     }
 
     const updateProject = (newProject) => {
-        let projectIdx = projects.findIndex(project => project.id == newProject.id);
+        let projectIdx = projects.findIndex(project => project.id === newProject.id);
         let projectsCopy = [...projects];
         projectsCopy[projectIdx] = newProject;
         setProjects([...projectsCopy]);
@@ -53,7 +50,7 @@ const AppRouter = () => {
     }
 
     const updateTask = (taskID, status) => {
-        let newTask = mockTasks.find(task => task.id == taskID);
+        let newTask = mockTasks.find(task => task.id === taskID);
         newTask.status = status;
 
         console.log(newTask);
