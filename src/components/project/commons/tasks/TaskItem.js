@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Dropdown } from 'react-bootstrap';
 import { Draggable } from 'react-beautiful-dnd';
-import TaskStatus from '../../../commons/TaskStatus';
 import "./TaskItem.scss";
 
 const grid = 8;
@@ -14,18 +14,39 @@ const getDraggableStyle = (isDragging, draggableStyle) => {
 
 const TaskItem = (props) => {
 
+    let [showDropdown, setShowDropdown] = useState(false);
+    let [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
+
+    const enableDropdown = (e) => {
+        e.preventDefault();
+        setShowDropdown(true);
+        setDropdownPos({ top: e.pageY - 10, left: e.pageX - 90 })
+    }
+
+    const disableDropdown = (e) => {
+        if (showDropdown) {
+            setShowDropdown(false)
+        }
+    }
+
     return (
         <Draggable key={props.id} draggableId={`${props.id}`} index={props.index}>
             {(provided, snapshot) => (
-                <div style={getDraggableStyle(snapshot.isDragging, provided.draggableProps.style)}
+                <div onClick={disableDropdown} onMouseLeave={disableDropdown} onContextMenu={enableDropdown}
+                    style={getDraggableStyle(snapshot.isDragging, provided.draggableProps.style)}
                     ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
                     className={`task-hover bg-dark bg-dark-hover border-radius-5 p-3 mb-2 disable-select cursor-pointer`}>
 
-                    <p className="text-truncate"> <span className="understated">#{props.index}</span> <span className="font-weight-bold">{props.name}</span></p>
+                    <p className="text-break"> <span className="understated">#{props.index}</span> <span className="font-weight-bold">{props.name}</span></p>
                     <div className="d-flex flex-row justify-content-between">
-                        <p className="text-sm text-truncate">{props.description}</p>
+                        <p className="text-sm text-break">{props.description}</p>
                         <p className="text-sm understated ml-1">{"(" + props.category + ")"}</p>
                     </div>
+
+                    <Dropdown.Menu className="position-fixed" style={{ ...dropdownPos }} show={showDropdown}>
+                        <Dropdown.Item onClick={disableDropdown} onSelect={() => console.log("Selecting")}>Edit</Dropdown.Item>
+                        <Dropdown.Item onClick={disableDropdown} onSelect={() => console.log("Selecting")}>Delete</Dropdown.Item>
+                    </Dropdown.Menu>
                 </div>
             )}
         </Draggable>

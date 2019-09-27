@@ -101,16 +101,16 @@ REACT KANBAN BOARD:
 			- Remover tarefa
 		- Adicionar design log						DONE
 			- Remover design log
-		- Refatorar para Context API
+		- Refatorar para Context API				DONE
 		- Autenticação
-			- Roles
+			- Logar
 			- Convidar para projeto
-			- Autorizar outros usuários no projeto
+			- Roles
+			- Autorizar usuários de acordo com roles
 		- Integração com banco de dados firebase
 		- Métricas simples para usuário/projeto
-		- 
 	- Experimentar:
-		- Context API
+		- Context API								DONE
 		- PropTypes
 		- Form validation (pure HTML or Formik, check https://react-bootstrap.github.io/components/forms/)
 		- Substituir classNames por componentes Bootstrap onde possível

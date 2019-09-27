@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Row, Col } from 'react-bootstrap';
-import { faGamepad, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faPlusSquare, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import SectionNavbar from '../../commons/SectionNavbar';
 import SectionNavbarButton from '../../commons/SectionNavbarButton';
@@ -31,6 +31,8 @@ const BoardContainer = (props) => {
 
     let { boards, project, tasks } = useContext(BoardsContext);
 
+    let isBacklog = false;
+
     useEffect(() => {
         const currentBoard = boards.find(board => board.title === props.boardId);
 
@@ -41,6 +43,7 @@ const BoardContainer = (props) => {
         else {
             const backlogTasks = tasks.filter(task => task.status == TaskStatus.BACKLOG);
             setBoardTasks([...backlogTasks]);
+            isBacklog = true;
         }
     }, [tasks]);
 
@@ -109,25 +112,29 @@ const BoardContainer = (props) => {
     }
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
+        <>
+            <SectionNavbar sectionTitle={props.title} sectionIcon={faGamepad}>
+                <SectionNavbarButton btnTitle={"Add Task"} btnIcon={faPlusSquare} onClick={() => setShowCreateTask(true)} />
+                {
+                    !isBacklog &&
+                    <SectionNavbarButton btnTitle={"Close board"} btnIcon={faWindowClose} onClick={() => console.log("Closing board")} />
+                }
+            </SectionNavbar>
             <ModalBase title={"Add Task"} showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} >
                 <CreateTaskForm {...props} projectId={project.id} />
             </ModalBase>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Row noGutters={true} className="d-flex flex-fill w-100">
+                    <BoardSidenav onClick={setCategory} activeCategory={category} />
 
-            <SectionNavbar sectionTitle={props.title} sectionIcon={faGamepad}>
-                <SectionNavbarButton btnTitle={"Add Task"} btnIcon={faPlusSquare} onClick={() => setShowCreateTask(true)} />
-            </SectionNavbar>
-
-            <Row noGutters={true} className="d-flex flex-fill w-100">
-                <BoardSidenav onClick={setCategory} activeCategory={category} />
-
-                <Col className="inner-workspace d-flex flex-row align-items-stretch">
-                    {
-                        React.Children.map(props.children, (status) => <BoardColumnWrapper cols={12 / props.children.length} type={status} tasks={boardTasks} updateTask={props.updateTask} />)
-                    }
-                </Col>
-            </Row>
-        </DragDropContext>
+                    <Col className="inner-workspace d-flex flex-row align-items-stretch">
+                        {
+                            React.Children.map(props.children, (status) => <BoardColumnWrapper cols={12 / props.children.length} type={status} tasks={boardTasks} updateTask={props.updateTask} />)
+                        }
+                    </Col>
+                </Row>
+            </DragDropContext>
+        </>
     );
 };
 
