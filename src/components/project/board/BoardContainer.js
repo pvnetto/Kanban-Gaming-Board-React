@@ -12,45 +12,32 @@ import BoardsContext from '../../contexts/BoardsContext';
 import BoardSidenav from './BoardSidenav';
 import BoardColumn from './BoardColumn';
 
-import TaskStatus from '../../commons/TaskStatus';
-
-const BoardColumnWrapper = ({ cols, type, tasks, updateTask }) => {
+export const BoardContainerHeader = ({ title, children }) => {
+    let [showCreateTask, setShowCreateTask] = useState(false);
     return (
-        <Col xs={cols}>
-            <BoardColumn type={type} tasks={tasks.filter(task => task.status === type)} updateTask={updateTask} />
-        </Col>
-    )
+        <>
+            <SectionNavbar sectionTitle={title} sectionIcon={faGamepad}>
+                <SectionNavbarButton btnTitle={"Add Task"} btnIcon={faPlusSquare} onClick={() => setShowCreateTask(true)} />
+                {children}
+            </SectionNavbar>
+            <ModalBase title={"Add Task"} showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} >
+                <CreateTaskForm />
+            </ModalBase>
+        </>
+    );
 }
 
 const BoardContainer = (props) => {
 
     let [category, setCategory] = useState(allCategories.ALL);
-    let [showCreateTask, setShowCreateTask] = useState(false);
-    let [board, setBoard] = useState({});
-    let [boardTasks, setBoardTasks] = useState([]);
+    let [categoryTasks, setCategoryTasks] = useState([]);
 
-    let { boards, project, tasks } = useContext(BoardsContext);
-
-    let isBacklog = false;
+    let { tasks } = useContext(BoardsContext);
 
     useEffect(() => {
-        const currentBoard = boards.find(board => board.title === props.boardId);
-
-        if (currentBoard) {
-            setBoard({ ...currentBoard });
-            setBoardTasks([...tasks]);
-        }
-        else {
-            const backlogTasks = tasks.filter(task => task.status == TaskStatus.BACKLOG);
-            setBoardTasks([...backlogTasks]);
-            isBacklog = true;
-        }
-    }, [tasks]);
-
-    useEffect(() => {
-        const categoryTasks = category === allCategories.ALL ? tasks : tasks.filter(task => task.category === category);
-        setBoardTasks([...categoryTasks]);
-    }, [tasks, category]);
+        const filteredTasks = category === allCategories.ALL ? props.tasks : props.tasks.filter(task => task.category === category);
+        setCategoryTasks([...filteredTasks]);
+    }, [props.tasks, category]);
 
     const reorder = (list, srcTask, destTask) => {
         const result = Array.from(list);
@@ -100,36 +87,31 @@ const BoardContainer = (props) => {
             let destTask = typeTasks[destination.index];
             tasksCopy = reorder(tasksCopy, srcTask, destTask);
 
-            setBoardTasks(tasksCopy);
+            setCategoryTasks(tasksCopy);
         }
 
         // If the draggable was dropped on another droppable column, move it
         else {
             tasksCopy = move(source.droppableId, destination.droppableId, source.index, destination.index);
 
-            setBoardTasks(tasksCopy);
+            setCategoryTasks(tasksCopy);
         }
     }
 
     return (
         <>
-            <SectionNavbar sectionTitle={props.title} sectionIcon={faGamepad}>
-                <SectionNavbarButton btnTitle={"Add Task"} btnIcon={faPlusSquare} onClick={() => setShowCreateTask(true)} />
-                {
-                    !isBacklog &&
-                    <SectionNavbarButton btnTitle={"Close board"} btnIcon={faWindowClose} onClick={() => console.log("Closing board")} />
-                }
-            </SectionNavbar>
-            <ModalBase title={"Add Task"} showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} >
-                <CreateTaskForm {...props} projectId={project.id} />
-            </ModalBase>
+            {props.children}
             <DragDropContext onDragEnd={onDragEnd}>
                 <Row noGutters={true} className="d-flex flex-fill w-100">
                     <BoardSidenav onClick={setCategory} activeCategory={category} />
 
                     <Col className="inner-workspace d-flex flex-row align-items-stretch">
                         {
-                            React.Children.map(props.children, (status) => <BoardColumnWrapper cols={12 / props.children.length} type={status} tasks={boardTasks} updateTask={props.updateTask} />)
+                            props.columns.map((status) => (
+                                <Col xs={12 / props.columns.length}>
+                                    <BoardColumn type={status} tasks={categoryTasks.filter(task => task.status === status)} updateTask={props.updateTask} />
+                                </Col>
+                            ))
                         }
                     </Col>
                 </Row>
@@ -137,5 +119,7 @@ const BoardContainer = (props) => {
         </>
     );
 };
+
+BoardContainer.Header = BoardContainerHeader;
 
 export default BoardContainer;
