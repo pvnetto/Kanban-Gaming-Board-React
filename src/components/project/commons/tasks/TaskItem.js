@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { Draggable } from 'react-beautiful-dnd';
 import "./TaskItem.scss";
+import BoardsContext from '../../../contexts/BoardsContext';
 
 const getDraggableStyle = (isDragging, draggableStyle) => {
     return {
@@ -14,6 +15,8 @@ const TaskItem = (props) => {
 
     let [showDropdown, setShowDropdown] = useState(false);
     let [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
+
+    const { removeTask } = useContext(BoardsContext);
 
     const enableDropdown = (e) => {
         e.preventDefault();
@@ -43,7 +46,7 @@ const TaskItem = (props) => {
 
                     <Dropdown.Menu className="position-fixed" style={{ ...dropdownPos }} show={showDropdown}>
                         <Dropdown.Item onClick={disableDropdown} onSelect={() => console.log("Selecting")}>Edit</Dropdown.Item>
-                        <Dropdown.Item onClick={disableDropdown} onSelect={() => console.log("Selecting")}>Delete</Dropdown.Item>
+                        <Dropdown.Item onClick={disableDropdown} onSelect={() => removeTask(props.id)}>Delete</Dropdown.Item>
                     </Dropdown.Menu>
                 </div>
             )}

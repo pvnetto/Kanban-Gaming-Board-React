@@ -49,6 +49,14 @@ const ProjectWorkspace = (props) => {
         // setAlert({ show: true, msg: `${name} task was succesfully created.` });
     }
 
+    const removeTask = (id) => {
+        const tasksCopy = [...tasks];
+        const boardToRemove = tasksCopy.findIndex(task => task.id === id);
+        tasksCopy.splice(boardToRemove, 1);
+
+        setTasks([...tasksCopy]);
+    }
+
 
     const editProject = (title, description, generalInfo) => {
         const newProject = { ...project, title, description, generalInfo };
@@ -62,7 +70,7 @@ const ProjectWorkspace = (props) => {
     }
 
     return (
-        <BoardsProvider value={{ project, boards, tasks, editProject, addBoard, addTask }}>
+        <BoardsProvider value={{ project, boards, tasks, editProject, addBoard, addTask, removeTask }}>
 
             <ProjectWorkspaceSidenav {...props.match} boards={boards} onExpand={toggleExpandWorkspace} />
             <Container fluid={true} className="full-height bg-primary p-0">

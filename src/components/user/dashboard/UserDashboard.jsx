@@ -22,7 +22,7 @@ const UserDashboard = (props) => {
     const userContext = useContext(UserContext);
     const projectsContext = useContext(ProjectsContext);
 
-    const projectItems = projectsContext.projects.map(project => <ProjectItem {...project} />)
+    const projectItems = projectsContext.projects.map((project, idx) => <ProjectItem key={idx} {...project} />)
     const closedProjects = [];
 
     return (

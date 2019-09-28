@@ -98,9 +98,9 @@ REACT KANBAN BOARD:
 		- Adicionar tarefa							DONE
 			- Adicionar ao backlog					DONE
 			- Mover tarefa (mudar status)			DONE
-			- Remover tarefa
+			- Remover tarefa						DONE
 		- Adicionar design log						DONE
-			- Remover design log
+			- Remover design log					DONE
 		- Refatorar para Context API				DONE
 		- Autenticação
 			- Logar

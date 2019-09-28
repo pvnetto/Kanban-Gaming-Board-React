@@ -3,11 +3,10 @@ import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArr
 
 import Sidenav from '../../commons/sidenav/Sidenav';
 import SidenavLink from '../../commons/sidenav/SidenavLink';
-import SidenavButtonExpand from '../../commons/sidenav/SidenavButtonExpand';
-import { createWorkspaceLink, createWorkspaceBtn } from '../../commons/sidenav/SidenavButtonCreator';
 import ModalBase from '../../commons/ModalBase';
 import CreateBoardForm from './CreateBoardForm';
 import CreateTaskForm from './CreateTaskForm';
+import SidenavExpand from '../../commons/sidenav/SidenavExpand';
 
 
 const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard }) => {
@@ -16,36 +15,42 @@ const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard }) =>
     const [showCreateBoard, setShowCreateBoard] = useState(false);
     const [showCreateTask, setShowCreateTask] = useState(false);
 
-    // Sidenav buttons configurations
-    const workspaceLinks = {
-        CREATE: createWorkspaceBtn("CREATE", faPlusSquare, url),
-        DASHBOARD: createWorkspaceLink("DASHBOARD", faGamepad, "/dashboard", url),
-        BOARDS: createWorkspaceBtn("BOARDS", faClipboardList, url),
-        BACKLOG: createWorkspaceLink("BACKLOG", faList, "/backlog", url),
-        DESIGN_LOG: createWorkspaceLink("DESIGN LOG", faEdit, "/design_log", url),
-        MANAGEMENT: createWorkspaceLink("MANAGEMENT", faCogs, "/management", url)
-    };
 
-    const createLinks = [
-        createWorkspaceBtn("Board", faList, () => setShowCreateBoard(true)),
-        createWorkspaceBtn("Task", faEdit, () => setShowCreateTask(true))
-    ]
+    const showExpandLinks = (show, isExpanded) => (
+        <>
+            <SidenavExpand.Link title="Board" icon={faList} show={show} isExpanded={isExpanded} onClick={() => setShowCreateBoard(true)} />
+            <SidenavExpand.Link title="Task" icon={faEdit} show={show} isExpanded={isExpanded} onClick={() => setShowCreateTask(true)} />
+        </>
+    );
 
-    const boardLinks = boards.map(board => createWorkspaceLink(board.title, faClipboardList, `/boards/${board.title}`, url));
+    const showBoardLinks = (show, isExpanded) => (
+        <>
+            {boards.map((board, idx) => (
+                <SidenavExpand.Link key={idx} title={board.title} icon={faClipboardList}
+                    link={`/boards/${board.title}`} url={url}
+                    show={show} isExpanded={isExpanded} />
+            ))}
+        </>
+    )
 
     // Sidenav buttons components
     const renderSidenavBtns = (isExpanded) => (
         <>
-            <SidenavButtonExpand {...workspaceLinks.CREATE} expandBtns={createLinks} isExpanded={isExpanded} />
-            <SidenavLink {...workspaceLinks.DASHBOARD} isExpanded={isExpanded} />
-            <SidenavButtonExpand {...workspaceLinks.BOARDS} expandBtns={boardLinks} isExpanded={isExpanded} />
-            <SidenavLink {...workspaceLinks.BACKLOG} isExpanded={isExpanded} />
-            <SidenavLink {...workspaceLinks.DESIGN_LOG} isExpanded={isExpanded} />
-            <SidenavLink {...workspaceLinks.MANAGEMENT} isExpanded={isExpanded} />
+            <SidenavExpand title={"CREATE"} icon={faPlusSquare} url={url} isExpanded={isExpanded}>
+                {showExpandLinks}
+            </ SidenavExpand>
+
+            <SidenavLink title={"DASHBOARD"} icon={faGamepad} link={"/dashboard"} url={url} isExpanded={isExpanded} />
+            <SidenavExpand title={"BOARDS"} icon={faClipboardList} url={url} isExpanded={isExpanded}>
+                {showBoardLinks}
+            </ SidenavExpand>
+            <SidenavLink title={"BACKLOG"} icon={faList} link={"/backlog"} url={url} isExpanded={isExpanded} />
+            <SidenavLink title={"DESIGN LOG"} icon={faEdit} link={"/design_log"} url={url} isExpanded={isExpanded} />
+            <SidenavLink title={"MANAGEMENT"} icon={faCogs} link={"/management"} url={url} isExpanded={isExpanded} />
 
             <hr className="m-1 border border-light" />
 
-            <SidenavLink btnTitle={"Back to Workspace"} btnIcon={faArrowLeft} url={"/workspace"} isExpanded={isExpanded} />
+            <SidenavLink title={"Back to Workspace"} icon={faArrowLeft} url={"/workspace"} isExpanded={isExpanded} />
         </>
     );
 

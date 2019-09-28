@@ -107,8 +107,8 @@ const BoardContainer = (props) => {
 
                     <Col className="inner-workspace d-flex flex-row align-items-stretch">
                         {
-                            props.columns.map((status) => (
-                                <Col xs={12 / props.columns.length}>
+                            props.columns.map((status, idx) => (
+                                <Col key={idx} xs={12 / props.columns.length}>
                                     <BoardColumn type={status} tasks={categoryTasks.filter(task => task.status === status)} updateTask={props.updateTask} />
                                 </Col>
                             ))

@@ -19,10 +19,10 @@ const UserWorkspaceSidenav = (props) => {
 
     const renderSidenavButtons = (isExpanded) => (
         <>
-            <SidenavButton btnTitle={"CREATE PROJECT"} btnIcon={faPlusSquare} onClick={handleOpenModal} isExpanded={isExpanded} />
-            <SidenavLink btnTitle={"MY DASHBOARD"} btnIcon={faGamepad} url={`${props.url}`} link={"/dashboard"} isExpanded={isExpanded} />
-            <SidenavLink btnTitle={"MANAGEMENT"} btnIcon={faCogs} url={`${props.url}`} link={"/management"} isExpanded={isExpanded} />
-            <hr className="m-1 border border-light"/>
+            <SidenavButton title={"CREATE PROJECT"} icon={faPlusSquare} onClick={handleOpenModal} isExpanded={isExpanded} />
+            <SidenavLink title={"MY DASHBOARD"} icon={faGamepad} url={`${props.url}`} link={"/dashboard"} isExpanded={isExpanded} />
+            <SidenavLink title={"MANAGEMENT"} icon={faCogs} url={`${props.url}`} link={"/management"} isExpanded={isExpanded} />
+            <hr className="m-1 border border-light" />
         </>
     )
 

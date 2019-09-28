@@ -30,6 +30,14 @@ const ProjectDesignLog = () => {
         // setAlert({ show: true, msg: `Log #${newLog.id} was added.` })
     }
 
+    const removeLog = (id) => {
+        const logsCopy = [...logs];
+        const logToRemove = logsCopy.findIndex(log => log.id === id);
+        logsCopy.splice(logToRemove, 1);
+
+        setLogs([...logsCopy]);
+    }
+
     return (
         <Row noGutters={true}>
 
@@ -42,8 +50,8 @@ const ProjectDesignLog = () => {
             </SectionNavbar>
 
             <Col xs={12} className="p-4 d-flex flex-column-reverse">
-                {logs ?
-                    logs.map(entry => <DesignLogItem {...entry} />) :
+                {logs && logs.length > 0 ?
+                    logs.map((entry) => <DesignLogItem key={entry.id} removeLog={removeLog} {...entry} />) :
                     "No log entries found :("}
             </Col>
         </Row>

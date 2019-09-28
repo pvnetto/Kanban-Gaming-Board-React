@@ -16,9 +16,9 @@ const DesignLogItem = (props) => {
                     {props.title}
                 </p>
 
-                <DropdownButton drop={"left"} onClick={(e) => e.stopPropagation()}>
+                <DropdownButton drop={"left"}>
                     <Dropdown.Item>Edit</Dropdown.Item>
-                    <Dropdown.Item>Delete</Dropdown.Item>
+                    <Dropdown.Item onSelect={() => props.removeLog(props.id)}>Delete</Dropdown.Item>
                 </DropdownButton>
             </div>
 

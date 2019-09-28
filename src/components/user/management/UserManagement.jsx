@@ -8,7 +8,7 @@ import ProjectsContext from '../../contexts/ProjectContext';
 
 const UserManagement = (props) => {
     const projectsContext = useContext(ProjectsContext);
-    const projectItems = projectsContext.projects.map(project => <ProjectItem {...project} redirect={'/management'} />);
+    const projectItems = projectsContext.projects.map((project, idx) => <ProjectItem key={idx} {...project} redirect={'/management'} />);
 
     return (
 
