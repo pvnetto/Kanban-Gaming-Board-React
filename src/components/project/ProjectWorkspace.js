@@ -15,6 +15,8 @@ const ProjectWorkspace = (props) => {
     let [boards, setBoards] = useState([...mockBoards]);
     let [expandWorkspace, setExpandWorkspace] = useState(true);
     let [project, setProject] = useState({});
+
+     // TODO: Optimize to avoid passing all the text through context, and passing only necessary tasks instead
     let [tasks, setTasks] = useState([...mockTasks]);
 
     useEffect(() => {
@@ -35,7 +37,15 @@ const ProjectWorkspace = (props) => {
         // setAlert({ show: true, msg: `${title} board was succesfully created.` });
     }
 
-    // TODO: Optimize to avoid passing all the text through context, and passing only necessary tasks instead
+    // TODO: Also remove all tasks
+    const removeBoard = (id) => {
+        const boardsCopy = [...boards];
+        const boardToRemove = boardsCopy.findIndex(board => board.id === id);
+        boardsCopy.splice(boardToRemove, 1);
+
+        setBoards([...boardsCopy]);
+    }
+
     const addTask = (board, name, description, category) => {
         let newTask = {
             id: tasks.length,
@@ -51,8 +61,8 @@ const ProjectWorkspace = (props) => {
 
     const removeTask = (id) => {
         const tasksCopy = [...tasks];
-        const boardToRemove = tasksCopy.findIndex(task => task.id === id);
-        tasksCopy.splice(boardToRemove, 1);
+        const taskToRemove = tasksCopy.findIndex(task => task.id === id);
+        tasksCopy.splice(taskToRemove, 1);
 
         setTasks([...tasksCopy]);
     }
@@ -70,7 +80,7 @@ const ProjectWorkspace = (props) => {
     }
 
     return (
-        <BoardsProvider value={{ project, boards, tasks, editProject, addBoard, addTask, removeTask }}>
+        <BoardsProvider value={{ project, boards, tasks, editProject, addBoard, removeBoard, addTask, removeTask }}>
 
             <ProjectWorkspaceSidenav {...props.match} boards={boards} onExpand={toggleExpandWorkspace} />
             <Container fluid={true} className="full-height bg-primary p-0">

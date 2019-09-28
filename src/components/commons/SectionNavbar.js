@@ -2,6 +2,9 @@ import React from 'react';
 import { FontAwesomeIcon } from '../../../node_modules/@fortawesome/react-fontawesome';
 import { Row, Col } from 'react-bootstrap';
 
+import SectionNavbarButton from './SectionNavbarButton';
+import SectionNavbarLink from './SectionNavbarLink';
+
 const SectionNavbar = (props) => {
     return (
         <Row noGutters={true} className="w-100">
@@ -25,5 +28,8 @@ const SectionNavbar = (props) => {
         </Row>
     );
 };
+
+SectionNavbar.Button = SectionNavbarButton;
+SectionNavbar.Link = SectionNavbarLink;
 
 export default SectionNavbar;
