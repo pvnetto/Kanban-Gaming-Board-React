@@ -40,6 +40,16 @@ const AppRouter = () => {
         setAlert({ show: true, msg: `${title} project was succesfully created.` });
     }
 
+    const removeProject = (id) => {
+        // TODO: Also remove boards, tasks, logs etc
+
+        const projectsCopy = [...projects];
+        const projectToRemove = projectsCopy.findIndex(project => project.id === id);
+        projectsCopy.splice(projectToRemove, 1);
+
+        setProjects([...projectsCopy]);
+    }
+
     const updateProject = (newProject) => {
         let projectIdx = projects.findIndex(project => project.id === newProject.id);
         let projectsCopy = [...projects];
@@ -72,7 +82,7 @@ const AppRouter = () => {
                     </Route>
                     <Route exact path="/login" component={LoginPage} />
 
-                    <ProjectsProvider value={{ projects, addProject, updateProject }}>
+                    <ProjectsProvider value={{ projects, addProject, removeProject, updateProject }}>
                         <Route path="/workspace" component={UserWorkspace} />
                         <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ updateTask }} />} />
                     </ ProjectsProvider>
