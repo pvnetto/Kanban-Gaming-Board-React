@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import LoginPage from './components/login/LoginPage';
@@ -13,18 +13,26 @@ import { ProjectsProvider } from './components/contexts/ProjectContext';
 
 import { projects as mockProjects, mockTasks } from './mock';
 
+import Auth0Client from './auth0';
+import Firebase from './firebase';
+
 const AppRouter = () => {
 
     let [alert, setAlert] = useState({ show: false, msg: "" });
+    let [auth0Client, setAuth0Client] = useState(new Auth0Client());
+    let [firebaseClient, setFirebaseClient] = useState(new Firebase());
     let [user, setUser] = useState({
         name: "Paivaaaa",
         email: "pvnetto1@gmail.com",
         avatarUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     });
+    let [isAuthenticated, setAuthenticated] = useState(false);
 
     let [projects, setProjects] = useState([
         ...mockProjects
     ]);
+
+    const signIn = () => auth0Client.signIn();
 
     const addProject = (title, description, generalInfo, author) => {
         let id = projects.length;
@@ -37,6 +45,8 @@ const AppRouter = () => {
         };
 
         setProjects([...projects, newProject]);
+
+        firebaseClient.addMessage("New message");
         setAlert({ show: true, msg: `${title} project was succesfully created.` });
     }
 
@@ -72,7 +82,7 @@ const AppRouter = () => {
     }
 
     return (
-        <UserProvider value={{ ...user, updateUserName }}>
+        <UserProvider value={{ ...user, setUser, signIn, updateUserName, auth0Client, firebaseClient }}>
             <BrowserRouter>
                 <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
 

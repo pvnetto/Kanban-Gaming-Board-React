@@ -92,9 +92,9 @@ REACT KANBAN BOARD:
 	- Core features:
 		- Adicionar projeto							DONE
 			- Editar projeto (nome, descrição etc)	DONE
-			- Remover projeto (fechar)
+			- Remover projeto						DONE
 		- Adicionar board							DONE
-			- Remover board (fechar)
+			- Remover board							DONE
 		- Adicionar tarefa							DONE
 			- Adicionar ao backlog					DONE
 			- Mover tarefa (mudar status)			DONE
