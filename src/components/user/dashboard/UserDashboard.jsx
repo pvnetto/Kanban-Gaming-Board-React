@@ -8,6 +8,7 @@ import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/free-solid-svg-icons';
 import ProjectsContext from '../../contexts/ProjectContext';
 import UserContext from '../../contexts/UserContext';
+import Firebase from '../../../firebase';
 
 const WelcomeSection = ({ username }) => {
     return (
@@ -18,7 +19,7 @@ const WelcomeSection = ({ username }) => {
 }
 
 const UserDashboard = (props) => {
-    const { name, auth0Client, firebaseClient, setUser } = useContext(UserContext);
+    const { name, auth0Client, setFirebaseClient, setUser } = useContext(UserContext);
     const projectsContext = useContext(ProjectsContext);
 
     const projectItems = projectsContext.projects.map((project, idx) => <ProjectItem key={idx} {...project} />)
@@ -53,20 +54,20 @@ const UserDashboard = (props) => {
     }, []);
 
     async function setFirebaseCustomToken() {
-        console.log(auth0Client.getIdToken());
+        const firebaseClient = new Firebase();
+
         const response = await fetch('http://localhost:3001/firebase', {
             headers: {
-                Authorization: `Bearer ${auth0Client.getIdToken()}`,
+                Authorization: `Bearer ${auth0Client.getAccessToken()}`,
             },
         });
-
-        console.log(response.status);
 
         const data = await response.json();
         await firebaseClient.setToken(data.firebaseToken);
         await firebaseClient.updateProfile(auth0Client.getProfile());
 
         setAuthenticated(true);
+        setFirebaseClient(firebaseClient);
     }
 
     return (

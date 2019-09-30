@@ -4,20 +4,23 @@ import auth0 from 'auth0-js';
 export default class Auth0Client {
     constructor() {
         this._idToken = null;
+        this._accessToken = null;
         this._profile = null;
 
         // Initializes the auth0 library with the developer's auth0 credentials (found in auth0 dashboard)
         this._auth0Client = new auth0.WebAuth({
-            domain: `${process.env.REACT_APP_AUTH0_DOMAIN}`,
-            audience: `${process.env.REACT_APP_AUTH0_API_AUDIENCE}`,
-            clientID: `${process.env.REACT_APP_CLIENT_ID}`,
-            redirectUri: `http://localhost:3000/workspace/dashboard`,
-            responseType: `token id_token`,
+            domain: process.env.REACT_APP_AUTH0_DOMAIN,             // Declared in .env
+            clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,        // Declared in .env
+            redirectUri: process.env.REACT_APP_AUTH0_CALLBACK_URL,  // Declared in .env
+            audience: process.env.REACT_APP_AUTH0_AUDIENCE,         // The audience for an auth0 secured API must be the same as APIs > 'api_name' > Identifier
+            responseType: "token id_token",                         // token: Used to make API calls, id_token: used for identification by openid
             scope: 'openid profile'
         });
     }
 
     getIdToken = () => this._idToken;
+
+    getAccessToken = () => this._accessToken;
 
     getProfile = () => this._profile;
 
@@ -31,12 +34,13 @@ export default class Auth0Client {
                 return reject(err);
             }
 
-            if (!authResult || !authResult.idToken) {
+            if (!authResult || !authResult.idToken || !authResult.accessToken) {
                 console.log("no result");
                 return resolve(false);
             }
 
             this._idToken = authResult.idToken;
+            this._accessToken = authResult.accessToken;
             this._profile = authResult.idTokenPayload;
 
             return resolve(true);

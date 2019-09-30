@@ -20,7 +20,7 @@ const AppRouter = () => {
 
     let [alert, setAlert] = useState({ show: false, msg: "" });
     let [auth0Client, setAuth0Client] = useState(new Auth0Client());
-    let [firebaseClient, setFirebaseClient] = useState(new Firebase());
+    let [firebaseClient, setFirebaseClient] = useState(null);
     let [user, setUser] = useState({
         name: "Paivaaaa",
         email: "pvnetto1@gmail.com",
@@ -82,7 +82,7 @@ const AppRouter = () => {
     }
 
     return (
-        <UserProvider value={{ ...user, setUser, signIn, updateUserName, auth0Client, firebaseClient }}>
+        <UserProvider value={{ ...user, setUser, signIn, updateUserName, auth0Client, setFirebaseClient }}>
             <BrowserRouter>
                 <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
 
