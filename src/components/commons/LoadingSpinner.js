@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '../../../node_modules/@fortawesome/react-fontaw
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const LoadingSpinner = () => {
-    console.log("spinning");
     return (
         <div className={"bg-primary position-fixed d-flex flex-row justify-content-center align-items-center"} style={{ width: '100vw', height: '100vh', zIndex: '100' }}>
             <div className="loading-spinner">

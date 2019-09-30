@@ -71,6 +71,7 @@ export const Auth0Provider = ({
             value={{
                 isAuthenticated,
                 user,
+                firebaseClient,
                 loading,
                 signIn,
                 loginThroughCallback,

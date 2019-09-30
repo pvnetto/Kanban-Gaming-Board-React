@@ -103,11 +103,26 @@ REACT KANBAN BOARD:
 			- Remover design log					DONE
 		- Refatorar para Context API				DONE
 		- Autenticação
-			- Logar
+			- Logar									DONE
 			- Convidar para projeto
 			- Roles
-			- Autorizar usuários de acordo com roles
-		- Integração com banco de dados firebase
+			- Autorizar usuários por roles
+		- Integração com banco de dados firebase	DONE
+			- Projetos
+				- Adicionar							DONE
+				- Buscar							DONE
+				- Remover
+				- Atualizar
+			- Boards
+				- Adicionar
+				- Buscar
+				- Remover
+				- Atualizar
+			- Tarefas
+				- Adicionar
+				- Buscar
+				- Remover
+				- Atualizar
 		- Métricas simples para usuário/projeto
 	- Experimentar:
 		- Context API								DONE

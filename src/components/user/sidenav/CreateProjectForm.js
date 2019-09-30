@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useProjects } from '../../contexts/ProjectContext';
 
-const CreateProjectForm = ({ addProject }) => {
+const CreateProjectForm = () => {
 
     let [title, setTitle] = useState("");
     let [description, setDescription] = useState("");
     let [generalInfo, setGeneralInfo] = useState("");
 
+    const { addProject } = useProjects();
+
     const onClick = () => {
-        addProject(title, description, generalInfo, "Paivaaaa");
+        addProject(title, description, generalInfo);
 
         setTitle("");
         setDescription("");

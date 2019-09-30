@@ -1,25 +1,33 @@
-import React, { useState, useContext } from 'react';
-import { projects as mockProjects } from '../../mock';
+import React, { useState, useEffect, useContext } from 'react';
+import { useAuth0 } from '../../auth0-wrapper';
 
 const ProjectsContext = React.createContext({});
 
 export const useProjects = () => useContext(ProjectsContext);
 export const ProjectsProvider = ({ children }) => {
-    let [projects, setProjects] = useState([
-        ...mockProjects
-    ]);
+    let [projects, setProjects] = useState([]);
 
-    const addProject = (title, description, generalInfo, author) => {
-        let id = projects.length;
+    const { firebaseClient } = useAuth0();
 
+    useEffect(() => {
+        const getProjects = async () => {
+            const savedProjects = await firebaseClient.fetchProjects();
+            setProjects([...savedProjects]);
+        }
+
+        getProjects();
+    }, [])
+
+    const addProject = async (title, description, generalInfo) => {
         const newProject = {
-            id,
             title,
             description,
             generalInfo,
         };
 
-        setProjects([...projects, newProject]);
+        const insertedProject = await firebaseClient.insertProject(newProject);
+        console.log(insertedProject);
+        setProjects([...projects, insertedProject]);
         // setAlert({ show: true, msg: `${title} project was succesfully created.` });
     }
 
