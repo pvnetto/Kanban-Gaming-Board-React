@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import LoginPage from './components/login/LoginPage';
@@ -7,18 +7,16 @@ import ProjectWorkspace from './components/project/ProjectWorkspace';
 import ErrorPage from './components/commons/ErrorPage';
 import PageAlert from './components/commons/PageAlert';
 import LoginRedirect from './components/login/LoginRedirect';
-
-import { ProjectsProvider } from './components/contexts/ProjectContext';
-
-import { projects as mockProjects, mockTasks } from './mock';
-import { useAuth0 } from './auth0-wrapper';
 import LoadingSpinner from './components/commons/LoadingSpinner';
+
+import { useAuth0 } from './auth0-wrapper';
+import { ProjectsProvider } from './components/contexts/ProjectContext';
+import { projects as mockProjects, mockTasks } from './mock';
 
 
 const AppRouter = () => {
 
     let [alert, setAlert] = useState({ show: false, msg: "" });
-
     let [projects, setProjects] = useState([
         ...mockProjects
     ]);
@@ -36,7 +34,7 @@ const AppRouter = () => {
         };
 
         setProjects([...projects, newProject]);
-        setAlert({ show: true, msg: `${title} project was succesfully created.` });
+        // setAlert({ show: true, msg: `${title} project was succesfully created.` });
     }
 
     const removeProject = (id) => {
@@ -55,7 +53,7 @@ const AppRouter = () => {
         projectsCopy[projectIdx] = newProject;
         setProjects([...projectsCopy]);
 
-        setAlert({ show: true, msg: `${newProject.title} was succesfully edited.` });
+        // setAlert({ show: true, msg: `${newProject.title} was succesfully edited.` });
     }
 
     const updateTask = (taskID, status) => {
@@ -63,7 +61,7 @@ const AppRouter = () => {
         newTask.status = status;
 
         console.log(newTask);
-        setAlert({ show: true, msg: `Task updated.` })
+        // setAlert({ show: true, msg: `Task updated.` })
     }
 
     return (

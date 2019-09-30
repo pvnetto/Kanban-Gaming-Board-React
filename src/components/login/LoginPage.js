@@ -4,7 +4,9 @@ import XboxImg from '../../assets/images/pexels_hand_xbox.jpeg';
 
 import { Row, Col, Container } from 'react-bootstrap';
 
-function LoginPage() {
+function LoginPage(props) {
+
+  console.log(props);
 
   return (
     <div style={{ height: "100vh", backgroundImage: `url(${XboxImg})`, position: 'relative' }}>

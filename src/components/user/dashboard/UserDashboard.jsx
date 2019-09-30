@@ -18,15 +18,11 @@ const WelcomeSection = ({ username }) => {
 }
 
 const UserDashboard = (props) => {
-    const { user, isAuthenticated } = useAuth0();
+    const { user } = useAuth0();
     const projectsContext = useContext(ProjectsContext);
 
     const projectItems = projectsContext.projects.map((project, idx) => <ProjectItem key={idx} {...project} />)
     const closedProjects = [];
-
-    useEffect(() => {
-        console.log(isAuthenticated);
-    });
 
     return (
         <Row noGutters={true}>

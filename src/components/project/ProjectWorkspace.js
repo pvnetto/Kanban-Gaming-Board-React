@@ -8,6 +8,7 @@ import ProjectsContext from '../contexts/ProjectContext';
 import { BoardsProvider } from '../contexts/BoardsContext';
 import { mockBoards, mockTasks } from '../../mock';
 import TaskStatus from '../commons/TaskStatus';
+import { useAuth0 } from '../../auth0-wrapper';
 
 
 const ProjectWorkspace = (props) => {
@@ -16,8 +17,16 @@ const ProjectWorkspace = (props) => {
     let [expandWorkspace, setExpandWorkspace] = useState(true);
     let [project, setProject] = useState({});
 
-     // TODO: Optimize to avoid passing all the text through context, and passing only necessary tasks instead
+    // TODO: Optimize to avoid passing all the text through context, and passing only necessary tasks instead
     let [tasks, setTasks] = useState([...mockTasks]);
+
+    const { isAuthenticated } = useAuth0();
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            props.history.push('/');
+        }
+    });
 
     useEffect(() => {
         const projectId = props.match.params.projectId;
