@@ -11,50 +11,14 @@ import LoadingSpinner from './components/commons/LoadingSpinner';
 
 import { useAuth0 } from './auth0-wrapper';
 import { ProjectsProvider } from './components/contexts/ProjectContext';
-import { projects as mockProjects, mockTasks } from './mock';
+import { mockTasks } from './mock';
 
 
 const AppRouter = () => {
 
     let [alert, setAlert] = useState({ show: false, msg: "" });
-    let [projects, setProjects] = useState([
-        ...mockProjects
-    ]);
 
     const { loading } = useAuth0();
-
-    const addProject = (title, description, generalInfo, author) => {
-        let id = projects.length;
-
-        const newProject = {
-            id,
-            title,
-            description,
-            generalInfo,
-        };
-
-        setProjects([...projects, newProject]);
-        // setAlert({ show: true, msg: `${title} project was succesfully created.` });
-    }
-
-    const removeProject = (id) => {
-        // TODO: Also remove boards, tasks, logs etc
-
-        const projectsCopy = [...projects];
-        const projectToRemove = projectsCopy.findIndex(project => project.id === id);
-        projectsCopy.splice(projectToRemove, 1);
-
-        setProjects([...projectsCopy]);
-    }
-
-    const updateProject = (newProject) => {
-        let projectIdx = projects.findIndex(project => project.id === newProject.id);
-        let projectsCopy = [...projects];
-        projectsCopy[projectIdx] = newProject;
-        setProjects([...projectsCopy]);
-
-        // setAlert({ show: true, msg: `${newProject.title} was succesfully edited.` });
-    }
 
     const updateTask = (taskID, status) => {
         let newTask = mockTasks.find(task => task.id === taskID);
@@ -77,7 +41,7 @@ const AppRouter = () => {
                 <Route exact path="/login" component={LoginPage} />
                 <Route path="/redirect" component={LoginRedirect} />
 
-                <ProjectsProvider value={{ projects, addProject, removeProject, updateProject }}>
+                <ProjectsProvider>
                     <Route path="/workspace" component={UserWorkspace} />
                     <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ updateTask }} />} />
                 </ ProjectsProvider>
