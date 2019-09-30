@@ -14,10 +14,14 @@ export const Auth0Provider = ({
     ...initOptions
 }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({
+        name: '',
+        email: '',
+        avatarUrl: ''
+    });
     const [auth0Client, setAuth0] = useState(new Auth0Client());
     const [firebaseClient, setFirebaseClient] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const loginThroughCallback = async () => {
         setLoading(true);
@@ -37,7 +41,6 @@ export const Auth0Provider = ({
             setIsAuthenticated(true);
         }
         else {
-            // signIn();
             console.log("Not logged in through callback");
         }
 

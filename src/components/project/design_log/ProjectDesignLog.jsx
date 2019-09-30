@@ -8,14 +8,14 @@ import DesignLogItem from './DesignLogItem';
 import SectionNavbarButton from '../../commons/SectionNavbarButton';
 import DesignLogForm from './DesignLogForm';
 import { mockLogs } from '../../../mock';
-import UserContext from '../../contexts/UserContext';
+import { useAuth0 } from '../../../auth0-wrapper';
 
 const ProjectDesignLog = () => {
 
     let [showModal, setShowModal] = useState(false);
     let [logs, setLogs] = useState([...mockLogs]);
 
-    const { name } = useContext(UserContext);
+    const { user } = useAuth0();
 
     const addLog = (title, content) => {
         let newLog = {
@@ -23,7 +23,7 @@ const ProjectDesignLog = () => {
             title,
             content,
             date: new Date(),
-            author: name
+            author: user.name
         };
 
         setLogs([...logs, newLog]);

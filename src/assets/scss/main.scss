@@ -42,6 +42,25 @@
     }
 }
 
+.loading-spinner {
+    height: 50vh;
+
+    svg {
+        font-size: 5rem;
+        animation: spin 0.7s linear infinite;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .emphasized {
     color: var(--font-color-secondary);
 }

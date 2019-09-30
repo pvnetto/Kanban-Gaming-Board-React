@@ -5,34 +5,25 @@ import LoginPage from './components/login/LoginPage';
 import UserWorkspace from './components/user/UserWorkspace';
 import ProjectWorkspace from './components/project/ProjectWorkspace';
 import ErrorPage from './components/commons/ErrorPage';
-
 import PageAlert from './components/commons/PageAlert';
+import LoginRedirect from './components/login/LoginRedirect';
 
-import { UserProvider } from './components/contexts/UserContext';
 import { ProjectsProvider } from './components/contexts/ProjectContext';
 
 import { projects as mockProjects, mockTasks } from './mock';
+import { useAuth0 } from './auth0-wrapper';
+import LoadingSpinner from './components/commons/LoadingSpinner';
 
-import Auth0Client from './auth0';
-import Firebase from './firebase';
 
 const AppRouter = () => {
 
     let [alert, setAlert] = useState({ show: false, msg: "" });
-    let [auth0Client, setAuth0Client] = useState(new Auth0Client());
-    let [firebaseClient, setFirebaseClient] = useState(null);
-    let [user, setUser] = useState({
-        name: "Paivaaaa",
-        email: "pvnetto1@gmail.com",
-        avatarUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-    });
-    let [isAuthenticated, setAuthenticated] = useState(false);
 
     let [projects, setProjects] = useState([
         ...mockProjects
     ]);
 
-    const signIn = () => auth0Client.signIn();
+    const { loading } = useAuth0();
 
     const addProject = (title, description, generalInfo, author) => {
         let id = projects.length;
@@ -45,8 +36,6 @@ const AppRouter = () => {
         };
 
         setProjects([...projects, newProject]);
-
-        firebaseClient.addMessage("New message");
         setAlert({ show: true, msg: `${title} project was succesfully created.` });
     }
 
@@ -77,30 +66,27 @@ const AppRouter = () => {
         setAlert({ show: true, msg: `Task updated.` })
     }
 
-    const updateUserName = () => {
-        setUser({ ...user, name: "New name" });
-    }
-
     return (
-        <UserProvider value={{ ...user, setUser, signIn, updateUserName, auth0Client, setFirebaseClient }}>
-            <BrowserRouter>
-                <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
+        <BrowserRouter>
+            <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
 
-                <Switch>
-                    <Route exact path="/" component={LoginPage}>
-                        <Redirect to="/login" />
-                    </Route>
-                    <Route exact path="/login" component={LoginPage} />
+            {loading ? <LoadingSpinner /> : null}
 
-                    <ProjectsProvider value={{ projects, addProject, removeProject, updateProject }}>
-                        <Route path="/workspace" component={UserWorkspace} />
-                        <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ updateTask }} />} />
-                    </ ProjectsProvider>
+            <Switch>
+                <Route exact path="/" component={LoginPage}>
+                    <Redirect to="/login" />
+                </Route>
+                <Route exact path="/login" component={LoginPage} />
+                <Route path="/redirect" component={LoginRedirect} />
 
-                    <Route component={ErrorPage} />
-                </Switch>
-            </BrowserRouter>
-        </UserProvider>
+                <ProjectsProvider value={{ projects, addProject, removeProject, updateProject }}>
+                    <Route path="/workspace" component={UserWorkspace} />
+                    <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ updateTask }} />} />
+                </ ProjectsProvider>
+
+                <Route component={ErrorPage} />
+            </Switch>
+        </BrowserRouter>
     );
 };
 

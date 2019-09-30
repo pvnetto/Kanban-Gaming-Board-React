@@ -7,8 +7,7 @@ import SectionNavbar from '../../commons/SectionNavbar';
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/free-solid-svg-icons';
 import ProjectsContext from '../../contexts/ProjectContext';
-import UserContext from '../../contexts/UserContext';
-import Firebase from '../../../firebase';
+import { useAuth0 } from '../../../auth0-wrapper';
 
 const WelcomeSection = ({ username }) => {
     return (
@@ -19,56 +18,15 @@ const WelcomeSection = ({ username }) => {
 }
 
 const UserDashboard = (props) => {
-    const { name, auth0Client, setFirebaseClient, setUser } = useContext(UserContext);
+    const { user, isAuthenticated } = useAuth0();
     const projectsContext = useContext(ProjectsContext);
 
     const projectItems = projectsContext.projects.map((project, idx) => <ProjectItem key={idx} {...project} />)
     const closedProjects = [];
 
-    let [isAuthenticated, setAuthenticated] = useState(false);
-
     useEffect(() => {
-        const authenticate = async () => {
-            setAuthenticated(false);
-
-            const loggedInThroughCallback = await auth0Client.handleCallback();
-            if (loggedInThroughCallback) {
-                console.log("Logged in");
-                await setFirebaseCustomToken();
-
-                let profile = auth0Client.getProfile();
-                setUser({
-                    name: profile.given_name,
-                    avatarUrl: profile.picture
-                });
-
-                console.log(profile);
-            }
-            else {
-                // signIn();
-                console.log("Not logged in through callback");
-            }
-        }
-
-        authenticate();
-    }, []);
-
-    async function setFirebaseCustomToken() {
-        const firebaseClient = new Firebase();
-
-        const response = await fetch('http://localhost:3001/firebase', {
-            headers: {
-                Authorization: `Bearer ${auth0Client.getAccessToken()}`,
-            },
-        });
-
-        const data = await response.json();
-        await firebaseClient.setToken(data.firebaseToken);
-        await firebaseClient.updateProfile(auth0Client.getProfile());
-
-        setAuthenticated(true);
-        setFirebaseClient(firebaseClient);
-    }
+        console.log(isAuthenticated);
+    });
 
     return (
         <Row noGutters={true}>
@@ -78,7 +36,7 @@ const UserDashboard = (props) => {
             <Row noGutters={true} className="w-100 p-2">
                 {/* Left dashboard section */}
                 <Col xs={6}>
-                    <WelcomeSection username={name} />
+                    <WelcomeSection username={user.name} />
                     <SectionContainer title={"Your Projects"} titleIcon={faDiceD20}>
                         {projectItems.length > 0 ?
                             projectItems :

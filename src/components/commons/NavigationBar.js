@@ -3,11 +3,11 @@ import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 
-import UserContext from '../contexts/UserContext';
+import { useAuth0 } from '../../auth0-wrapper';
 
 const NavigationBar = (props) => {
 
-    const { avatarUrl } = useContext(UserContext);
+    const { user } = useAuth0();
 
     return (
         <Row noGutters={true} className="w-100 bg-dark border-2 border-light pl-3 py-1">
@@ -18,7 +18,7 @@ const NavigationBar = (props) => {
                 </div>
 
                 <div>
-                    <img className="profile-picture mr-2" src={avatarUrl} alt="" />
+                    <img className="profile-picture mr-2" src={user.avatarUrl} alt="" />
                 </div>
             </Col>
         </Row>

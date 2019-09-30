@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { faFacebookSquare, faGoogle, faGit } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import UserContext from '../contexts/UserContext';
+import { useAuth0 } from '../../auth0-wrapper';
 
 const LoginForm = () => {
 
-    const { signIn } = useContext(UserContext);
+    const { signIn } = useAuth0();
 
     return (
         <div className="p-4 bg-primary border border-radius-5 border-light" style={{ width: '60%' }}>
