@@ -2,29 +2,37 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
 
 import { categories } from '../../commons/Categories';
-import BoardsContext from '../../contexts/BoardsContext';
+import BoardsContext, { useBoards } from '../../contexts/BoardsContext';
+import { useTasks } from '../../contexts/TasksContext';
 
 const CreateTaskForm = () => {
 
-    let [board, setBoard] = useState({});
+    const backlogId = '-100';
+
+    let [boardId, setBoardId] = useState(backlogId);
     let [name, setName] = useState("");
     let [description, setDescription] = useState("");
     let [category, setCategory] = useState(categories.ART);
 
-    let { boards, addTask } = useContext(BoardsContext);
+    let { boards } = useBoards();
+    let { addTaskToBoard, addTaskToBacklog } = useTasks();
+
+    const defaultBoard = boards[0] ? boards[0].title : '';
 
     useEffect(() => {
-        const defaultBoard = boards[0] ? boards[0].title : '';
-        setBoard({ ...defaultBoard });
+        setBoardId({ ...defaultBoard });
     }, []);
 
     const onClick = () => {
-        const defaultBoard = boards[0] ? boards[0].title : '';
-
-        addTask(board, name, description, category);
+        if (boardId === backlogId) {
+            addTaskToBacklog(name, description, category);
+        }
+        else {
+            addTaskToBoard(boardId, name, description, category);
+        }
 
         // Resetting form
-        setBoard({ ...defaultBoard });
+        setBoardId({ ...defaultBoard });
         setName("");
         setDescription("");
         setCategory(categories.ART);
@@ -45,9 +53,11 @@ const CreateTaskForm = () => {
             <Form.Row>
                 <Form.Group as={Col} md="6">
                     <Form.Label>Board:</Form.Label>
-                    <Form.Control column="true" as="select" value={board} onChange={(e) => setBoard(e.target.value)}>
-                        <option value=""></option>
-                        {boards.map((board, i) => <option key={i}>{board.title}</option>)}
+                    <Form.Control column="true" as="select" value={boardId} onChange={(e) => setBoardId(e.target.value)}>
+                        <option value={backlogId}></option>
+                        {boards.map((board, i) =>
+                            <option value={board.id} key={i}>{board.title}</option>
+                        )}
                     </Form.Control>
                 </Form.Group>
 

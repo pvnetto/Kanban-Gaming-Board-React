@@ -29,7 +29,7 @@ const ProjectWorkspaceSidenav = ({ url, params, onExpand, addBoard }) => {
         <>
             {boards.map((board, idx) => (
                 <SidenavExpand.Link key={idx} title={board.title} icon={faClipboardList}
-                    link={`/boards/${board.title}`} url={url}
+                    link={`/boards/${board.id}`} url={url}
                     show={show} isExpanded={isExpanded} />
             ))}
         </>

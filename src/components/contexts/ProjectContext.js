@@ -13,8 +13,6 @@ export const ProjectsProvider = ({ children }) => {
         const getProjects = async () => {
             const savedProjects = await firebaseClient.fetchProjects();
             setProjects([...savedProjects]);
-
-            console.log(savedProjects);
         }
 
         getProjects();

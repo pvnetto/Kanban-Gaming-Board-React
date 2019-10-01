@@ -70,6 +70,75 @@ export default class Firebase {
         return boards;
     }
 
+    insertTaskToBoard = async (projectId, boardId, task) => {
+        const createdAt = new Date();
+        const author = firebase.auth().currentUser.displayName;
+
+        const newTaskRef = await this._messagesDb
+            .collection('projects')
+            .doc(projectId)
+            .collection('boards')
+            .doc(boardId)
+            .collection('tasks')
+            .add({ ...task, author, createdAt });
+
+        const newTaskData = await newTaskRef.get().then(doc => doc.exists ? doc.data() : null);
+
+        return { id: newTaskRef.id, ...newTaskData };
+    }
+
+    insertTaskToBacklog = async (projectId, task) => {
+        const createdAt = new Date();
+        const author = firebase.auth().currentUser.displayName;
+
+        const newTaskRef = await this._messagesDb
+            .collection('projects')
+            .doc(projectId)
+            .collection('backlog')
+            .add({ ...task, author, createdAt });
+
+        const newTaskData = await newTaskRef.get().then(doc => doc.exists ? doc.data() : null);
+
+        return { id: newTaskRef.id, ...newTaskData };
+    }
+
+    fetchTasksFromBoard = async (projectId, boardId) => {
+        let tasks = [];
+
+        const tasksRef = await this._messagesDb
+            .collection('projects')
+            .doc(projectId)
+            .collection('boards')
+            .doc(boardId)
+            .collection('tasks');
+
+        await tasksRef.get().then((querySnapshot) => {
+            querySnapshot.forEach(doc => {
+                tasks.push({ id: doc.id, ...doc.data() });
+            })
+        });
+
+        return tasks;
+    }
+
+    fetchTasksFromBacklog = async (projectId) => {
+        let backlogTasks = [];
+
+        const tasksRef = await this._messagesDb
+            .collection('projects')
+            .doc(projectId)
+            .collection('backlog');
+
+        await tasksRef.get().then((querySnapshot) => {
+            querySnapshot.forEach(doc => {
+                backlogTasks.push({ id: doc.id, ...doc.data() });
+            })
+        });
+
+        return backlogTasks;
+    }
+
+
     getCurrentUser = () => firebase.auth().currentUser;
 
     updateProfile = async (profile) => {

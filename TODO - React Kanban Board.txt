@@ -107,7 +107,7 @@ REACT KANBAN BOARD:
 			- Convidar para projeto
 			- Roles
 			- Autorizar usuários por roles
-		- Integração com banco de dados firebase	DONE
+		- Integração com firebase/firestore			DONE
 			- Projetos
 				- Adicionar							DONE
 				- Buscar todos						DONE

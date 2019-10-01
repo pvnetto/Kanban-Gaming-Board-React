@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { mockBoards, mockTasks } from '../../mock';
 import TaskStatus from '../commons/TaskStatus';
 import { useProjects } from './ProjectContext';
 import { useAuth0 } from '../../auth0-wrapper';
@@ -12,8 +11,6 @@ export const BoardsProvider = ({ children, projectId }) => {
 
     let [boards, setBoards] = useState([]);
     let [project, setProject] = useState({});
-    // TODO: Optimize to avoid passing all the text through context, and passing only necessary tasks instead
-    let [tasks, setTasks] = useState([...mockTasks]);
 
     const { projects, updateProject } = useProjects();
     const { firebaseClient } = useAuth0();
@@ -25,7 +22,6 @@ export const BoardsProvider = ({ children, projectId }) => {
             setProject({ ...currentProject });
 
             const projectBoards = await firebaseClient.fetchBoardsByProject(currentProject.id);
-            console.log(projectBoards);
             setBoards(projectBoards);
         }
 
@@ -40,7 +36,7 @@ export const BoardsProvider = ({ children, projectId }) => {
             startDate: startDate.toDate(),
             endDate: endDate.toDate()
         }
-        
+
         const addedBoard = await firebaseClient.insertBoard(project.id, newBoard);
         setBoards([...boards, addedBoard]);
         // setAlert({ show: true, msg: `${title} board was succesfully created.` });
@@ -55,27 +51,6 @@ export const BoardsProvider = ({ children, projectId }) => {
         setBoards([...boardsCopy]);
     }
 
-    const addTask = (board, name, description, category) => {
-        let newTask = {
-            id: tasks.length,
-            name,
-            description,
-            category,
-            status: TaskStatus.PLANNED
-        };
-
-        setTasks([...tasks, newTask]);
-        // setAlert({ show: true, msg: `${name} task was succesfully created.` });
-    }
-
-    const removeTask = (id) => {
-        const tasksCopy = [...tasks];
-        const taskToRemove = tasksCopy.findIndex(task => task.id === id);
-        tasksCopy.splice(taskToRemove, 1);
-
-        setTasks([...tasksCopy]);
-    }
-
     const editProject = (title, description, generalInfo) => {
         const newProject = { ...project, title, description, generalInfo };
         setProject(newProject);
@@ -84,7 +59,7 @@ export const BoardsProvider = ({ children, projectId }) => {
     }
 
     return (
-        <BoardsContext.Provider value={{ project, boards, tasks, editProject, addBoard, removeBoard, addTask, removeTask }}>
+        <BoardsContext.Provider value={{ project, boards, editProject, addBoard, removeBoard }}>
             {children}
         </BoardsContext.Provider>
     );
