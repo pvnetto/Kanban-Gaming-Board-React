@@ -59,7 +59,7 @@ const BoardColumn = (props) => {
                 {(provided, snapshot) => (
                     <div ref={provided.innerRef}
                         className={`w-100 d-flex flex-column justify-content-start align-items-stretch flex-fill my-3 ${getDroppableStyle(snapshot.isDraggingOver)}`}>
-                        {props.tasks.map((task, idx) => <TaskItem key={task.id} index={idx} {...task} />)}
+                        {props.tasks.map((task, idx) => <TaskItem key={task.id} index={idx} {...task} boardId={props.boardId} />)}
                         {provided.placeholder}
                     </div>
                 )}

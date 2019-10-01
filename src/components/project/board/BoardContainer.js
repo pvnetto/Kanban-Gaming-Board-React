@@ -109,7 +109,10 @@ const BoardContainer = (props) => {
                         {
                             props.columns.map((status, idx) => (
                                 <Col key={idx} xs={12 / props.columns.length}>
-                                    <BoardColumn type={status} tasks={categoryTasks.filter(task => task.status === status)} updateTask={props.updateTask} />
+                                    <BoardColumn boardId={props.match.params.boardId}
+                                        type={status} 
+                                        tasks={categoryTasks.filter(task => task.status === status)} 
+                                        updateTask={props.updateTask} />
                                 </Col>
                             ))
                         }

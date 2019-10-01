@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import TaskStatus from '../commons/TaskStatus';
 import { useAuth0 } from '../../auth0-wrapper';
@@ -36,13 +36,11 @@ export const TasksProvider = ({ children }) => {
     }
 
     const fetchTasksFromBoard = async (boardId) => {
-        let tasks = await firebaseClient.fetchTasksFromBoard(project.id, boardId);
-        return tasks;
+        return await firebaseClient.fetchTasksFromBoard(project.id, boardId);
     }
 
     const fetchTasksFromBacklog = async () => {
-        let backlogTasks = await firebaseClient.fetchTasksFromBacklog(project.id);
-        return backlogTasks;
+        return await firebaseClient.fetchTasksFromBacklog(project.id);
     }
 
     const listenToBoardTaskChanges = async (boardId, listener) => {
@@ -55,12 +53,12 @@ export const TasksProvider = ({ children }) => {
         return listenerRef;
     }
 
-    const removeTask = (id) => {
-        // const tasksCopy = [...tasks];
-        // const taskToRemove = tasksCopy.findIndex(task => task.id === id);
-        // tasksCopy.splice(taskToRemove, 1);
+    const removeTaskFromBoard = async (boardId, taskId) => {
+        return await firebaseClient.removeTaskFromBoard(project.id, boardId, taskId);
+    }
 
-        // setTasks([...tasksCopy]);
+    const removeTaskFromBacklog = async (taskId) => {
+        return await firebaseClient.removeTaskFromBacklog(project.id, taskId);
     }
 
     return (
@@ -71,7 +69,8 @@ export const TasksProvider = ({ children }) => {
             fetchTasksFromBacklog,
             listenToBoardTaskChanges,
             listenToBacklogTaskChanges,
-            removeTask
+            removeTaskFromBoard,
+            removeTaskFromBacklog
         }}>
             {children}
         </TasksContext.Provider>

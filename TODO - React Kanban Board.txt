@@ -112,7 +112,7 @@ REACT KANBAN BOARD:
 				- Adicionar							DONE
 				- Buscar todos						DONE
 				- Remover
-				- Atualizar
+				- Atualizar							DONE
 			- Boards
 				- Adicionar							DONE
 				- Buscar por id do projeto			DONE
@@ -122,7 +122,7 @@ REACT KANBAN BOARD:
 				- Adicionar							DONE
 				- Buscar							DONE
 				- Listener quando uma é adicionada	DONE
-				- Remover
+				- Remover							DONE
 				- Atualizar
 		- Métricas simples para usuário/projeto
 	- Experimentar:

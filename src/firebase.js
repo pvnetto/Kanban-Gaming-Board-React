@@ -99,6 +99,19 @@ export default class Firebase {
         return { id: newTaskRef.id, ...newTaskData };
     }
 
+    removeTaskFromBoard = async (projectId, boardId, taskId) => {
+        return await this._messagesDb
+            .collection('projects').doc(projectId)
+            .collection('boards').doc(boardId)
+            .collection('tasks').doc(taskId).delete();
+    }
+
+    removeTaskFromBacklog = async (projectId, taskId) => {
+        return this._messagesDb
+            .collection('projects').doc(projectId)
+            .collection('backlog').doc(taskId).delete();
+    }
+
     insertTaskToBacklog = async (projectId, task) => {
         const createdAt = new Date();
         const author = firebase.auth().currentUser.displayName;

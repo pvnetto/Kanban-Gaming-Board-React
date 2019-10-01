@@ -11,7 +11,7 @@ const ProjectBoard = (props) => {
 
     let [tasks, setTasks] = useState([]);
     const { project, removeBoard } = useBoards();
-    const { fetchTasksFromBoard, listenToBoardTaskChanges } = useTasks();
+    const { listenToBoardTaskChanges } = useTasks();
 
     useEffect(() => {
         let listener = null;
