@@ -32,7 +32,18 @@ export default class Firebase {
 
         const insertedData = await insertedRef.get().then(doc => doc.exists ? doc.data() : null);
 
-        return insertedData;
+        return { id: insertedRef.id, ...insertedData };
+    }
+
+    fetchProjects = async () => {
+        let projects = [];
+        await this._messagesDb.collection("projects").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                projects.push({ id: doc.id, ...doc.data() });
+            });
+        });
+
+        return projects;
     }
 
     insertBoard = async (projectId, board) => {
@@ -40,21 +51,23 @@ export default class Firebase {
         const author = firebase.auth().currentUser.displayName;
 
         const project = await this._messagesDb.collection('projects').doc(projectId);
-        const boardRef = project.collection('boards').add({ ...board, author, createdAt });
-        const boardData = await boardRef.get().then(doc => doc.exists ? doc.data() : null);
+        const newBoardRef = await project.collection('boards').add({ ...board, author, createdAt });
+        const newBoardData = await newBoardRef.get().then(doc => doc.exists ? doc.data() : null);
 
-        return boardData;
+        return { id: newBoardRef.id, ...newBoardData };
     }
 
-    fetchProjects = async () => {
-        let projects = [];
-        await this._messagesDb.collection("projects").get().then((querySnapshot) => {
-            querySnapshot.forEach(function (doc) {
-                projects.push(doc.data());
-            });
+    fetchBoardsByProject = async (projectId) => {
+        let boards = [];
+
+        const project = await this._messagesDb.collection('projects').doc(projectId);
+        await project.collection('boards').get().then((querySnapshot) => {
+            querySnapshot.forEach(doc => {
+                boards.push({ id: doc.id, ...doc.data() });
+            })
         });
 
-        return projects;
+        return boards;
     }
 
     getCurrentUser = () => firebase.auth().currentUser;

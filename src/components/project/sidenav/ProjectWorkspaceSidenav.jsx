@@ -7,19 +7,21 @@ import ModalBase from '../../commons/ModalBase';
 import CreateBoardForm from './CreateBoardForm';
 import CreateTaskForm from './CreateTaskForm';
 import SidenavExpand from '../../commons/sidenav/SidenavExpand';
+import { useBoards } from '../../contexts/BoardsContext';
 
 
-const ProjectWorkspaceSidenav = ({ url, params, boards, onExpand, addBoard }) => {
+const ProjectWorkspaceSidenav = ({ url, params, onExpand, addBoard }) => {
 
     // Sidenav hooks
     const [showCreateBoard, setShowCreateBoard] = useState(false);
     const [showCreateTask, setShowCreateTask] = useState(false);
 
+    const { boards } = useBoards();
 
     const showExpandLinks = (show, isExpanded) => (
         <>
-            <SidenavExpand.Link title="Board" icon={faList} show={show} isExpanded={isExpanded} onClick={() => setShowCreateBoard(true)} />
-            <SidenavExpand.Link title="Task" icon={faEdit} show={show} isExpanded={isExpanded} onClick={() => setShowCreateTask(true)} />
+            <SidenavExpand.Button title="Board" icon={faList} show={show} isExpanded={isExpanded} onClick={() => setShowCreateBoard(true)} />
+            <SidenavExpand.Button title="Task" icon={faEdit} show={show} isExpanded={isExpanded} onClick={() => setShowCreateTask(true)} />
         </>
     );
 

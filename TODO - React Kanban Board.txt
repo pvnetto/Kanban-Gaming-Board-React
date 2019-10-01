@@ -110,12 +110,12 @@ REACT KANBAN BOARD:
 		- Integração com banco de dados firebase	DONE
 			- Projetos
 				- Adicionar							DONE
-				- Buscar							DONE
+				- Buscar todos						DONE
 				- Remover
 				- Atualizar
 			- Boards
-				- Adicionar
-				- Buscar
+				- Adicionar							DONE
+				- Buscar por id do projeto			DONE
 				- Remover
 				- Atualizar
 			- Tarefas
