@@ -107,17 +107,17 @@ REACT KANBAN BOARD:
 			- Convidar para projeto
 			- Roles
 			- Autorizar usuários por roles
+			- Login persiste quando atualiza
 		- Integração com firebase/firestore			DONE
 			- Projetos
 				- Adicionar							DONE
 				- Buscar todos						DONE
-				- Remover
+				- Remover							DONE
 				- Atualizar							DONE
 			- Boards
 				- Adicionar							DONE
 				- Buscar por id do projeto			DONE
-				- Remover
-				- Atualizar
+				- Remover							DONE
 			- Tarefas
 				- Adicionar							DONE
 				- Buscar							DONE

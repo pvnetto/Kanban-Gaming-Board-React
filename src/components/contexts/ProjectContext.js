@@ -30,11 +30,11 @@ export const ProjectsProvider = ({ children }) => {
         // setAlert({ show: true, msg: `${title} project was succesfully created.` });
     }
 
-    const removeProject = (id) => {
-        // TODO: Also remove boards, tasks, logs etc
+    const removeProject = async (projectId) => {
+        await firebaseClient.removeProject(projectId);
 
         const projectsCopy = [...projects];
-        const projectToRemove = projectsCopy.findIndex(project => project.id === id);
+        const projectToRemove = projectsCopy.findIndex(project => project.id === projectId);
         projectsCopy.splice(projectToRemove, 1);
 
         setProjects([...projectsCopy]);

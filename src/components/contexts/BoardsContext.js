@@ -46,9 +46,11 @@ export const BoardsProvider = ({ children, projectId }) => {
     }
 
     // TODO: Also remove all tasks
-    const removeBoard = (id) => {
+    const removeBoard = async (boardId) => {
+        await firebaseClient.removeBoard(project.id, boardId);
+
         const boardsCopy = [...boards];
-        const boardToRemove = boardsCopy.findIndex(board => board.id === id);
+        const boardToRemove = boardsCopy.findIndex(board => board.id === boardId);
         boardsCopy.splice(boardToRemove, 1);
 
         setBoards([...boardsCopy]);
