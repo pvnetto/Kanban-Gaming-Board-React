@@ -35,6 +35,18 @@ export default class Firebase {
         return { id: insertedRef.id, ...insertedData };
     }
 
+    updateProject = async (newProject) => {
+        let projectId = newProject.id;
+        // IDs should not be directly saved in firestore documents
+        delete newProject.id;
+
+        const insertedRef = await this._messagesDb
+            .collection('projects').doc(projectId);
+
+        await insertedRef.update({ ...newProject });
+        return await insertedRef.get().then(doc => doc.exists ? { id: doc.id, ...doc.data() } : null);
+    }
+
     fetchProjects = async () => {
         let projects = [];
         await this._messagesDb.collection("projects").get().then((querySnapshot) => {

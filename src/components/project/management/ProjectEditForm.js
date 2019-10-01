@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import BoardsContext from '../../contexts/BoardsContext';
+import { useBoards } from '../../contexts/BoardsContext';
+import { useProjects } from '../../contexts/ProjectContext';
 
 const ProjectEditForm = () => {
 
@@ -8,7 +9,8 @@ const ProjectEditForm = () => {
     let [description, setDescription] = useState("");
     let [generalInfo, setGeneralInfo] = useState("");
 
-    let { project, editProject } = useContext(BoardsContext);
+    let { project } = useBoards();
+    let { updateProject } = useProjects();
 
     // Initializing state on useEffect, instead of initializing with props as default values
     useEffect(() => {
@@ -18,7 +20,7 @@ const ProjectEditForm = () => {
     }, []);
 
     const onClick = () => {
-        editProject(title, description, generalInfo);
+        updateProject(project.id, title, description, generalInfo);
     }
 
     return (

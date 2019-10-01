@@ -121,7 +121,7 @@ REACT KANBAN BOARD:
 			- Tarefas
 				- Adicionar							DONE
 				- Buscar							DONE
-				- Listener quando uma é adicionada
+				- Listener quando uma é adicionada	DONE
 				- Remover
 				- Atualizar
 		- Métricas simples para usuário/projeto

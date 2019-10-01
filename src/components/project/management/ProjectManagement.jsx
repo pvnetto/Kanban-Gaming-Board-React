@@ -6,7 +6,7 @@ import ProjectEditForm from './ProjectEditForm';
 import ProjectInviteForm from './ProjectInviteForm';
 import ProjectDeleteForm from './ProjectDeleteForm';
 
-const ProjectManagement = ({ project }) => {
+const ProjectManagement = () => {
 
     return (
         <Row className="p-2" noGutters={true}>

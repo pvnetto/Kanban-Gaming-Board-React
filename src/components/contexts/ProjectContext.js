@@ -40,13 +40,21 @@ export const ProjectsProvider = ({ children }) => {
         setProjects([...projectsCopy]);
     }
 
-    const updateProject = (newProject) => {
-        let projectIdx = projects.findIndex(project => project.id === newProject.id);
-        let projectsCopy = [...projects];
-        projectsCopy[projectIdx] = newProject;
-        setProjects([...projectsCopy]);
+    const updateProject = async (projectId, title, description, generalInfo) => {
+        let projectIdx = projects.findIndex(project => project.id === projectId);
+        let updatedProject = {
+            ...projects[projectIdx],
+            title,
+            description,
+            generalInfo
+        };
 
-        // setAlert({ show: true, msg: `${newProject.title} was succesfully edited.` });
+        updatedProject = await firebaseClient.updateProject(updatedProject);
+
+        // Updates state with object saved on database
+        let projectsCopy = [...projects];
+        projectsCopy[projectIdx] = updatedProject;
+        setProjects([...projectsCopy]);
     }
 
     return (
