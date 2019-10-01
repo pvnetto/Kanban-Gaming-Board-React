@@ -11,17 +11,23 @@ const ProjectBoard = (props) => {
 
     let [tasks, setTasks] = useState([]);
     const { project, removeBoard } = useBoards();
-    const { fetchTasksFromBoard } = useTasks();
+    const { fetchTasksFromBoard, listenToBoardTaskChanges } = useTasks();
 
     useEffect(() => {
-        const getTasks = async () => {
-            const boardId = props.match.params.boardId;
-            const fetchedTasks = await fetchTasksFromBoard(boardId);
+        let listener = null;
 
-            setTasks([...fetchedTasks]);
+        const listenToTasks = async () => {
+            const boardId = props.match.params.boardId;
+            listener = await listenToBoardTaskChanges(boardId, (snapshotTasks) => {
+                setTasks([...snapshotTasks]);
+            });
         }
 
-        getTasks();
+        listenToTasks();
+
+        return () => {
+            listener && listener();
+        }
     }, []);
 
     return (

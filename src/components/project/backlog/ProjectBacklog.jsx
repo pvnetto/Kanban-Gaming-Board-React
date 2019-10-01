@@ -1,22 +1,27 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import BoardContainer from '../board/BoardContainer';
 import TaskStatus from '../../commons/TaskStatus';
-import BoardsContext from '../../contexts/BoardsContext';
 import { useTasks } from '../../contexts/TasksContext';
 
 const ProjectBacklog = (props) => {
 
     let [tasks, setTasks] = useState([]);
-    const { fetchTasksFromBacklog } = useTasks();
+    const { listenToBacklogTaskChanges } = useTasks();
 
     useEffect(() => {
-        const getTasks = async () => {
-            const fetchedTasks = await fetchTasksFromBacklog();
-            setTasks([...fetchedTasks]);
+        let listener = null;
+        const listenToTasks = async () => {
+            listener = await listenToBacklogTaskChanges((snapshotTasks) => {
+                setTasks([...snapshotTasks]);
+            });
         }
 
-        getTasks();
+        listenToTasks();
+
+        return () => {
+            listener && listener();
+        }
     }, []);
 
     return (

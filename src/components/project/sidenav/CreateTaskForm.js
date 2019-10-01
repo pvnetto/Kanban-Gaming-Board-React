@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
 
 import { categories } from '../../commons/Categories';
-import BoardsContext, { useBoards } from '../../contexts/BoardsContext';
+import { useBoards } from '../../contexts/BoardsContext';
 import { useTasks } from '../../contexts/TasksContext';
 
 const CreateTaskForm = () => {
@@ -17,10 +17,8 @@ const CreateTaskForm = () => {
     let { boards } = useBoards();
     let { addTaskToBoard, addTaskToBacklog } = useTasks();
 
-    const defaultBoard = boards[0] ? boards[0].title : '';
-
     useEffect(() => {
-        setBoardId({ ...defaultBoard });
+        setBoardId(backlogId);
     }, []);
 
     const onClick = () => {
@@ -32,7 +30,7 @@ const CreateTaskForm = () => {
         }
 
         // Resetting form
-        setBoardId({ ...defaultBoard });
+        setBoardId(backlogId);
         setName("");
         setDescription("");
         setCategory(categories.ART);

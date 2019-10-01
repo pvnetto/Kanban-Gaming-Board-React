@@ -20,11 +20,8 @@ export const TasksProvider = ({ children }) => {
             status: TaskStatus.PLANNED
         };
 
-        const insertedTask = await firebaseClient.insertTaskToBoard(project.id, boardId, newTask);
-        console.log(insertedTask);
-
-        return insertedTask;
         // setAlert({ show: true, msg: `${name} task was succesfully created.` });
+        return await firebaseClient.insertTaskToBoard(project.id, boardId, newTask);
     }
 
     const addTaskToBacklog = async (name, description, category) => {
@@ -35,10 +32,7 @@ export const TasksProvider = ({ children }) => {
             status: TaskStatus.BACKLOG
         };
 
-        const insertedTask = await firebaseClient.insertTaskToBacklog(project.id, newTask);
-        console.log(insertedTask);
-
-        return insertedTask;
+        return await firebaseClient.insertTaskToBacklog(project.id, newTask);
     }
 
     const fetchTasksFromBoard = async (boardId) => {
@@ -51,6 +45,16 @@ export const TasksProvider = ({ children }) => {
         return backlogTasks;
     }
 
+    const listenToBoardTaskChanges = async (boardId, listener) => {
+        let listenerRef = await firebaseClient.setBoardTasksListener(project.id, boardId, listener);
+        return listenerRef;
+    }
+
+    const listenToBacklogTaskChanges = async (listener) => {
+        let listenerRef = await firebaseClient.setBacklogTasksListener(project.id, listener);
+        return listenerRef;
+    }
+
     const removeTask = (id) => {
         // const tasksCopy = [...tasks];
         // const taskToRemove = tasksCopy.findIndex(task => task.id === id);
@@ -60,7 +64,15 @@ export const TasksProvider = ({ children }) => {
     }
 
     return (
-        <TasksContext.Provider value={{ addTaskToBoard, addTaskToBacklog, fetchTasksFromBoard, fetchTasksFromBacklog, removeTask }}>
+        <TasksContext.Provider value={{
+            addTaskToBoard,
+            addTaskToBacklog,
+            fetchTasksFromBoard,
+            fetchTasksFromBacklog,
+            listenToBoardTaskChanges,
+            listenToBacklogTaskChanges,
+            removeTask
+        }}>
             {children}
         </TasksContext.Provider>
     );
