@@ -109,14 +109,13 @@ REACT KANBAN BOARD:
 			- Autorizar usuários por roles
 		- Integração com firebase/firestore			DONE
 			- Usuários
-				- Adicionar usuário
-				- Linkar diferentes contas no mesmo usuário
+				- Adicionar usuário					DONE
 			- Projetos
 				- Adicionar							DONE
 				- Buscar todos						DONE
 				- Remover							DONE
 				- Atualizar							DONE
-				- Buscar por usuário
+				- Buscar por usuário				DONE
 			- Boards
 				- Adicionar							DONE
 				- Buscar por id do projeto			DONE

@@ -65,10 +65,14 @@ export default class Firebase {
         // Receives a project as parameter and adds two extra fields:
         // author and createdAt, before adding it to the database
         const createdAt = new Date();
-        const author = firebase.auth().currentUser.displayName;
+        const authorID = firebase.auth().currentUser.uid;
+        const roles = {};
+        roles[`${authorID}`] = "owner";
 
         const insertedRef = await this._kanbanDB.collection('projects').add({
-            ...project, author, createdAt
+            ...project,
+            createdAt,
+            roles
         });
 
         const insertedData = await insertedRef.get().then(doc => doc.exists ? doc.data() : null);
@@ -110,9 +114,9 @@ export default class Firebase {
         return await insertedRef.get().then(doc => doc.exists ? { id: doc.id, ...doc.data() } : null);
     }
 
-    fetchProjects = async () => {
+    fetchProjects = async (userID) => {
         let projects = [];
-        await this._kanbanDB.collection("projects").get().then((querySnapshot) => {
+        await this._kanbanDB.collection("projects").where(`roles.${userID}`, "==", "owner").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 projects.push({ id: doc.id, ...doc.data() });
             });

@@ -15,6 +15,7 @@ export const Auth0Provider = ({
 }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState({
+        uid: '',
         name: '',
         email: '',
         avatarUrl: ''
@@ -34,6 +35,7 @@ export const Auth0Provider = ({
 
             let profile = auth0Client.getProfile();
             setUser({
+                uid: profile.sub,
                 name: profile.name,
                 email: profile.email,
                 avatarUrl: profile.picture

@@ -7,16 +7,16 @@ export const useProjects = () => useContext(ProjectsContext);
 export const ProjectsProvider = ({ children }) => {
     let [projects, setProjects] = useState([]);
 
-    const { firebaseClient } = useAuth0();
+    const { firebaseClient, user } = useAuth0();
 
     useEffect(() => {
         const getProjects = async () => {
-            const savedProjects = await firebaseClient.fetchProjects();
+            const savedProjects = await firebaseClient.fetchProjects(user.uid);
             setProjects([...savedProjects]);
         }
 
         getProjects();
-    }, [])
+    }, [user])
 
     const addProject = async (title, description, generalInfo) => {
         const newProject = {
