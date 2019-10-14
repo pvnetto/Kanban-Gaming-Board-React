@@ -9,10 +9,13 @@ export default class Firebase {
             projectId: `${process.env.REACT_APP_PROJECT_ID}`,
         });
 
-        // Initializes and configures firestore
-        this._messagesDb = firebase.firestore();
+        // Sets up authentication callback
+        firebase.auth().onAuthStateChanged(this.insertUser);
 
-        this._messagesDb.settings({
+        // Initializes and configures firestore
+        this._kanbanDB = firebase.firestore();
+
+        this._kanbanDB.settings({
             timestampsInSnapshots: true
         });
     }
@@ -28,6 +31,35 @@ export default class Firebase {
 
     getCurrentUser = () => firebase.auth().currentUser;
 
+    updateProfile = async (profile) => {
+        if (!firebase.auth().currentUser) {
+            return;
+        }
+
+        await firebase.auth().currentUser.updateProfile({
+            displayName: profile.name,
+            photoURL: profile.picture,
+        });
+
+        await firebase.auth().currentUser.updateEmail(profile.email);
+    }
+
+    insertUser = async (user) => {
+        if (user) {
+            const userRef = await this._kanbanDB.collection('users').doc(user.uid);
+            const userSet = await userRef.set({
+                uid: user.uid,
+                email: user.email,
+                name: user.displayName,
+                avatarUrl: user.photoURL
+            });
+
+            const insertedData = await userRef.get().then(doc => doc.exists ? doc.data() : null);
+
+            return { id: userRef.id, ...insertedData };
+        }
+    }
+
     // Enables the client-side app to add chat messages to the database
     insertProject = async (project) => {
         // Receives a project as parameter and adds two extra fields:
@@ -35,7 +67,7 @@ export default class Firebase {
         const createdAt = new Date();
         const author = firebase.auth().currentUser.displayName;
 
-        const insertedRef = await this._messagesDb.collection('projects').add({
+        const insertedRef = await this._kanbanDB.collection('projects').add({
             ...project, author, createdAt
         });
 
@@ -45,7 +77,7 @@ export default class Firebase {
     }
 
     removeProject = async (projectId) => {
-        const projectRef = await this._messagesDb
+        const projectRef = await this._kanbanDB
             .collection('projects').doc(projectId);
 
         // Deletes all boards before deleting the project
@@ -59,8 +91,8 @@ export default class Firebase {
         await projectRef.collection('backlog').get().then((querySnapshot) => {
             querySnapshot.forEach(doc => {
                 doc.ref.delete();
-            })
-        })
+            });
+        });
 
         // Deletes the project
         return await projectRef.delete();
@@ -71,7 +103,7 @@ export default class Firebase {
         // IDs should not be directly saved in firestore documents
         delete newProject.id;
 
-        const insertedRef = await this._messagesDb
+        const insertedRef = await this._kanbanDB
             .collection('projects').doc(projectId);
 
         await insertedRef.update({ ...newProject });
@@ -80,7 +112,7 @@ export default class Firebase {
 
     fetchProjects = async () => {
         let projects = [];
-        await this._messagesDb.collection("projects").get().then((querySnapshot) => {
+        await this._kanbanDB.collection("projects").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 projects.push({ id: doc.id, ...doc.data() });
             });
@@ -93,7 +125,7 @@ export default class Firebase {
         const createdAt = new Date();
         const author = firebase.auth().currentUser.displayName;
 
-        const project = await this._messagesDb.collection('projects').doc(projectId);
+        const project = await this._kanbanDB.collection('projects').doc(projectId);
         const newBoardRef = await project.collection('boards').add({ ...board, author, createdAt });
         const newBoardData = await newBoardRef.get().then(doc => doc.exists ? doc.data() : null);
 
@@ -101,7 +133,7 @@ export default class Firebase {
     }
 
     removeBoard = async (projectId, boardId) => {
-        const boardRef = await this._messagesDb
+        const boardRef = await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('boards').doc(boardId);
 
@@ -125,7 +157,7 @@ export default class Firebase {
     fetchBoardsByProject = async (projectId) => {
         let boards = [];
 
-        const project = await this._messagesDb.collection('projects').doc(projectId);
+        const project = await this._kanbanDB.collection('projects').doc(projectId);
         await project.collection('boards').get().then((querySnapshot) => {
             querySnapshot.forEach(doc => {
                 boards.push({ id: doc.id, ...doc.data() });
@@ -139,7 +171,7 @@ export default class Firebase {
         const createdAt = new Date();
         const author = firebase.auth().currentUser.displayName;
 
-        const newTaskRef = await this._messagesDb
+        const newTaskRef = await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('boards').doc(boardId)
             .collection('tasks').add({ ...task, author, createdAt });
@@ -150,7 +182,7 @@ export default class Firebase {
     }
 
     removeTaskFromBoard = async (projectId, boardId, taskId) => {
-        return await this._messagesDb
+        return await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('boards').doc(boardId)
             .collection('tasks').doc(taskId).delete();
@@ -158,7 +190,7 @@ export default class Firebase {
     }
 
     removeTaskFromBacklog = async (projectId, taskId) => {
-        return this._messagesDb
+        return this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('backlog').doc(taskId).delete();
     }
@@ -167,7 +199,7 @@ export default class Firebase {
         const createdAt = new Date();
         const author = firebase.auth().currentUser.displayName;
 
-        const newTaskRef = await this._messagesDb
+        const newTaskRef = await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('backlog').add({ ...task, author, createdAt });
 
@@ -179,7 +211,7 @@ export default class Firebase {
     fetchTasksFromBoard = async (projectId, boardId) => {
         let tasks = [];
 
-        const tasksRef = await this._messagesDb
+        const tasksRef = await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('boards').doc(boardId)
             .collection('tasks');
@@ -196,7 +228,7 @@ export default class Firebase {
     fetchTasksFromBacklog = async (projectId) => {
         let backlogTasks = [];
 
-        const tasksRef = await this._messagesDb
+        const tasksRef = await this._kanbanDB
             .collection('projects')
             .doc(projectId)
             .collection('backlog');
@@ -210,18 +242,7 @@ export default class Firebase {
         return backlogTasks;
     }
 
-    updateProfile = async (profile) => {
-        if (!firebase.auth().currentUser) {
-            return;
-        }
-
-        await firebase.auth().currentUser.updateProfile({
-            displayName: profile.name,
-            photoURL: profile.picture
-        });
-    }
-
-    // Converts snapshot's list of docs to a list of items with doc data, so listeners don't have to deal with snapshots
+    // Converts snapshot's list of docs to a list of items with doc data, so listeners don't have to deal directly with snapshots
     _delegateListener = (listener) => {
         return (snapshot) => {
             let items = [];
@@ -234,14 +255,14 @@ export default class Firebase {
     }
 
     setBoardTasksListener = async (projectId, boardId, listener) => {
-        return await this._messagesDb
+        return await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('boards').doc(boardId)
             .collection('tasks').onSnapshot(this._delegateListener(listener));
     }
 
     setBacklogTasksListener = async (projectId, listener) => {
-        return await this._messagesDb
+        return await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('backlog').onSnapshot(this._delegateListener(listener));
     }

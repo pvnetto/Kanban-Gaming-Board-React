@@ -14,7 +14,7 @@ export default class Auth0Client {
             redirectUri: process.env.REACT_APP_AUTH0_CALLBACK_URL,  // Declared in .env
             audience: process.env.REACT_APP_AUTH0_AUDIENCE,         // The audience for an auth0 secured API must be the same as APIs > 'api_name' > Identifier
             responseType: "token id_token",                         // token: Used to make API calls, id_token: used for identification by openid
-            scope: 'openid profile'
+            scope: 'openid profile email'
         });
     }
 

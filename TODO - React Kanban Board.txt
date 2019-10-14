@@ -107,13 +107,16 @@ REACT KANBAN BOARD:
 			- Convidar para projeto
 			- Roles
 			- Autorizar usuários por roles
-			- Login persiste quando atualiza
 		- Integração com firebase/firestore			DONE
+			- Usuários
+				- Adicionar usuário
+				- Linkar diferentes contas no mesmo usuário
 			- Projetos
 				- Adicionar							DONE
 				- Buscar todos						DONE
 				- Remover							DONE
 				- Atualizar							DONE
+				- Buscar por usuário
 			- Boards
 				- Adicionar							DONE
 				- Buscar por id do projeto			DONE
@@ -126,8 +129,10 @@ REACT KANBAN BOARD:
 				- Atualizar
 		- Métricas simples para usuário/projeto
 	- Experimentar:
+		- Firebase/firestore						DONE
 		- Context API								DONE
 		- PropTypes
 		- Form validation (pure HTML or Formik, check https://react-bootstrap.github.io/components/forms/)
+		- Silent authentication
 		- Substituir classNames por componentes Bootstrap onde possível
 		- Testes

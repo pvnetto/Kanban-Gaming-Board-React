@@ -20,7 +20,7 @@ export const Auth0Provider = ({
         avatarUrl: ''
     });
     const [auth0Client, setAuth0] = useState(new Auth0Client());
-    const [firebaseClient, setFirebaseClient] = useState(null);
+    let [firebaseClient, setFirebaseClient] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const loginThroughCallback = async () => {
@@ -34,7 +34,8 @@ export const Auth0Provider = ({
 
             let profile = auth0Client.getProfile();
             setUser({
-                name: profile.given_name,
+                name: profile.name,
+                email: profile.email,
                 avatarUrl: profile.picture
             });
 
@@ -48,7 +49,7 @@ export const Auth0Provider = ({
     }
 
     async function setFirebaseCustomToken() {
-        const firebaseClient = new Firebase();
+        firebaseClient = new Firebase();
 
         const response = await fetch('http://localhost:3001/firebase', {
             headers: {
