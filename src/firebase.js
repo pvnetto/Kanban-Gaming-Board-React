@@ -60,6 +60,19 @@ export default class Firebase {
         }
     }
 
+    fetchUserByEmail = async (userEmail) => {
+        let user;
+
+        const usersRef = await this._kanbanDB.collection("users");
+        await usersRef.where(`email`, "==", userEmail).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                user = { id: doc.id, ...doc.data() };
+            });
+        });
+
+        return user;
+    }
+
     // Enables the client-side app to add chat messages to the database
     insertProject = async (project) => {
         // Receives a project as parameter and adds two extra fields:
@@ -114,9 +127,39 @@ export default class Firebase {
         return await insertedRef.get().then(doc => doc.exists ? { id: doc.id, ...doc.data() } : null);
     }
 
+    insertProjectContributor = async (projectId, contributorEmail) => {
+        let newContributor = await this.fetchUserByEmail(contributorEmail);
+
+        if (newContributor) {
+            const projectRef = await this._kanbanDB
+                .collection('projects').doc(projectId);
+
+            // Using an object with dot notation to update the object allows you to update an object without overwriting its data
+            const newRoles = {};
+            newRoles[`roles.${newContributor.id}`] = 'contributor';
+
+            projectRef.update({
+                ...newRoles
+            });
+
+            return await projectRef.get().then(doc => doc.exists ? { id: doc.id, ...doc.data() } : null);
+        }
+        else {
+            console.log("User not found!");
+        }
+    }
+
     fetchProjects = async (userID) => {
         let projects = [];
-        await this._kanbanDB.collection("projects").where(`roles.${userID}`, "==", "owner").get().then((querySnapshot) => {
+        const projectsRef = await this._kanbanDB.collection("projects");
+
+        await projectsRef.where(`roles.${userID}`, "==", "owner").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                projects.push({ id: doc.id, ...doc.data() });
+            });
+        });
+
+        await projectsRef.where(`roles.${userID}`, "==", "contributor").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 projects.push({ id: doc.id, ...doc.data() });
             });

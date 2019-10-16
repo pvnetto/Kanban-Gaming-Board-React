@@ -40,6 +40,15 @@ export const ProjectsProvider = ({ children }) => {
         setProjects([...projectsCopy]);
     }
 
+    const addContributorToProject = async (projectId, contributorEmail) => {
+        const updatedProject = await firebaseClient.insertProjectContributor(projectId, contributorEmail);
+
+        let projectIdx = projects.findIndex(item => item.id === projectId);
+        let projectsCopy = [...projects];
+        projectsCopy[projectIdx] = updatedProject;
+        setProjects([...projectsCopy]);
+    }
+
     const updateProject = async (projectId, title, description, generalInfo) => {
         let projectIdx = projects.findIndex(project => project.id === projectId);
         let updatedProject = {
@@ -58,7 +67,7 @@ export const ProjectsProvider = ({ children }) => {
     }
 
     return (
-        <ProjectsContext.Provider value={{ projects, addProject, removeProject, updateProject }}>
+        <ProjectsContext.Provider value={{ projects, addProject, removeProject, updateProject, addContributorToProject }}>
             {children}
         </ProjectsContext.Provider>
     )

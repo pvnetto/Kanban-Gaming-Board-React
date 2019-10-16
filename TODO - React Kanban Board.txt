@@ -104,11 +104,10 @@ REACT KANBAN BOARD:
 		- Refatorar para Context API				DONE
 		- Autenticação
 			- Logar									DONE
-			- Convidar para projeto
-			- Roles
-			- Autorizar usuários por roles
+			- Convidar para projeto					DONE
+			- Autorizar usuários por roles			DONE
 		- Integração com firebase/firestore			DONE
-			- Usuários
+			- Usuários								
 				- Adicionar usuário					DONE
 			- Projetos
 				- Adicionar							DONE
@@ -125,7 +124,10 @@ REACT KANBAN BOARD:
 				- Buscar							DONE
 				- Listener quando uma é adicionada	DONE
 				- Remover							DONE
-				- Atualizar
+				- Reordenar (lista de tarefas)
+		- Feedback para operações:
+			- Loading quando tiver carregando dados
+			- Aviso quando sucesso/falha
 		- Métricas simples para usuário/projeto
 	- Experimentar:
 		- Firebase/firestore						DONE
