@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import TaskStatus from '../../commons/TaskStatus';
 import TaskItem from '../commons/tasks/TaskItem';
+import { allCategories } from '../../commons/Categories';
 
 const columnIcon = (status) => {
     switch (status) {
@@ -44,28 +45,32 @@ const getDroppableStyle = isDraggingOver => {
     return isDraggingOver ? 'bg-blue' : '';
 }
 
-const BoardColumn = (props) => {
+const isTaskValid = (task, type, category) => {
+    return task.status === type && (category === allCategories.ALL || task.category === category);
+}
+
+const BoardColumn = ({ boardId, tasks, type, category }) => {
 
     return (
 
         <div className={`w-100 h-100 d-flex flex-column align-items-center justify-content-start py-4`}>
-            <div className={`w-100 px-3 pb-3 border-bottom ${columnBorder(props.type)}`}>
+            <div className={`w-100 px-3 pb-3 border-bottom ${columnBorder(type)}`}>
                 <p className="d-flex flex-row align-items-center justify-content-center text-center">
-                    <FontAwesomeIcon icon={columnIcon(props.type)} className="mr-3" /> {props.type} {props.tasks.length}
+                    <FontAwesomeIcon icon={columnIcon(type)} className="mr-3" /> {type} {tasks.length}
                 </p>
             </div>
 
-            <Droppable droppableId={`${props.type}`}>
+            <Droppable droppableId={`${type}`}>
                 {(provided, snapshot) => (
                     <div ref={provided.innerRef}
                         className={`w-100 d-flex flex-column justify-content-start align-items-stretch flex-fill my-3 ${getDroppableStyle(snapshot.isDraggingOver)}`}>
-                        {props.tasks.map((task, idx) => <TaskItem key={task.id} index={idx} {...task} boardId={props.boardId} />)}
+                        {tasks.map((task, idx) => isTaskValid(task, type, category) ? <TaskItem key={idx} index={idx} task={task} boardId={boardId} /> : null)}
                         {provided.placeholder}
                     </div>
                 )}
             </Droppable>
 
-            <div className={`w-100 p-3 border-bottom ${columnBorder(props.type)}`}></div>
+            <div className={`w-100 p-3 border-bottom ${columnBorder(type)}`}></div>
         </div>
     );
 };

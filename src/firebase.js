@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 
 export default class Firebase {
     constructor() {
@@ -153,12 +153,14 @@ export default class Firebase {
         let projects = [];
         const projectsRef = await this._kanbanDB.collection("projects");
 
+        // Fetches projects where user is the owner
         await projectsRef.where(`roles.${userID}`, "==", "owner").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 projects.push({ id: doc.id, ...doc.data() });
             });
         });
 
+        // Fetches projects where user is a contributor
         await projectsRef.where(`roles.${userID}`, "==", "contributor").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 projects.push({ id: doc.id, ...doc.data() });
@@ -218,22 +220,52 @@ export default class Firebase {
         const createdAt = new Date();
         const author = firebase.auth().currentUser.displayName;
 
-        const newTaskRef = await this._kanbanDB
+        const tasksRef = await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('boards').doc(boardId)
-            .collection('tasks').add({ ...task, author, createdAt });
+            .collection('tasks').doc('tasks');
 
-        const newTaskData = await newTaskRef.get().then(doc => doc.exists ? doc.data() : null);
+        const tasks = await this.fetchTasksFromBoard(projectId, boardId);
 
-        return { id: newTaskRef.id, ...newTaskData };
+        let newTask = { ...task, author, createdAt }
+        await tasksRef.set({
+            ordered: [...tasks, { ...newTask }]
+        });
+
+        return newTask;
     }
 
-    removeTaskFromBoard = async (projectId, boardId, taskId) => {
-        return await this._kanbanDB
+    updateBoardTasks = async (projectId, boardId, tasks) => {
+        const tasksRef = await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('boards').doc(boardId)
-            .collection('tasks').doc(taskId).delete();
+            .collection('tasks').doc('tasks');
 
+        await tasksRef.set({
+            ordered: [...tasks]
+        });
+
+        return await tasksRef.get().then(doc => doc.exists ? [...doc.data().ordered] : []);
+    }
+
+    removeTaskFromBoard = async (projectId, boardId, task) => {
+        const tasksRef = await this._kanbanDB
+            .collection('projects').doc(projectId)
+            .collection('boards').doc(boardId)
+            .collection('tasks').doc('tasks');
+
+        return await tasksRef.update({
+            ordered: firebase.firestore.FieldValue.arrayRemove({ ...task })
+        });
+    }
+
+    fetchTasksFromBoard = async (projectId, boardId) => {
+        const tasksRef = await this._kanbanDB
+            .collection('projects').doc(projectId)
+            .collection('boards').doc(boardId)
+            .collection('tasks').doc('tasks');
+
+        return await tasksRef.get().then(doc => doc.exists ? [...doc.data().ordered] : []);
     }
 
     removeTaskFromBacklog = async (projectId, taskId) => {
@@ -253,23 +285,6 @@ export default class Firebase {
         const newTaskData = await newTaskRef.get().then(doc => doc.exists ? doc.data() : null);
 
         return { id: newTaskRef.id, ...newTaskData };
-    }
-
-    fetchTasksFromBoard = async (projectId, boardId) => {
-        let tasks = [];
-
-        const tasksRef = await this._kanbanDB
-            .collection('projects').doc(projectId)
-            .collection('boards').doc(boardId)
-            .collection('tasks');
-
-        await tasksRef.get().then((querySnapshot) => {
-            querySnapshot.forEach(doc => {
-                tasks.push({ id: doc.id, ...doc.data() });
-            })
-        });
-
-        return tasks;
     }
 
     fetchTasksFromBacklog = async (projectId) => {
@@ -294,7 +309,7 @@ export default class Firebase {
         return (snapshot) => {
             let items = [];
             snapshot.forEach(doc => {
-                items.push(doc.exists ? { id: doc.id, ...doc.data() } : null);
+                items = doc.exists ? [...doc.data().ordered] : [];
             });
 
             listener(items);

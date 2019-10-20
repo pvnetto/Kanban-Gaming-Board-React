@@ -125,9 +125,21 @@ REACT KANBAN BOARD:
 				- Listener quando uma é adicionada	DONE
 				- Remover							DONE
 				- Reordenar (lista de tarefas)
+					- Adicionar lista de tarefas na subcollection tasks		DONE
+					- Salvar tarefas como elementos dessa lista				DONE
+					- Reordenar tarefas na mesma coluna						DONE
+					- Mudar status de tarefa								DONE
+					- Reordenar tarefa em coluna diferente					DONE
+			- Design Logs
+				- Adicionar
+				- Remover
+			- Refatorar firebase, facilitar reuso em outros projetos
 		- Feedback para operações:
 			- Loading quando tiver carregando dados
 			- Aviso quando sucesso/falha
+		- Deixar design da página mais clean
+		- Login auth0 na página inicial, sem redirecionar
+		- Responsividade
 		- Métricas simples para usuário/projeto
 	- Experimentar:
 		- Firebase/firestore						DONE

@@ -8,9 +8,9 @@ import SectionNavbarButton from '../../commons/SectionNavbarButton';
 import { allCategories } from '../../commons/Categories';
 import ModalBase from '../../commons/ModalBase';
 import CreateTaskForm from '../sidenav/CreateTaskForm';
-import BoardsContext from '../../contexts/BoardsContext';
 import BoardSidenav from './BoardSidenav';
 import BoardColumn from './BoardColumn';
+import { useTasks } from '../../contexts/TasksContext';
 
 export const BoardContainerHeader = ({ title, children }) => {
     let [showCreateTask, setShowCreateTask] = useState(false);
@@ -27,93 +27,82 @@ export const BoardContainerHeader = ({ title, children }) => {
     );
 }
 
-const BoardContainer = (props) => {
+const BoardContainer = ({ tasks, match, columns, children }) => {
 
     let [category, setCategory] = useState(allCategories.ALL);
-    let [categoryTasks, setCategoryTasks] = useState([]);
 
-    let { tasks } = useContext(BoardsContext);
+    let { updateBoardTasks } = useTasks();
 
-    useEffect(() => {
-        const filteredTasks = category === allCategories.ALL ? props.tasks : props.tasks.filter(task => task.category === category);
-        setCategoryTasks([...filteredTasks]);
-    }, [props.tasks, category]);
-
-    const reorder = (list, srcTask, destTask) => {
+    const reorder = (list, srcIndex, destIndex) => {
         const result = Array.from(list);
 
-        let srcTaskIdInList = tasks.findIndex(task => task.id === srcTask.id);
-        let destTaskIdInList = tasks.findIndex(task => task.id === destTask.id);
-
-        const [removed] = result.splice(srcTaskIdInList, 1);
-        result.splice(destTaskIdInList, 0, removed);
+        const [removed] = result.splice(srcIndex, 1);
+        result.splice(destIndex, 0, removed);
 
         return result;
     }
 
-    const move = (srcType, destType, srcIdx, destIdx) => {
-        let tasksCopy = [...tasks];
-        let srcTypeTasks = tasksCopy.filter(task => task.status === srcType);
-        let destTypeTasks = tasksCopy.filter(task => task.status === destType);
+    // Source Index = index of task considering the entire list
+    // Dest Index = Index of task local to the list
+    const move = (destType, srcIdx, destIdx) => {
+        let updatedTasks = [...tasks];
 
         // Updating source task type to the same as destination task
-        let srcTask = srcTypeTasks[srcIdx];
-        let srcTaskIdInList = tasksCopy.findIndex(task => task.id === srcTask.id);
-        tasksCopy[srcTaskIdInList].status = destType;
+        updatedTasks[srcIdx].status = destType;
 
-        // Repositioning source task
+        // Dest Index is given relative to the Destination list, so first we find the actual task in the list of destination type tasks
+        let destTypeTasks = updatedTasks.filter(task => task.status === destType);
         let destTask = destTypeTasks[destIdx];
-        // If there's a destination a task, the source task takes its place
         if (destTask) {
-            tasksCopy = reorder(tasksCopy, srcTask, destTask);
+            // After finding the destination task, we get its index in the list of all tasks, to reorder correctly
+            let destIndexInTasks = tasks.findIndex(task => task === destTask);
+            updatedTasks = reorder(updatedTasks, srcIdx, destIndexInTasks);
         }
 
-        return tasksCopy;
+        return updatedTasks;
     }
 
-    const onDragEnd = (result) => {
+    const handleDragEnd = (result) => {
         const { source, destination } = result;
+
+        console.log(result);
 
         // If the draggable was dropped outside of a droppable, don't do anything
         if (!destination) {
             return;
         }
 
-        let tasksCopy = [...tasks];
+        let newTasks = [...tasks];
+
         // If the draggable was dropped on the same droppable column, reorder the list
         if (source.droppableId === destination.droppableId) {
-            let typeTasks = tasksCopy.filter(task => task.status === destination.droppableId);
-            let srcTask = typeTasks[source.index];
-            let destTask = typeTasks[destination.index];
-            tasksCopy = reorder(tasksCopy, srcTask, destTask);
-
-            setCategoryTasks(tasksCopy);
+            newTasks = reorder(newTasks, source.index, destination.index);
         }
 
-        // If the draggable was dropped on another droppable column, move it
+        // If the draggable was dropped on a different droppable column from its source, move it
         else {
-            tasksCopy = move(source.droppableId, destination.droppableId, source.index, destination.index);
-
-            setCategoryTasks(tasksCopy);
+            newTasks = move(destination.droppableId, source.index, destination.index);
         }
+
+        updateBoardTasks(match.params.boardId, newTasks);
     }
 
     return (
         <>
-            {props.children}
-            <DragDropContext onDragEnd={onDragEnd}>
+            {children}
+            <DragDropContext onDragEnd={handleDragEnd}>
                 <Row noGutters={true} className="d-flex flex-fill w-100">
                     <BoardSidenav onClick={setCategory} activeCategory={category} />
 
                     <Col className="inner-workspace d-flex flex-row align-items-stretch">
                         {
-                            props.columns.map((status, idx) => (
-                                <Col key={idx} xs={12 / props.columns.length}>
+                            columns.map((status, idx) => (
+                                <Col key={idx} xs={12 / columns.length}>
                                     <BoardColumn
-                                        boardId={props.match.params.boardId}
+                                        boardId={match.params.boardId}
                                         type={status}
-                                        tasks={categoryTasks.filter(task => task.status === status)}
-                                        updateTask={props.updateTask} />
+                                        tasks={tasks}
+                                        category={category} />
                                 </Col>
                             ))
                         }

@@ -53,8 +53,12 @@ export const TasksProvider = ({ children }) => {
         return listenerRef;
     }
 
-    const removeTaskFromBoard = async (boardId, taskId) => {
-        return await firebaseClient.removeTaskFromBoard(project.id, boardId, taskId);
+    const updateBoardTasks = async (boardId, tasks) => {
+        return await firebaseClient.updateBoardTasks(project.id, boardId, tasks);
+    }
+
+    const removeTaskFromBoard = async (boardId, task) => {
+        return await firebaseClient.removeTaskFromBoard(project.id, boardId, task);
     }
 
     const removeTaskFromBacklog = async (taskId) => {
@@ -69,6 +73,7 @@ export const TasksProvider = ({ children }) => {
             fetchTasksFromBacklog,
             listenToBoardTaskChanges,
             listenToBacklogTaskChanges,
+            updateBoardTasks,
             removeTaskFromBoard,
             removeTaskFromBacklog
         }}>
