@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import TaskStatus from '../../commons/TaskStatus';
 import TaskItem from '../commons/tasks/TaskItem';
-import { allCategories } from '../../commons/Categories';
 
 const columnIcon = (status) => {
     switch (status) {
@@ -45,11 +44,7 @@ const getDroppableStyle = isDraggingOver => {
     return isDraggingOver ? 'bg-blue' : '';
 }
 
-const isTaskValid = (task, type, category) => {
-    return task.status === type && (category === allCategories.ALL || task.category === category);
-}
-
-const BoardColumn = ({ boardId, tasks, type, category }) => {
+const BoardColumn = ({ tasks, removeTask, type, category, isTaskValid }) => {
 
     return (
 
@@ -64,7 +59,7 @@ const BoardColumn = ({ boardId, tasks, type, category }) => {
                 {(provided, snapshot) => (
                     <div ref={provided.innerRef}
                         className={`w-100 d-flex flex-column justify-content-start align-items-stretch flex-fill my-3 ${getDroppableStyle(snapshot.isDraggingOver)}`}>
-                        {tasks.map((task, idx) => isTaskValid(task, type, category) ? <TaskItem key={idx} index={idx} task={task} boardId={boardId} /> : null)}
+                        {tasks.map((task, idx) => isTaskValid(task, type, category) ? <TaskItem key={idx} index={idx} task={task} removeTask={removeTask} /> : null)}
                         {provided.placeholder}
                     </div>
                 )}

@@ -57,12 +57,16 @@ export const TasksProvider = ({ children }) => {
         return await firebaseClient.updateBoardTasks(project.id, boardId, tasks);
     }
 
+    const updateBacklogTasks = async (tasks) => {
+        return await firebaseClient.updateBacklogTasks(project.id, tasks);
+    }
+
     const removeTaskFromBoard = async (boardId, task) => {
         return await firebaseClient.removeTaskFromBoard(project.id, boardId, task);
     }
 
-    const removeTaskFromBacklog = async (taskId) => {
-        return await firebaseClient.removeTaskFromBacklog(project.id, taskId);
+    const removeTaskFromBacklog = async (task) => {
+        return await firebaseClient.removeTaskFromBacklog(project.id, task);
     }
 
     return (
@@ -74,6 +78,7 @@ export const TasksProvider = ({ children }) => {
             listenToBoardTaskChanges,
             listenToBacklogTaskChanges,
             updateBoardTasks,
+            updateBacklogTasks,
             removeTaskFromBoard,
             removeTaskFromBacklog
         }}>

@@ -10,7 +10,6 @@ import ModalBase from '../../commons/ModalBase';
 import CreateTaskForm from '../sidenav/CreateTaskForm';
 import BoardSidenav from './BoardSidenav';
 import BoardColumn from './BoardColumn';
-import { useTasks } from '../../contexts/TasksContext';
 
 export const BoardContainerHeader = ({ title, children }) => {
     let [showCreateTask, setShowCreateTask] = useState(false);
@@ -27,11 +26,13 @@ export const BoardContainerHeader = ({ title, children }) => {
     );
 }
 
-const BoardContainer = ({ tasks, match, columns, children }) => {
+const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) => {
 
     let [category, setCategory] = useState(allCategories.ALL);
 
-    let { updateBoardTasks } = useTasks();
+    const isTaskValid = (task, type, category) => {
+        return task.status === type && (category === allCategories.ALL || task.category === category);
+    }
 
     const reorder = (list, srcIndex, destIndex) => {
         const result = Array.from(list);
@@ -43,7 +44,7 @@ const BoardContainer = ({ tasks, match, columns, children }) => {
     }
 
     // Source Index = index of task considering the entire list
-    // Dest Index = Index of task local to the list
+    // Dest Index = Index of task local to the rendered list
     const move = (destType, srcIdx, destIdx) => {
         let updatedTasks = [...tasks];
 
@@ -51,7 +52,7 @@ const BoardContainer = ({ tasks, match, columns, children }) => {
         updatedTasks[srcIdx].status = destType;
 
         // Dest Index is given relative to the Destination list, so first we find the actual task in the list of destination type tasks
-        let destTypeTasks = updatedTasks.filter(task => task.status === destType);
+        let destTypeTasks = updatedTasks.filter(task => isTaskValid(task, destType, category));
         let destTask = destTypeTasks[destIdx];
         if (destTask) {
             // After finding the destination task, we get its index in the list of all tasks, to reorder correctly
@@ -64,8 +65,6 @@ const BoardContainer = ({ tasks, match, columns, children }) => {
 
     const handleDragEnd = (result) => {
         const { source, destination } = result;
-
-        console.log(result);
 
         // If the draggable was dropped outside of a droppable, don't do anything
         if (!destination) {
@@ -84,7 +83,7 @@ const BoardContainer = ({ tasks, match, columns, children }) => {
             newTasks = move(destination.droppableId, source.index, destination.index);
         }
 
-        updateBoardTasks(match.params.boardId, newTasks);
+        updateTasks(newTasks);
     }
 
     return (
@@ -99,10 +98,11 @@ const BoardContainer = ({ tasks, match, columns, children }) => {
                             columns.map((status, idx) => (
                                 <Col key={idx} xs={12 / columns.length}>
                                     <BoardColumn
-                                        boardId={match.params.boardId}
                                         type={status}
                                         tasks={tasks}
-                                        category={category} />
+                                        removeTask={removeTask}
+                                        category={category}
+                                        isTaskValid={isTaskValid} />
                                 </Col>
                             ))
                         }

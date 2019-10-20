@@ -130,10 +130,13 @@ REACT KANBAN BOARD:
 					- Reordenar tarefas na mesma coluna						DONE
 					- Mudar status de tarefa								DONE
 					- Reordenar tarefa em coluna diferente					DONE
+				- Adicionar/remover/reordenar backlog
 			- Design Logs
 				- Adicionar
 				- Remover
+			- Mover lógica de reordenação
 			- Refatorar firebase, facilitar reuso em outros projetos
+					- Padrão DAO
 		- Feedback para operações:
 			- Loading quando tiver carregando dados
 			- Aviso quando sucesso/falha

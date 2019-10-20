@@ -7,7 +7,7 @@ import { useTasks } from '../../contexts/TasksContext';
 const ProjectBacklog = (props) => {
 
     let [tasks, setTasks] = useState([]);
-    const { listenToBacklogTaskChanges } = useTasks();
+    const { listenToBacklogTaskChanges, updateBacklogTasks, removeTaskFromBacklog } = useTasks();
 
     useEffect(() => {
         let listener = null;
@@ -25,7 +25,7 @@ const ProjectBacklog = (props) => {
     }, []);
 
     return (
-        <BoardContainer {...props} tasks={tasks} columns={[TaskStatus.BACKLOG]}>
+        <BoardContainer {...props} tasks={tasks} removeTask={removeTaskFromBacklog} updateTasks={updateBacklogTasks} columns={[TaskStatus.BACKLOG]}>
             <BoardContainer.Header title={"Backlog"}>
             </BoardContainer.Header>
         </BoardContainer>

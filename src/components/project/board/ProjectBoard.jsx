@@ -11,7 +11,7 @@ const ProjectBoard = (props) => {
 
     let [tasks, setTasks] = useState([]);
     const { project, removeBoard } = useBoards();
-    const { listenToBoardTaskChanges } = useTasks();
+    const { listenToBoardTaskChanges, updateBoardTasks, removeTaskFromBoard } = useTasks();
 
     useEffect(() => {
         let listener = null;
@@ -30,11 +30,19 @@ const ProjectBoard = (props) => {
         }
     }, []);
 
+
     return (
-        <BoardContainer {...props} tasks={tasks} columns={[TaskStatus.PLANNED, TaskStatus.IN_PROGRESS, TaskStatus.TESTING, TaskStatus.COMPLETED]}>
+        <BoardContainer
+            tasks={tasks}
+            updateTasks={(tasks) => updateBoardTasks(props.match.params.boardId, tasks)}
+            removeTask={(task) => removeTaskFromBoard(props.match.params.boardId, task)}
+            columns={[TaskStatus.PLANNED, TaskStatus.IN_PROGRESS, TaskStatus.TESTING, TaskStatus.COMPLETED]}
+        >
+
             <BoardContainer.Header title={"Boards"}>
                 <SectionNavbarLink title={"Close board"} icon={faWindowClose} link={`/project/${project.id}`} onClick={() => removeBoard(props.match.params.boardId)} />
             </BoardContainer.Header>
+
         </BoardContainer>
     );
 };

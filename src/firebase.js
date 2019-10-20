@@ -268,40 +268,60 @@ export default class Firebase {
         return await tasksRef.get().then(doc => doc.exists ? [...doc.data().ordered] : []);
     }
 
-    removeTaskFromBacklog = async (projectId, taskId) => {
-        return this._kanbanDB
-            .collection('projects').doc(projectId)
-            .collection('backlog').doc(taskId).delete();
-    }
-
     insertTaskToBacklog = async (projectId, task) => {
         const createdAt = new Date();
         const author = firebase.auth().currentUser.displayName;
 
-        const newTaskRef = await this._kanbanDB
+        const tasksRef = await this._kanbanDB
             .collection('projects').doc(projectId)
-            .collection('backlog').add({ ...task, author, createdAt });
+            .collection('backlog').doc('tasks');
 
-        const newTaskData = await newTaskRef.get().then(doc => doc.exists ? doc.data() : null);
+        const tasks = await this.fetchTasksFromBacklog(projectId);
 
-        return { id: newTaskRef.id, ...newTaskData };
+        let newTask = { ...task, author, createdAt }
+        await tasksRef.set({
+            ordered: [...tasks, { ...newTask }]
+        });
+
+        return newTask;
+    }
+
+    updateBacklogTasks = async (projectId, tasks) => {
+        const tasksRef = await this._kanbanDB
+            .collection('projects').doc(projectId)
+            .collection('backlog').doc('tasks');
+
+        await tasksRef.set({
+            ordered: [...tasks]
+        });
+
+        return await tasksRef.get().then(doc => doc.exists ? [...doc.data().ordered] : []);
+    }
+
+    removeTaskFromBacklog = async (projectId, task) => {
+        const tasksRef = await this._kanbanDB
+            .collection('projects').doc(projectId)
+            .collection('backlog').doc('tasks');
+
+        return await tasksRef.update({
+            ordered: firebase.firestore.FieldValue.arrayRemove({ ...task })
+        });
     }
 
     fetchTasksFromBacklog = async (projectId) => {
-        let backlogTasks = [];
-
         const tasksRef = await this._kanbanDB
-            .collection('projects')
-            .doc(projectId)
-            .collection('backlog');
+            .collection('projects').doc(projectId)
+            .collection('backlog').doc('tasks');
 
-        await tasksRef.get().then((querySnapshot) => {
-            querySnapshot.forEach(doc => {
-                backlogTasks.push({ id: doc.id, ...doc.data() });
-            })
-        });
+        return await tasksRef.get().then(doc => doc.exists ? [...doc.data().ordered] : []);
+    }
 
-        return backlogTasks;
+    insertDesignLog = async (projectId, designLog) => {
+
+    }
+
+    removeDesignLog = async (projectId, designLogId) => {
+
     }
 
     // Converts snapshot's list of docs to a list of items with doc data, so listeners don't have to deal directly with snapshots
