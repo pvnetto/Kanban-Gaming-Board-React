@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 export default class TaskDAO {
 
     constructor(firestoreDB) {
-        this.firestoreDB = firestoreDB;
+        this._firestoreDB = firestoreDB;
     }
 
     insertTaskToBoard = async (boardRef, task) => {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import TaskStatus from '../commons/TaskStatus';
 import { useProjects } from './ProjectContext';
 import { useAuth0 } from '../../auth0-wrapper';
 
@@ -20,7 +19,7 @@ export const BoardsProvider = ({ children, projectId }) => {
         setProject({ ...currentProject });
 
         const setup = async () => {
-            const projectBoards = await firebaseClient.fetchBoardsByProject(currentProject.id);
+            const projectBoards = await firebaseClient.boardService.fetchBoardsByProject(currentProject.id);
             setBoards(projectBoards);
         }
 
@@ -40,14 +39,14 @@ export const BoardsProvider = ({ children, projectId }) => {
             endDate: endDate.toDate()
         }
 
-        const addedBoard = await firebaseClient.insertBoard(project.id, newBoard);
+        const addedBoard = await firebaseClient.boardService.insertBoard(project.id, newBoard);
         setBoards([...boards, addedBoard]);
         // setAlert({ show: true, msg: `${title} board was succesfully created.` });
     }
 
     // TODO: Also remove all tasks
     const removeBoard = async (boardId) => {
-        await firebaseClient.removeBoard(project.id, boardId);
+        await firebaseClient.boardService.removeBoard(project.id, boardId);
 
         const boardsCopy = [...boards];
         const boardToRemove = boardsCopy.findIndex(board => board.id === boardId);

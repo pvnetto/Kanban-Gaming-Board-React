@@ -22,7 +22,7 @@ const ProjectDesignLog = () => {
         let listener = null;
 
         const listenToLogs = async () => {
-            listener = await firebaseClient.setDesignLogListener(project.id, (snapshotLogs) => {
+            listener = await firebaseClient.designLogService.setDesignLogListener(project.id, (snapshotLogs) => {
                 setLogs([...snapshotLogs]);
             });
         }
@@ -41,11 +41,11 @@ const ProjectDesignLog = () => {
             content
         };
 
-        newLog = await firebaseClient.insertDesignLog(project.id, newLog);
+        newLog = await firebaseClient.designLogService.insertDesignLog(project.id, newLog);
     }
 
     const removeLog = async (logId) => {
-        await firebaseClient.removeDesignLog(project.id, logId);
+        await firebaseClient.designLogService.removeDesignLog(project.id, logId);
     }
 
     return (

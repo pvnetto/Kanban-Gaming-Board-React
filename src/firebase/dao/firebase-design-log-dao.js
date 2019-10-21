@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 export default class DesignLogDAO {
 
     constructor(firestoreDB) {
-        this.firestoreDB = firestoreDB;
+        this._firestoreDB = firestoreDB;
     }
 
     insertDesignLog = async (projectRef, designLog) => {

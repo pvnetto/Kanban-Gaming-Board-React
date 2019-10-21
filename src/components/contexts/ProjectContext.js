@@ -11,7 +11,7 @@ export const ProjectsProvider = ({ children }) => {
 
     useEffect(() => {
         const getProjects = async () => {
-            const savedProjects = await firebaseClient.fetchProjects(user.uid);
+            const savedProjects = await firebaseClient.projectService.fetchProjects(user.uid);
             setProjects([...savedProjects]);
         }
 
@@ -25,13 +25,13 @@ export const ProjectsProvider = ({ children }) => {
             generalInfo,
         };
 
-        const insertedProject = await firebaseClient.insertProject(newProject);
+        const insertedProject = await firebaseClient.projectService.insertProject(newProject);
         setProjects([...projects, insertedProject]);
         // setAlert({ show: true, msg: `${title} project was succesfully created.` });
     }
 
     const removeProject = async (projectId) => {
-        await firebaseClient.removeProject(projectId);
+        await firebaseClient.projectService.removeProject(projectId);
 
         const projectsCopy = [...projects];
         const projectToRemove = projectsCopy.findIndex(project => project.id === projectId);
@@ -41,7 +41,7 @@ export const ProjectsProvider = ({ children }) => {
     }
 
     const addContributorToProject = async (projectId, contributorEmail) => {
-        const updatedProject = await firebaseClient.insertProjectContributor(projectId, contributorEmail);
+        const updatedProject = await firebaseClient.projectService.insertProjectContributor(projectId, contributorEmail);
 
         let projectIdx = projects.findIndex(item => item.id === projectId);
         let projectsCopy = [...projects];
@@ -58,7 +58,7 @@ export const ProjectsProvider = ({ children }) => {
             generalInfo
         };
 
-        updatedProject = await firebaseClient.updateProject(updatedProject);
+        updatedProject = await firebaseClient.projectService.updateProject(updatedProject);
 
         // Updates state with object saved on database
         let projectsCopy = [...projects];

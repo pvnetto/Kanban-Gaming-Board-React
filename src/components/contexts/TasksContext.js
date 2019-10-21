@@ -21,7 +21,7 @@ export const TasksProvider = ({ children }) => {
         };
 
         // setAlert({ show: true, msg: `${name} task was succesfully created.` });
-        return await firebaseClient.insertTaskToBoard(project.id, boardId, newTask);
+        return await firebaseClient.taskService.insertTaskToBoard(project.id, boardId, newTask);
     }
 
     const addTaskToBacklog = async (name, description, category) => {
@@ -32,41 +32,41 @@ export const TasksProvider = ({ children }) => {
             status: TaskStatus.BACKLOG
         };
 
-        return await firebaseClient.insertTaskToBacklog(project.id, newTask);
+        return await firebaseClient.taskService.insertTaskToBacklog(project.id, newTask);
     }
 
     const fetchTasksFromBoard = async (boardId) => {
-        return await firebaseClient.fetchTasksFromBoard(project.id, boardId);
+        return await firebaseClient.taskService.fetchTasksFromBoard(project.id, boardId);
     }
 
     const fetchTasksFromBacklog = async () => {
-        return await firebaseClient.fetchTasksFromBacklog(project.id);
+        return await firebaseClient.taskService.fetchTasksFromBacklog(project.id);
     }
 
     const listenToBoardTaskChanges = async (boardId, listener) => {
-        let listenerRef = await firebaseClient.setBoardTasksListener(project.id, boardId, listener);
+        let listenerRef = await firebaseClient.taskService.setBoardTasksListener(project.id, boardId, listener);
         return listenerRef;
     }
 
     const listenToBacklogTaskChanges = async (listener) => {
-        let listenerRef = await firebaseClient.setBacklogTasksListener(project.id, listener);
+        let listenerRef = await firebaseClient.taskService.setBacklogTasksListener(project.id, listener);
         return listenerRef;
     }
 
     const updateBoardTasks = async (boardId, tasks) => {
-        return await firebaseClient.updateBoardTasks(project.id, boardId, tasks);
+        return await firebaseClient.taskService.updateBoardTasks(project.id, boardId, tasks);
     }
 
     const updateBacklogTasks = async (tasks) => {
-        return await firebaseClient.updateBacklogTasks(project.id, tasks);
+        return await firebaseClient.taskService.updateBacklogTasks(project.id, tasks);
     }
 
     const removeTaskFromBoard = async (boardId, task) => {
-        return await firebaseClient.removeTaskFromBoard(project.id, boardId, task);
+        return await firebaseClient.taskService.removeTaskFromBoard(project.id, boardId, task);
     }
 
     const removeTaskFromBacklog = async (task) => {
-        return await firebaseClient.removeTaskFromBacklog(project.id, task);
+        return await firebaseClient.taskService.removeTaskFromBacklog(project.id, task);
     }
 
     return (

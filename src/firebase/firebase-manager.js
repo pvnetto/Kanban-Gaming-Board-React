@@ -1,9 +1,9 @@
 import * as firebase from 'firebase';
-import UserDAO from './dao/firebase-user-dao';
-import ProjectDAO from './dao/firebase-project-dao';
-import BoardDAO from './dao/firebase-board-dao';
-import TaskDAO from './dao/firebase-task-dao';
-import DesignLogDAO from './dao/firebase-design-log-dao';
+import UserService from './services/firebase-user-service';
+import ProjectService from './services/firebase-project-service';
+import BoardService from './services/firebase-board-service';
+import TaskService from './services/firebase-task-service';
+import DesignLogService from './services/firebase-design-log-service';
 
 export default class Firebase {
     constructor() {
@@ -14,9 +14,6 @@ export default class Firebase {
             projectId: `${process.env.REACT_APP_PROJECT_ID}`,
         });
 
-        // Sets up authentication callback
-        firebase.auth().onAuthStateChanged(this.insertUser);
-
         // Initializes and configures firestore
         this._kanbanDB = firebase.firestore();
 
@@ -24,11 +21,14 @@ export default class Firebase {
             timestampsInSnapshots: true
         });
 
-        this.userDAO = new UserDAO(this._kanbanDB);
-        this.projectDAO = new ProjectDAO(this._kanbanDB);
-        this.boardDAO = new BoardDAO(this._kanbanDB);
-        this.taskDAO = new TaskDAO(this._kanbanDB);
-        this.designLogDAO = new DesignLogDAO(this._kanbanDB);
+        this.userService = new UserService(this._kanbanDB);
+        this.projectService = new ProjectService(this._kanbanDB);
+        this.boardService = new BoardService(this._kanbanDB);
+        this.taskService = new TaskService(this._kanbanDB);
+        this.designLogService = new DesignLogService(this._kanbanDB);
+
+        // Sets up authentication callback
+        firebase.auth().onAuthStateChanged(this.userService.insertUser);
     }
 
     // Ends firebase session
@@ -53,147 +53,6 @@ export default class Firebase {
         });
 
         await firebase.auth().currentUser.updateEmail(profile.email);
-    }
-
-    insertUser = async (user) => {
-        return await this.userDAO.insertUser(user);
-    }
-
-    fetchUserByEmail = async (userEmail) => {
-        return await this.userDAO.fetchUserByEmail(userEmail);
-    }
-
-    // Enables the client-side app to add chat messages to the database
-    insertProject = async (project) => {
-        return await this.projectDAO.insertProject(project);
-    }
-
-    removeProject = async (projectId) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-
-        // Deletes all boards, tasks, backlog and design logs before deleting the project
-        let boardRefs = await this.boardDAO.fetchBoardRefsByProject(projectRef);
-        await boardRefs.forEach(boardRef => this.taskDAO.removeAllTasksFromBoard(boardRef));
-        await this.boardDAO.removeBoards(boardRefs);
-        await this.taskDAO.removeAllTasksFromBacklog(projectRef);
-        await this.designLogDAO.removeAllDesignLogsFromProject(projectRef);
-
-        // Deletes the project
-        return await projectRef.delete();
-    }
-
-    updateProject = async (newProject) => {
-        return await this.projectDAO.updateProject(newProject);
-    }
-
-    insertProjectContributor = async (projectId, contributorEmail) => {
-        let newContributor = await this.userDAO.fetchUserByEmail(contributorEmail);
-        return await this.projectDAO.insertProjectContributor(projectId, newContributor);
-    }
-
-    fetchProjects = async (userID) => {
-        return await this.projectDAO.fetchProjectsByUserID(userID);
-    }
-
-    insertBoard = async (projectId, board) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        return await this.boardDAO.insertBoard(projectRef, board);
-    }
-
-    removeBoard = async (projectId, boardId) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        const boardRef = await this.boardDAO.getBoardRef(projectRef, boardId);
-
-        await this.taskDAO.removeAllTasksFromBoard(boardRef);
-
-        return await this.boardDAO.removeBoard(boardRef);
-    }
-
-    fetchBoardsByProject = async (projectId) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        return await this.boardDAO.fetchBoardsByProject(projectRef);
-    }
-
-    insertTaskToBoard = async (projectId, boardId, task) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        const boardRef = await this.boardDAO.getBoardRef(projectRef, boardId);
-
-        return await this.taskDAO.insertTaskToBoard(boardRef, task);
-    }
-
-    updateBoardTasks = async (projectId, boardId, tasks) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        const boardRef = await this.boardDAO.getBoardRef(projectRef, boardId);
-
-        return await this.taskDAO.updateBoardTasks(boardRef, tasks);
-    }
-
-    removeTaskFromBoard = async (projectId, boardId, task) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        const boardRef = await this.boardDAO.getBoardRef(projectRef, boardId);
-
-        return await this.taskDAO.removeTaskFromBoard(boardRef, task);
-    }
-
-    fetchTasksFromBoard = async (projectId, boardId) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        const boardRef = await this.boardDAO.getBoardRef(projectRef, boardId);
-
-        return await this.taskDAO.fetchTasksFromBoard(boardRef);
-    }
-
-    insertTaskToBacklog = async (projectId, task) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-
-        return await this.taskDAO.insertTaskToBacklog(projectRef, task);
-    }
-
-    updateBacklogTasks = async (projectId, tasks) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-
-        return await this.taskDAO.updateBacklogTasks(projectRef, tasks);
-    }
-
-    removeTaskFromBacklog = async (projectId, task) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-
-        return await this.taskDAO.removeTaskFromBacklog(projectRef, task);
-    }
-
-    fetchTasksFromBacklog = async (projectId) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-
-        return await this.taskDAO.fetchTasksFromBacklog(projectRef);
-    }
-
-    setBoardTasksListener = async (projectId, boardId, listener) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        const boardRef = await this.boardDAO.getBoardRef(projectRef, boardId);
-
-        return await this.taskDAO.setBoardTasksListener(boardRef, listener);
-    }
-
-    setBacklogTasksListener = async (projectId, listener) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        return await this.taskDAO.setBacklogTasksListener(projectRef, listener);
-    }
-
-    insertDesignLog = async (projectId, designLog) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-
-        return await this.designLogDAO.insertDesignLog(projectRef, designLog);
-    }
-
-    removeDesignLog = async (projectId, designLogId) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-
-        return await this.designLogDAO.removeDesignLog(projectRef, designLogId);
-    }
-
-    setDesignLogListener = async (projectId, listener) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-
-        return await this.designLogDAO.setDesignLogListener(projectRef, listener);
     }
 
 }

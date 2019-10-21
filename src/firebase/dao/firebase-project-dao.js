@@ -3,11 +3,11 @@ import * as firebase from 'firebase';
 export default class ProjectDAO {
 
     constructor(firestoreDB) {
-        this.firestoreDB = firestoreDB;
+        this._firestoreDB = firestoreDB;
     }
 
     getProjectRef = async (projectId) => {
-        return await this.firestoreDB
+        return await this._firestoreDB
             .collection('projects').doc(projectId);
     }
 
@@ -19,7 +19,7 @@ export default class ProjectDAO {
         const roles = {};
         roles[`${firebase.auth().currentUser.uid}`] = "owner";
 
-        const insertedRef = await this.firestoreDB.collection('projects').add({
+        const insertedRef = await this._firestoreDB.collection('projects').add({
             ...project,
             createdAt,
             roles
@@ -64,7 +64,7 @@ export default class ProjectDAO {
         // IDs should not be directly saved in firestore documents
         delete newProject.id;
 
-        const insertedRef = await this.firestoreDB
+        const insertedRef = await this._firestoreDB
             .collection('projects').doc(projectId);
 
         await insertedRef.update({ ...newProject });
@@ -73,7 +73,7 @@ export default class ProjectDAO {
 
     insertProjectContributor = async (projectId, user) => {
         if (user) {
-            const projectRef = await this.firestoreDB
+            const projectRef = await this._firestoreDB
                 .collection('projects').doc(projectId);
 
             // Using an object with dot notation to update the object allows you to update an object without overwriting its data
@@ -93,7 +93,7 @@ export default class ProjectDAO {
 
     fetchProjectsByUserID = async (userID) => {
         let projects = [];
-        const projectsRef = await this.firestoreDB.collection("projects");
+        const projectsRef = await this._firestoreDB.collection("projects");
 
         // Fetches projects where user is the owner
         await projectsRef.where(`roles.${userID}`, "==", "owner").get().then((querySnapshot) => {
