@@ -11,7 +11,6 @@ import LoadingSpinner from './components/commons/LoadingSpinner';
 
 import { useAuth0 } from './auth0-wrapper';
 import { ProjectsProvider } from './components/contexts/ProjectContext';
-import { mockTasks } from './mock';
 
 
 const AppRouter = () => {
@@ -19,14 +18,6 @@ const AppRouter = () => {
     let [alert, setAlert] = useState({ show: false, msg: "" });
 
     const { loading } = useAuth0();
-
-    const updateTask = (taskID, status) => {
-        let newTask = mockTasks.find(task => task.id === taskID);
-        newTask.status = status;
-
-        console.log(newTask);
-        // setAlert({ show: true, msg: `Task updated.` })
-    }
 
     return (
         <BrowserRouter>
@@ -43,7 +34,7 @@ const AppRouter = () => {
 
                 <ProjectsProvider>
                     <Route path="/workspace" component={UserWorkspace} />
-                    <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} {...{ updateTask }} />} />
+                    <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} />} />
                 </ ProjectsProvider>
 
                 <Route component={ErrorPage} />

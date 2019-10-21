@@ -135,9 +135,8 @@ REACT KANBAN BOARD:
 				- Adicionar													DONE
 				- Remover													DONE
 				- Remover todos junto com projeto							DONE
-			- Mover lógica de reordenação
 			- Refatorar firebase, facilitar reuso em outros projetos
-					- Padrão DAO
+					- Padrão DAO/Service
 		- Inserir nome da seção atual na navbar superior
 		- Inserir todos os ícones restantes
 		- Feedback para operações:
@@ -148,6 +147,10 @@ REACT KANBAN BOARD:
 		- Deixar design da página mais clean
 		- Responsividade
 		- Métricas simples para usuário/projeto
+
+	- Ajustes:
+		- Usar id estável como key para TaskItems, ao invés do índice
+			- Usar índices como keys é um anti-pattern
 	- Experimentar:
 		- Firebase/firestore						DONE
 		- Context API								DONE

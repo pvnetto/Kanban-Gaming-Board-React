@@ -71,14 +71,12 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
             return;
         }
 
-        let newTasks = [...tasks];
-
         // If the draggable was dropped on the same droppable column, reorder the list
+        // Else, the draggable was dropped on a different droppable column from its source, move it
+        let newTasks = [...tasks];
         if (source.droppableId === destination.droppableId) {
             newTasks = reorder(newTasks, source.index, destination.index);
         }
-
-        // If the draggable was dropped on a different droppable column from its source, move it
         else {
             newTasks = move(destination.droppableId, source.index, destination.index);
         }

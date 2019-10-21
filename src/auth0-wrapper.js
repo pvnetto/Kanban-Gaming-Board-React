@@ -1,7 +1,7 @@
 // src/react-auth0-wrapper.js
 import React, { useState, useEffect, useContext } from "react";
 import Auth0Client from './auth0';
-import Firebase from './firebase';
+import Firebase from './firebase/firebase-manager';
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
     window.history.replaceState({}, document.title, window.location.pathname);
