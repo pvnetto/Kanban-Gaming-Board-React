@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,35 +7,45 @@ import SectionNavbar from '../../commons/SectionNavbar';
 import DesignLogItem from './DesignLogItem';
 import SectionNavbarButton from '../../commons/SectionNavbarButton';
 import DesignLogForm from './DesignLogForm';
-import { mockLogs } from '../../../mock';
 import { useAuth0 } from '../../../auth0-wrapper';
+import { useBoards } from '../../contexts/BoardsContext';
 
 const ProjectDesignLog = () => {
 
     let [showModal, setShowModal] = useState(false);
-    let [logs, setLogs] = useState([...mockLogs]);
+    let [logs, setLogs] = useState([]);
 
-    const { user } = useAuth0();
+    const { firebaseClient } = useAuth0();
+    const { project } = useBoards();
 
-    const addLog = (title, content) => {
+    useEffect(() => {
+        let listener = null;
+
+        const listenToLogs = async () => {
+            listener = await firebaseClient.setDesignLogListener(project.id, (snapshotLogs) => {
+                setLogs([...snapshotLogs]);
+            });
+        }
+
+        listenToLogs();
+
+        // Cleanup function. Calling a listener unsubscribes it from firestore.
+        return () => {
+            listener && listener();
+        }
+    }, []);
+
+    const addLog = async (title, content) => {
         let newLog = {
-            id: logs.length,
             title,
-            content,
-            date: new Date(),
-            author: user.name
+            content
         };
 
-        setLogs([...logs, newLog]);
-        // setAlert({ show: true, msg: `Log #${newLog.id} was added.` })
+        newLog = await firebaseClient.insertDesignLog(project.id, newLog);
     }
 
-    const removeLog = (id) => {
-        const logsCopy = [...logs];
-        const logToRemove = logsCopy.findIndex(log => log.id === id);
-        logsCopy.splice(logToRemove, 1);
-
-        setLogs([...logsCopy]);
+    const removeLog = async (logId) => {
+        await firebaseClient.removeDesignLog(project.id, logId);
     }
 
     return (
@@ -51,7 +61,7 @@ const ProjectDesignLog = () => {
 
             <Col xs={12} className="p-4 d-flex flex-column-reverse">
                 {logs && logs.length > 0 ?
-                    logs.map((entry) => <DesignLogItem key={entry.id} removeLog={removeLog} {...entry} />) :
+                    logs.map((entry, idx) => <DesignLogItem key={entry.id} removeLog={removeLog} {...entry} index={idx} />) :
                     "No log entries found :("}
             </Col>
         </Row>

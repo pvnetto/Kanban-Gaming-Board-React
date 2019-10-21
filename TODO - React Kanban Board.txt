@@ -102,24 +102,24 @@ REACT KANBAN BOARD:
 		- Adicionar design log						DONE
 			- Remover design log					DONE
 		- Refatorar para Context API				DONE
-		- Autenticação
+		- Autenticação								DONE
 			- Logar									DONE
 			- Convidar para projeto					DONE
 			- Autorizar usuários por roles			DONE
 		- Integração com firebase/firestore			DONE
-			- Usuários								
+			- Usuários								DONE
 				- Adicionar usuário					DONE
-			- Projetos
+			- Projetos								DONE
 				- Adicionar							DONE
 				- Buscar todos						DONE
 				- Remover							DONE
 				- Atualizar							DONE
 				- Buscar por usuário				DONE
-			- Boards
+			- Boards								DONE
 				- Adicionar							DONE
 				- Buscar por id do projeto			DONE
 				- Remover							DONE
-			- Tarefas
+			- Tarefas								DONE
 				- Adicionar							DONE
 				- Buscar							DONE
 				- Listener quando uma é adicionada	DONE
@@ -130,18 +130,22 @@ REACT KANBAN BOARD:
 					- Reordenar tarefas na mesma coluna						DONE
 					- Mudar status de tarefa								DONE
 					- Reordenar tarefa em coluna diferente					DONE
-				- Adicionar/remover/reordenar backlog
-			- Design Logs
-				- Adicionar
-				- Remover
+				- Adicionar/remover/reordenar backlog						DONE
+			- Design Logs													DONE
+				- Adicionar													DONE
+				- Remover													DONE
+				- Remover todos junto com projeto							DONE
 			- Mover lógica de reordenação
 			- Refatorar firebase, facilitar reuso em outros projetos
 					- Padrão DAO
+		- Inserir nome da seção atual na navbar superior
+		- Inserir todos os ícones restantes
 		- Feedback para operações:
 			- Loading quando tiver carregando dados
 			- Aviso quando sucesso/falha
+		- Login auth0 embedded na página inicial
+		- Silent authentication
 		- Deixar design da página mais clean
-		- Login auth0 na página inicial, sem redirecionar
 		- Responsividade
 		- Métricas simples para usuário/projeto
 	- Experimentar:

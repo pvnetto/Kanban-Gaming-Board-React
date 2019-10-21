@@ -111,6 +111,13 @@ export default class Firebase {
             });
         });
 
+        // Deletes all design logs before deleting the project
+        await projectRef.collection('logs').get().then((querySnapshot) => {
+            querySnapshot.forEach(doc => {
+                doc.ref.delete();
+            });
+        });
+
         // Deletes the project
         return await projectRef.delete();
     }
@@ -174,8 +181,11 @@ export default class Firebase {
         const createdAt = new Date();
         const author = firebase.auth().currentUser.displayName;
 
-        const project = await this._kanbanDB.collection('projects').doc(projectId);
-        const newBoardRef = await project.collection('boards').add({ ...board, author, createdAt });
+        const boardsRef = await this._kanbanDB
+            .collection('projects').doc(projectId)
+            .collection('boards');
+
+        const newBoardRef = await boardsRef.add({ ...board, author, createdAt });
         const newBoardData = await newBoardRef.get().then(doc => doc.exists ? doc.data() : null);
 
         return { id: newBoardRef.id, ...newBoardData };
@@ -317,15 +327,29 @@ export default class Firebase {
     }
 
     insertDesignLog = async (projectId, designLog) => {
+        const createdAt = new Date();
+        const author = firebase.auth().currentUser.displayName;
 
+        const logsRef = await this._kanbanDB
+            .collection('projects').doc(projectId)
+            .collection('logs');
+
+        const newBoardRef = await logsRef.add({ ...designLog, author, createdAt });
+        const newBoardData = await newBoardRef.get().then(doc => doc.exists ? doc.data() : null);
+
+        return { id: newBoardRef.id, ...newBoardData };
     }
 
     removeDesignLog = async (projectId, designLogId) => {
+        const logRef = await this._kanbanDB
+            .collection('projects').doc(projectId)
+            .collection('logs').doc(designLogId);
 
+        return await logRef.delete();
     }
 
     // Converts snapshot's list of docs to a list of items with doc data, so listeners don't have to deal directly with snapshots
-    _delegateListener = (listener) => {
+    _delegateTasksListener = (listener) => {
         return (snapshot) => {
             let items = [];
             snapshot.forEach(doc => {
@@ -336,16 +360,33 @@ export default class Firebase {
         }
     }
 
+    _delegateListener = (listener) => {
+        return (snapshot) => {
+            let items = [];
+            snapshot.forEach(doc => {
+                items.push(doc.exists ? { id: doc.id, ...doc.data() } : null);
+            });
+
+            listener(items);
+        }
+    }
+
     setBoardTasksListener = async (projectId, boardId, listener) => {
         return await this._kanbanDB
             .collection('projects').doc(projectId)
             .collection('boards').doc(boardId)
-            .collection('tasks').onSnapshot(this._delegateListener(listener));
+            .collection('tasks').onSnapshot(this._delegateTasksListener(listener));
     }
 
     setBacklogTasksListener = async (projectId, listener) => {
         return await this._kanbanDB
             .collection('projects').doc(projectId)
-            .collection('backlog').onSnapshot(this._delegateListener(listener));
+            .collection('backlog').onSnapshot(this._delegateTasksListener(listener));
+    }
+
+    setDesignLogListener = async (projectId, listener) => {
+        return await this._kanbanDB
+            .collection('projects').doc(projectId)
+            .collection('logs').onSnapshot(this._delegateListener(listener));
     }
 }

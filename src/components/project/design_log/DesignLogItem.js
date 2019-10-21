@@ -12,7 +12,7 @@ const DesignLogItem = (props) => {
             <div className="d-flex flex-row justify-content-between">
                 <p className="d-flex flex-row align-items-center">
                     <FontAwesomeIcon style={{ width: '15px' }} className="mr-2" icon={showContent ? faMinus : faPlus} />
-                    <span className="font-weight-bold mr-1">Log #{props.id}:</span>
+                    <span className="font-weight-bold mr-1">Log #{props.index}:</span>
                     {props.title}
                 </p>
 
