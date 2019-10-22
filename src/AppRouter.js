@@ -17,28 +17,29 @@ const AppRouter = () => {
 
     let [alert, setAlert] = useState({ show: false, msg: "" });
 
-    const { loading } = useAuth0();
+    const { loading, isRenewingAuth } = useAuth0();
 
     return (
         <BrowserRouter>
             <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
 
-            {loading ? <LoadingSpinner /> : null}
+            {loading || isRenewingAuth ? <LoadingSpinner /> : null}
+            {isRenewingAuth ? null :
+                <Switch>
+                    <Route exact path="/" component={LoginPage}>
+                        <Redirect to="/login" />
+                    </Route>
+                    <Route exact path="/login" component={LoginPage} />
+                    <Route path="/redirect" component={LoginRedirect} />
 
-            <Switch>
-                <Route exact path="/" component={LoginPage}>
-                    <Redirect to="/login" />
-                </Route>
-                <Route exact path="/login" component={LoginPage} />
-                <Route path="/redirect" component={LoginRedirect} />
+                    <ProjectsProvider>
+                        <Route path="/workspace" component={UserWorkspace} />
+                        <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} />} />
+                    </ ProjectsProvider>
 
-                <ProjectsProvider>
-                    <Route path="/workspace" component={UserWorkspace} />
-                    <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} />} />
-                </ ProjectsProvider>
-
-                <Route component={ErrorPage} />
-            </Switch>
+                    <Route component={ErrorPage} />
+                </Switch>
+            }
         </BrowserRouter>
     );
 };

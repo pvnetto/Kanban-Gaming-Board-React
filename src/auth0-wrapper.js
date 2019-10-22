@@ -23,34 +23,45 @@ export const Auth0Provider = ({
     const [auth0Client, setAuth0] = useState(new Auth0Client());
     let [firebaseClient, setFirebaseClient] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [isRenewingAuth, setIsRenewingAuth] = useState(false);
+
+    useEffect(() => {
+        attemptSilentAuthentication();
+    }, []);
 
     const loginThroughCallback = async () => {
-        setLoading(true);
-        setIsAuthenticated(false);
+        if (!isAuthenticated) {
+            setLoading(true);
 
-        const loggedInThroughCallback = await auth0Client.handleCallback();
-        if (loggedInThroughCallback) {
-            console.log("Logged in");
-            await setFirebaseCustomToken();
+            const loggedInThroughCallback = await auth0Client.handleCallback();
+            if (loggedInThroughCallback) {
+                await setupAuthentication();
+            }
 
-            let profile = auth0Client.getProfile();
-            setUser({
-                uid: profile.sub,
-                name: profile.name,
-                email: profile.email,
-                avatarUrl: profile.picture
-            });
-
-            setIsAuthenticated(true);
+            setLoading(false);
         }
-        else {
-            console.log("Not logged in through callback");
-        }
-
-        setLoading(false);
     }
 
-    async function setFirebaseCustomToken() {
+    const attemptSilentAuthentication = async () => {
+        if (!isAuthenticated) {
+            setIsRenewingAuth(true);
+
+            const loggedInThroughSilentAuth = await auth0Client.handleSilentAuthentication();
+            if (loggedInThroughSilentAuth) {
+                await setupAuthentication();
+            }
+
+            setIsRenewingAuth(false);
+        }
+    }
+
+    const setupAuthentication = async () => {
+        await setFirebaseCustomToken();
+        setUserWithAuth0Profile();
+        setIsAuthenticated(true);
+    }
+
+    const setFirebaseCustomToken = async () => {
         firebaseClient = new Firebase();
 
         const response = await fetch('http://localhost:3001/firebase', {
@@ -66,7 +77,19 @@ export const Auth0Provider = ({
         setFirebaseClient(firebaseClient);
     }
 
+    const setUserWithAuth0Profile = () => {
+        let profile = auth0Client.getProfile();
+        setUser({
+            uid: profile.sub,
+            name: profile.name,
+            email: profile.email,
+            avatarUrl: profile.picture
+        });
+    }
+
     const signIn = () => auth0Client.signIn();
+
+    const signOut = () => auth0Client.signOut() && firebaseClient.signOut();
 
     return (
 
@@ -76,7 +99,9 @@ export const Auth0Provider = ({
                 user,
                 firebaseClient,
                 loading,
+                isRenewingAuth,
                 signIn,
+                signOut,
                 loginThroughCallback,
                 getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
                 getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),

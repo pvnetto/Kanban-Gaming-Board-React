@@ -141,7 +141,7 @@ REACT KANBAN BOARD:
 		- Inserir todos os ícones restantes (qualquer um)					DONE
 
 		- Login auth0 embedded na página inicial
-		- Silent authentication
+		- Silent authentication												DONE
 		- Deixar design do login mais bonito	(refazer logo)
 			- Talvez baseado no pluralsight
 			- Buscar páginas de login

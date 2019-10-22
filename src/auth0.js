@@ -39,18 +39,38 @@ export default class Auth0Client {
                 return resolve(false);
             }
 
-            this._idToken = authResult.idToken;
-            this._accessToken = authResult.accessToken;
-            this._profile = authResult.idTokenPayload;
+            this.setSession(authResult);
 
             return resolve(true);
         });
     });
 
+    handleSilentAuthentication = () => new Promise((resolve, reject) => {
+        // Performs silent authentication by checking if there's an existing session
+        this._auth0Client.checkSession({}, (err, authResult) => {
+            if (authResult && authResult.accessToken && authResult.idToken) {
+                console.log(authResult);
+                this.setSession(authResult);
+                return resolve(true);
+            }
+            else if (err) {
+                console.log(`Could not get a new token. (${err.error}: ${err.error_description})`);
+                return reject(err);
+            }
+
+            return resolve(false);
+        });
+    })
+
+    setSession = (authResult) => {
+        this._idToken = authResult.idToken;
+        this._accessToken = authResult.accessToken;
+        this._profile = authResult.idTokenPayload;
+    }
+
     // Initializes the authentication process by redirecting users to auth0,
     // so they can choose an authentication method
     signIn = () => this._auth0Client.authorize();
-
 
     // Removes the current user session by cleaning up idToken and profile
     signOut = () => {

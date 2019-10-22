@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LoginForm from './LoginForm';
 import XboxImg from '../../assets/images/pexels_hand_xbox.jpeg';
 
 import { Row, Col, Container } from 'react-bootstrap';
+import { useAuth0 } from '../../auth0-wrapper';
 
-function LoginPage() {
+function LoginPage({ history }) {
+
+  const { isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/workspace/dashboard');
+    }
+  }, []);
 
   return (
     <div style={{ height: "100vh", backgroundImage: `url(${XboxImg})`, position: 'relative' }}>
