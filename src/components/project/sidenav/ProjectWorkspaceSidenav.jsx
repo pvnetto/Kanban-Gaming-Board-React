@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArrowLeft, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
 import Sidenav from '../../commons/sidenav/Sidenav';
 import SidenavLink from '../../commons/sidenav/SidenavLink';
@@ -47,7 +47,7 @@ const ProjectWorkspaceSidenav = ({ url, params, onExpand, addBoard }) => {
                 {showBoardLinks}
             </ SidenavExpand>
             <SidenavLink title={"BACKLOG"} icon={faList} link={"/backlog"} url={url} isExpanded={isExpanded} />
-            <SidenavLink title={"DESIGN LOG"} icon={faEdit} link={"/design_log"} url={url} isExpanded={isExpanded} />
+            <SidenavLink title={"DESIGN LOG"} icon={faPencilRuler} link={"/design_log"} url={url} isExpanded={isExpanded} />
             <SidenavLink title={"MANAGEMENT"} icon={faCogs} link={"/management"} url={url} isExpanded={isExpanded} />
 
             <hr className="m-1 border border-light" />

@@ -5,7 +5,7 @@ import UserMetrics from '../../user/UserMetrics';
 
 import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGamepad, faChartPie, faDiceD20 } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faChartPie, faDiceD20, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import BoardsContext from '../../contexts/BoardsContext';
 
 const ProjectDescSection = ({ title, description }) => {
@@ -30,7 +30,7 @@ const ProjectDashboard = (props) => {
                 <Col xs={6}>
                     <ProjectDescSection {...boardsContext.project} />
 
-                    <SectionContainer title={"General Info"} titleIcon={"GI"} >
+                    <SectionContainer title={"General Info"} titleIcon={faInfoCircle} >
                         <p>{boardsContext.project.generalInfo}</p>
                     </SectionContainer>
                 </Col>

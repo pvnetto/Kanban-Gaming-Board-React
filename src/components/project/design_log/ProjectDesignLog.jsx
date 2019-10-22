@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
 import ModalBase from '../../commons/ModalBase';
 import SectionNavbar from '../../commons/SectionNavbar';
@@ -55,7 +55,7 @@ const ProjectDesignLog = () => {
                 <DesignLogForm addLog={addLog} />
             </ModalBase>
 
-            <SectionNavbar sectionTitle={"Design Logs"} sectionIcon={"DS"}>
+            <SectionNavbar sectionTitle={"Design Logs"} sectionIcon={faPencilRuler}>
                 <SectionNavbarButton onClick={() => setShowModal(true)} btnTitle={"Add Log"} btnIcon={faPlusSquare} />
             </SectionNavbar>
 

@@ -137,11 +137,8 @@ REACT KANBAN BOARD:
 				- Remover todos junto com projeto							DONE
 			- Refatorar firebase, facilitar reuso em outros projetos		DONE
 					- Padrão DAO/Service									DONE
-		- Inserir nome da seção atual na navbar superior
-			- Opções são filhos da navigation bar
-			- Cada filho é separado por uma seta >
-			- Cada filho é um link
-		- Inserir todos os ícones restantes (qualquer um)
+		- Inserir nome da seção atual na navbar superior					DONE
+		- Inserir todos os ícones restantes (qualquer um)					DONE
 
 		- Login auth0 embedded na página inicial
 		- Silent authentication
