@@ -4,10 +4,23 @@ import { Container } from 'react-bootstrap';
 import ProjectWorkspaceRoutes from './routes';
 import ProjectWorkspaceSidenav from './sidenav';
 import NavigationBar from '../commons/NavigationBar';
-import { BoardsProvider } from '../contexts/BoardsContext';
+import { BoardsProvider, useBoards } from '../contexts/BoardsContext';
 import { useAuth0 } from '../../auth0-wrapper';
 import { TasksProvider } from '../contexts/TasksContext';
 
+import { Link } from "react-router-dom";
+
+const WorkspaceNavbar = ({ path }) => {
+
+    const { project } = useBoards();
+
+    return (
+        <NavigationBar>
+            <Link to={`/workspace/dashboard`}>Workspace</Link>
+            <Link to={path}>{project.title}</Link>
+        </NavigationBar>
+    )
+}
 
 const ProjectWorkspace = (props) => {
     let [expandWorkspace, setExpandWorkspace] = useState(true);
@@ -30,7 +43,7 @@ const ProjectWorkspace = (props) => {
                 <ProjectWorkspaceSidenav {...props.match} onExpand={toggleExpandWorkspace} />
                 <Container fluid={true} className="full-height bg-primary p-0">
                     <div className={`workspace ${expandWorkspace ? 'expand' : ''} d-flex flex-column h-100`}>
-                        <NavigationBar />
+                        <WorkspaceNavbar path={props.location.pathname} />
                         <ProjectWorkspaceRoutes {...props.match} {...props} />
                     </div>
                 </Container>

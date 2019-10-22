@@ -135,22 +135,31 @@ REACT KANBAN BOARD:
 				- Adicionar													DONE
 				- Remover													DONE
 				- Remover todos junto com projeto							DONE
-			- Refatorar firebase, facilitar reuso em outros projetos
-					- Padrão DAO/Service
+			- Refatorar firebase, facilitar reuso em outros projetos		DONE
+					- Padrão DAO/Service									DONE
 		- Inserir nome da seção atual na navbar superior
-		- Inserir todos os ícones restantes
-		- Feedback para operações:
-			- Loading quando tiver carregando dados
-			- Aviso quando sucesso/falha
+			- Opções são filhos da navigation bar
+			- Cada filho é separado por uma seta >
+			- Cada filho é um link
+		- Inserir todos os ícones restantes (qualquer um)
+
 		- Login auth0 embedded na página inicial
 		- Silent authentication
-		- Deixar design da página mais clean
+		- Deixar design do login mais bonito	(refazer logo)
+			- Talvez baseado no pluralsight
+			- Buscar páginas de login
+		
 		- Responsividade
 		- Métricas simples para usuário/projeto
 
 	- Ajustes:
 		- Usar id estável como key para TaskItems, ao invés do índice
 			- Usar índices como keys é um anti-pattern
+		- Inserir ícones corretos
+		- Feedback para operações:
+			- Loading quando tiver carregando dados
+			- Aviso quando sucesso/falha
+		- Mover opção All Items para cima do BoardSidenav
 	- Experimentar:
 		- Firebase/firestore						DONE
 		- Context API								DONE

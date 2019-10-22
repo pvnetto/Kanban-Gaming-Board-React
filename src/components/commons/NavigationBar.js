@@ -5,7 +5,7 @@ import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 
 import { useAuth0 } from '../../auth0-wrapper';
 
-const NavigationBar = (props) => {
+const NavigationBar = ({ children }) => {
 
     const { user } = useAuth0();
 
@@ -14,7 +14,16 @@ const NavigationBar = (props) => {
             <Col xs={12} className="d-flex flex-row justify-content-between align-items-center">
                 <div>
                     <FontAwesomeIcon className="icon-md mr-2" icon={faCodeBranch} />
-                    <p className="d-inline">Workspace &#9658; {"Enter current section"}</p>
+
+                    {React.Children.map(children, (child, index) => (
+                        <>
+                            {child}
+                            {index < React.Children.count(children) - 1 ?
+                                <p className="d-inline mx-2">&#9658;</p> :
+                                null
+                            }
+                        </>
+                    ))}
                 </div>
 
                 <div>
