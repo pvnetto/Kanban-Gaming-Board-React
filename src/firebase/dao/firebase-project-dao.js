@@ -17,7 +17,7 @@ export default class ProjectDAO {
         // author and createdAt, before adding it to the database
         const createdAt = new Date();
         const roles = {};
-        roles[`${firebase.auth().currentUser.uid}`] = "owner";
+        roles[`${firebase.auth().currentUser.email}`] = "owner";
 
         const insertedRef = await this._firestoreDB.collection('projects').add({
             ...project,
@@ -33,27 +33,6 @@ export default class ProjectDAO {
     removeProject = async (projectId) => {
         const projectRef = await this._kanbanDB
             .collection('projects').doc(projectId);
-
-        // Deletes all boards before deleting the project
-        await projectRef.collection('boards').get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                this._deleteBoardRef(doc.ref);
-            });
-        });
-
-        // Deletes all backlog tasks before deleting the project
-        await projectRef.collection('backlog').get().then((querySnapshot) => {
-            querySnapshot.forEach(doc => {
-                doc.ref.delete();
-            });
-        });
-
-        // Deletes all design logs before deleting the project
-        await projectRef.collection('logs').get().then((querySnapshot) => {
-            querySnapshot.forEach(doc => {
-                doc.ref.delete();
-            });
-        });
 
         // Deletes the project
         return await projectRef.delete();
@@ -78,7 +57,7 @@ export default class ProjectDAO {
 
             // Using an object with dot notation to update the object allows you to update an object without overwriting its data
             const newRoles = {};
-            newRoles[`roles.${user.id}`] = 'contributor';
+            newRoles[`roles.${user.email}`] = 'contributor';
 
             projectRef.update({
                 ...newRoles
@@ -91,19 +70,20 @@ export default class ProjectDAO {
         }
     }
 
-    fetchProjectsByUserID = async (userID) => {
+    fetchProjectsByUserEmail = async (userEmail) => {
+        console.log(userEmail);
         let projects = [];
         const projectsRef = await this._firestoreDB.collection("projects");
 
         // Fetches projects where user is the owner
-        await projectsRef.where(`roles.${userID}`, "==", "owner").get().then((querySnapshot) => {
+        await projectsRef.where(new firebase.firestore.FieldPath('roles', userEmail), "==", "owner").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 projects.push({ id: doc.id, ...doc.data() });
             });
         });
 
         // Fetches projects where user is a contributor
-        await projectsRef.where(`roles.${userID}`, "==", "contributor").get().then((querySnapshot) => {
+        await projectsRef.where(new firebase.firestore.FieldPath('roles', userEmail), "==", "contributor").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 projects.push({ id: doc.id, ...doc.data() });
             });

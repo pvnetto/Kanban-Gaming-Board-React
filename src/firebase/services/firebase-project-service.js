@@ -31,7 +31,7 @@ export default class ProjectService {
         await this.designLogDAO.removeAllDesignLogsFromProject(projectRef);
 
         // Deletes the project
-        return await projectRef.delete();
+        return await this.projectDAO.removeProject(projectId);
     }
 
     updateProject = async (newProject) => {
@@ -43,8 +43,8 @@ export default class ProjectService {
         return await this.projectDAO.insertProjectContributor(projectId, newContributor);
     }
 
-    fetchProjects = async (userID) => {
-        return await this.projectDAO.fetchProjectsByUserID(userID);
+    fetchProjects = async (userEmail) => {
+        return await this.projectDAO.fetchProjectsByUserEmail(userEmail);
     }
 
 }

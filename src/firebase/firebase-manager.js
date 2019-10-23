@@ -26,9 +26,6 @@ export default class Firebase {
         this.boardService = new BoardService(this._kanbanDB);
         this.taskService = new TaskService(this._kanbanDB);
         this.designLogService = new DesignLogService(this._kanbanDB);
-
-        // Sets up authentication callback
-        firebase.auth().onAuthStateChanged(this.userService.insertUser);
     }
 
     // Ends firebase session
@@ -47,14 +44,18 @@ export default class Firebase {
             return;
         }
 
-        console.log(profile);
+        let userData = await this.userService.insertUserWithAuth0Profile(profile);
 
         await firebase.auth().currentUser.updateProfile({
-            displayName: profile.name,
-            photoURL: profile.picture,
+            displayName: userData.name,
+            photoURL: userData.avatarUrl,
         });
 
-        await firebase.auth().currentUser.updateEmail(profile.email);
+        await firebase.auth().currentUser.linkWithPopup(new firebase.auth.GoogleAuthProvider())
+            .then(result => console.log(result))
+            .catch(err => console.log(err));
+
+        return userData;
     }
 
 }

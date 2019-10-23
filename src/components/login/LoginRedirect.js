@@ -10,8 +10,8 @@ const LoginRedirect = (props) => {
         const authenticate = async () => {
             if (!isAuthenticated) {
                 await loginThroughCallback();
-                props.history.push("workspace/dashboard");
             }
+            props.history.push("workspace/dashboard");
         }
 
         authenticate();

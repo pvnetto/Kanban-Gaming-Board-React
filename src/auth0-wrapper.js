@@ -35,7 +35,7 @@ export const Auth0Provider = ({
 
             const loggedInThroughCallback = await auth0Client.handleCallback();
             if (loggedInThroughCallback) {
-                await setupAuthentication();
+                await setFirebaseCustomToken();
             }
 
             setLoading(false);
@@ -46,19 +46,12 @@ export const Auth0Provider = ({
         console.log("Silent authentication is turned off!!");
         // if (!isAuthenticated) {
         //     setIsRenewingAuth(true);
-
         //     const loggedInThroughSilentAuth = await auth0Client.handleSilentAuthentication();
         //     if (loggedInThroughSilentAuth) {
-        //         await setupAuthentication();
+        //          await setFirebaseCustomToken();
         //     }
         // }
         setIsRenewingAuth(false);
-    }
-
-    const setupAuthentication = async () => {
-        await setFirebaseCustomToken();
-        setUserWithAuth0Profile();
-        setIsAuthenticated(true);
     }
 
     const setFirebaseCustomToken = async () => {
@@ -72,19 +65,11 @@ export const Auth0Provider = ({
 
         const data = await response.json();
         await firebaseClient.setToken(data.firebaseToken);
-        await firebaseClient.updateProfile(auth0Client.getProfile());
+        let userData = await firebaseClient.updateProfile(auth0Client.getProfile());
 
         setFirebaseClient(firebaseClient);
-    }
-
-    const setUserWithAuth0Profile = () => {
-        let profile = auth0Client.getProfile();
-        setUser({
-            uid: profile.sub,
-            name: profile.name,
-            email: profile.email,
-            avatarUrl: profile.picture
-        });
+        setUser({ ...userData });
+        setIsAuthenticated(true);
     }
 
     const loginWithGoogle = () => auth0Client.loginWithGoogle();

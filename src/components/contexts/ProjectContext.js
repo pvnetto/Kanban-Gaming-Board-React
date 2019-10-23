@@ -11,7 +11,7 @@ export const ProjectsProvider = ({ children }) => {
 
     useEffect(() => {
         const getProjects = async () => {
-            const savedProjects = await firebaseClient.projectService.fetchProjects(user.uid);
+            const savedProjects = await firebaseClient.projectService.fetchProjects(user.email);
             setProjects([...savedProjects]);
         }
 
