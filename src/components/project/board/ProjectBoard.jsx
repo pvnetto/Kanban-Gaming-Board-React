@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import BoardContainer from './BoardContainer';

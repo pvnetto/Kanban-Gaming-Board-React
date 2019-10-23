@@ -23,7 +23,7 @@ export const Auth0Provider = ({
     const [auth0Client, setAuth0] = useState(new Auth0Client());
     let [firebaseClient, setFirebaseClient] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [isRenewingAuth, setIsRenewingAuth] = useState(false);
+    const [isRenewingAuth, setIsRenewingAuth] = useState(true);
 
     useEffect(() => {
         attemptSilentAuthentication();
@@ -43,16 +43,16 @@ export const Auth0Provider = ({
     }
 
     const attemptSilentAuthentication = async () => {
-        if (!isAuthenticated) {
-            setIsRenewingAuth(true);
+        console.log("Silent authentication is turned off!!");
+        // if (!isAuthenticated) {
+        //     setIsRenewingAuth(true);
 
-            const loggedInThroughSilentAuth = await auth0Client.handleSilentAuthentication();
-            if (loggedInThroughSilentAuth) {
-                await setupAuthentication();
-            }
-
-            setIsRenewingAuth(false);
-        }
+        //     const loggedInThroughSilentAuth = await auth0Client.handleSilentAuthentication();
+        //     if (loggedInThroughSilentAuth) {
+        //         await setupAuthentication();
+        //     }
+        // }
+        setIsRenewingAuth(false);
     }
 
     const setupAuthentication = async () => {
@@ -87,6 +87,12 @@ export const Auth0Provider = ({
         });
     }
 
+    const loginWithGoogle = () => auth0Client.loginWithGoogle();
+
+    const loginWithFacebook = () => auth0Client.loginWithFacebook();
+
+    const loginWithGitHub = () => auth0Client.loginWithGitHub();
+
     const signIn = () => auth0Client.signIn();
 
     const signOut = () => auth0Client.signOut() && firebaseClient.signOut();
@@ -100,6 +106,9 @@ export const Auth0Provider = ({
                 firebaseClient,
                 loading,
                 isRenewingAuth,
+                loginWithGoogle,
+                loginWithFacebook,
+                loginWithGitHub,
                 signIn,
                 signOut,
                 loginThroughCallback,

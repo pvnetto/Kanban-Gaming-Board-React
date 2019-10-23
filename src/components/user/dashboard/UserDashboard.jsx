@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import ProjectItem from '../../commons/ProjectItem';
 import UserMetrics from '../UserMetrics';
 import SectionContainer from '../../commons/SectionContainer'

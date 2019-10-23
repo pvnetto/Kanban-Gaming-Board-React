@@ -16,6 +16,7 @@ export default class Auth0Client {
             responseType: "token id_token",                         // token: Used to make API calls, id_token: used for identification by openid
             scope: 'openid profile email'
         });
+
     }
 
     getIdToken = () => this._idToken;
@@ -23,6 +24,12 @@ export default class Auth0Client {
     getAccessToken = () => this._accessToken;
 
     getProfile = () => this._profile;
+
+    loginWithGoogle = () => this._auth0Client.authorize({ connection: 'google-oauth2', });
+
+    loginWithGitHub = () => this._auth0Client.authorize({ connection: 'github', });
+
+    loginWithFacebook = () => this._auth0Client.authorize({ connection: 'facebook', })
 
     // Parses the URL of the current page to check if there are any tokens on it
     handleCallback = () => new Promise((resolve, reject) => {
@@ -49,7 +56,6 @@ export default class Auth0Client {
         // Performs silent authentication by checking if there's an existing session
         this._auth0Client.checkSession({}, (err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
-                console.log(authResult);
                 this.setSession(authResult);
                 return resolve(true);
             }

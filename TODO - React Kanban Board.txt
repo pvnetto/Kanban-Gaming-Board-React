@@ -138,30 +138,32 @@ REACT KANBAN BOARD:
 			- Refatorar firebase, facilitar reuso em outros projetos		DONE
 					- Padrão DAO/Service									DONE
 		- Inserir nome da seção atual na navbar superior					DONE
-		- Inserir todos os ícones restantes (qualquer um)					DONE
+		- Inserir todos os ícones restantes									DONE
 
-		- Login auth0 embedded na página inicial
+		- Login auth0 na página inicial, sem lock
+			- Logar apenas com social providers (google, facebook, github)
+				- Falta permitir vários emails para uma só conta
 		- Silent authentication												DONE
-		- Deixar design do login mais bonito	(refazer logo)
-			- Talvez baseado no pluralsight
-			- Buscar páginas de login
+		- Deixar design do login mais bonito	(refazer logo)				DONE
 		
-		- Responsividade
 		- Métricas simples para usuário/projeto
+		- Responsividade
 
 	- Ajustes:
 		- Usar id estável como key para TaskItems, ao invés do índice
 			- Usar índices como keys é um anti-pattern
-		- Inserir ícones corretos
+		- Inserir ícones corretos no board sidenav
 		- Feedback para operações:
 			- Loading quando tiver carregando dados
 			- Aviso quando sucesso/falha
 		- Mover opção All Items para cima do BoardSidenav
+		- Por loading antes de carregar context provider, para garantir que o context anterior foi carregado
+			- EX: Só carregar BoardsContext se ProjectsContext já tiver inicializado corretamente
 	- Experimentar:
 		- Firebase/firestore						DONE
 		- Context API								DONE
 		- PropTypes
 		- Form validation (pure HTML or Formik, check https://react-bootstrap.github.io/components/forms/)
-		- Silent authentication
+		- Silent authentication						DONE
 		- Substituir classNames por componentes Bootstrap onde possível
 		- Testes

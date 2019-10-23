@@ -7,7 +7,7 @@ export default class UserDAO {
     insertUser = async (user) => {
         if (user) {
             const userRef = await this._firestoreDB.collection('users').doc(user.uid);
-            const userSet = await userRef.set({
+            await userRef.set({
                 uid: user.uid,
                 email: user.email,
                 name: user.displayName,

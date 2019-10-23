@@ -47,6 +47,8 @@ export default class Firebase {
             return;
         }
 
+        console.log(profile);
+
         await firebase.auth().currentUser.updateProfile({
             displayName: profile.name,
             photoURL: profile.picture,
