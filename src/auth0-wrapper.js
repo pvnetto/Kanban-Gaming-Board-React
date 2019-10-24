@@ -21,7 +21,8 @@ export const Auth0Provider = ({
         avatarUrl: ''
     });
     const [auth0Client, setAuth0] = useState(new Auth0Client());
-    let [firebaseClient, setFirebaseClient] = useState(null);
+    const [firebaseClient, setFirebaseClient] = useState(null);
+
     const [loading, setLoading] = useState(false);
     const [isRenewingAuth, setIsRenewingAuth] = useState(true);
 
@@ -55,7 +56,7 @@ export const Auth0Provider = ({
     }
 
     const setFirebaseCustomToken = async () => {
-        firebaseClient = new Firebase();
+        let firebaseClient = new Firebase();
 
         const response = await fetch('http://localhost:3001/firebase', {
             headers: {
@@ -65,18 +66,28 @@ export const Auth0Provider = ({
 
         const data = await response.json();
         await firebaseClient.setToken(data.firebaseToken);
-        let userData = await firebaseClient.updateProfile(auth0Client.getProfile());
+        let userData = await firebaseClient.updateProfile(auth0Client.getProfile(), localStorage.getItem('provider') || '');
 
         setFirebaseClient(firebaseClient);
         setUser({ ...userData });
         setIsAuthenticated(true);
+        localStorage.removeItem('provider');
     }
 
-    const loginWithGoogle = () => auth0Client.loginWithGoogle();
+    const loginWithGoogle = async () => {
+        localStorage.setItem('provider', 'google');
+        await auth0Client.loginWithGoogle();
+    };
 
-    const loginWithFacebook = () => auth0Client.loginWithFacebook();
+    const loginWithFacebook = async () => {
+        localStorage.setItem('provider', 'facebook');
+        await auth0Client.loginWithFacebook();
+    }
 
-    const loginWithGitHub = () => auth0Client.loginWithGitHub();
+    const loginWithTwitter = async () => {
+        localStorage.setItem('provider', 'twitter');
+        await auth0Client.loginWithTwitter();
+    }
 
     const signIn = () => auth0Client.signIn();
 
@@ -93,7 +104,7 @@ export const Auth0Provider = ({
                 isRenewingAuth,
                 loginWithGoogle,
                 loginWithFacebook,
-                loginWithGitHub,
+                loginWithTwitter,
                 signIn,
                 signOut,
                 loginThroughCallback,

@@ -27,7 +27,7 @@ export default class Auth0Client {
 
     loginWithGoogle = () => this._auth0Client.authorize({ connection: 'google-oauth2', });
 
-    loginWithGitHub = () => this._auth0Client.authorize({ connection: 'github', });
+    loginWithTwitter = () => this._auth0Client.authorize({ connection: 'twitter', });
 
     loginWithFacebook = () => this._auth0Client.authorize({ connection: 'facebook', })
 

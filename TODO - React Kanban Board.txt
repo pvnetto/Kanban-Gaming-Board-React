@@ -140,9 +140,9 @@ REACT KANBAN BOARD:
 		- Inserir nome da seção atual na navbar superior					DONE
 		- Inserir todos os ícones restantes									DONE
 
-		- Login auth0 na página inicial, sem lock
-			- Logar apenas com social providers (google, facebook, github)
-				- Falta permitir vários emails para uma só conta
+		- Login auth0 na página inicializado								DONE
+			- Linkar providers												DONE
+			- Log with twitter instead of github							DONE
 		- Silent authentication												DONE
 		- Deixar design do login mais bonito	(refazer logo)				DONE
 		

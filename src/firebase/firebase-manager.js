@@ -39,23 +39,44 @@ export default class Firebase {
 
     getCurrentUser = () => firebase.auth().currentUser;
 
-    updateProfile = async (profile) => {
+    updateProfile = async (profile, providerName) => {
         if (!firebase.auth().currentUser) {
             return;
         }
 
         let userData = await this.userService.insertUserWithAuth0Profile(profile);
-
         await firebase.auth().currentUser.updateProfile({
             displayName: userData.name,
             photoURL: userData.avatarUrl,
         });
+        await firebase.auth().currentUser.updateEmail(userData.email);
 
-        await firebase.auth().currentUser.linkWithPopup(new firebase.auth.GoogleAuthProvider())
-            .then(result => console.log(result))
-            .catch(err => console.log(err));
+        await this._handleProviderLinkToUser(providerName);
 
         return userData;
+    }
+
+    _handleProviderLinkToUser = async (providerName) => {
+        let provider;
+        if (providerName === 'google') {
+            provider = new firebase.auth.GoogleAuthProvider();
+        }
+        else if (providerName === 'facebook') {
+            provider = new firebase.auth.FacebookAuthProvider();
+        }
+        else if (providerName === 'twitter') {
+            provider = new firebase.auth.TwitterAuthProvider();
+        }
+
+        await this._linkProviderToUser(provider);
+    }
+
+    _linkProviderToUser = async (provider) => {
+        if (provider) {
+            await firebase.auth().currentUser.linkWithPopup(provider)
+                .then(result => console.log(result))
+                .catch(err => console.log(err));
+        }
     }
 
 }

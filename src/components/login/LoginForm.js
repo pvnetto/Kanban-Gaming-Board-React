@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { faFacebookSquare, faGoogle, faGit } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuth0 } from '../../auth0-wrapper';
 
@@ -35,9 +35,9 @@ const LoginForm = () => {
                     <FontAwesomeIcon icon={faFacebookSquare} className="mx-2" />
                     <span className="ml-4">Sign in with Facebook</span>
                 </Button>
-                <Button variant="light" className="d-flex flex-row align-items-center justify-content-start" onClick={loginWithGitHub}>
-                    <FontAwesomeIcon icon={faGit} className="mx-2" />
-                    <span className="ml-4">Sign in with GitHub</span>
+                <Button variant="twitter" className="d-flex flex-row align-items-center justify-content-start" onClick={loginWithGitHub}>
+                    <FontAwesomeIcon icon={faTwitter} className="mx-2" />
+                    <span className="ml-4">Sign in with Twitter</span>
                 </Button>
             </div>
         </div>

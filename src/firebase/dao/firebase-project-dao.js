@@ -71,7 +71,6 @@ export default class ProjectDAO {
     }
 
     fetchProjectsByUserEmail = async (userEmail) => {
-        console.log(userEmail);
         let projects = [];
         const projectsRef = await this._firestoreDB.collection("projects");
 

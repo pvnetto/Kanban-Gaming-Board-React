@@ -116,6 +116,11 @@
     }
 }
 
+.btn-twitter {
+    @include button-variant($twitter-color, rgba(0, 0, 0, 0), rgba($twitter-color, 0.8), #444, #333, white);
+    color: #fff;
+}
+
 .border-radius-5 {
     border-radius: 5px;
 }
