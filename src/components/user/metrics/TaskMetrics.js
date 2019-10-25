@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useProjects } from '../../contexts/ProjectContext';
-import MetricsBase from '../MetricsBase';
+import MetricsBase from '../../commons/MetricsBase';
 import TaskStatus from '../../commons/TaskStatus';
 import LoadingSpinner from '../../commons/LoadingSpinner';
 

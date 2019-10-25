@@ -151,13 +151,13 @@ REACT KANBAN BOARD:
 		- Responsividade
 
 	- Ajustes:
-		- Usar id estável como key para TaskItems, ao invés do índice
-			- Usar índices como keys é um anti-pattern
-		- Inserir ícones corretos no board sidenav
-		- Feedback para operações:
-			- Loading quando tiver carregando dados
-			- Aviso quando sucesso/falha
 		- Mover opção All Items para cima do BoardSidenav
+		- Inserir ícones corretos no board sidenav
+		- Loading quando tiver carregando dados								DONE
+		- Loading quando tiver inserindo dados
+		- Usar id estável como key para TaskItems, ao invés do índice
+			- Usar índices que mudam como keys é um anti-pattern
+		- Alert quando inserir dados
 		- Por loading antes de carregar context provider, para garantir que o context anterior foi carregado
 			- EX: Só carregar BoardsContext se ProjectsContext já tiver inicializado corretamente
 	- Experimentar:

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TaskStatus from '../../commons/TaskStatus';
 import LoadingSpinner from '../../commons/LoadingSpinner';
 import { useTasks } from '../../contexts/TasksContext';
-import MetricsBase from '../../user/MetricsBase';
+import MetricsBase from '../../commons/MetricsBase';
 
 const ProjectMetrics = () => {
     const [data, setData] = useState({});

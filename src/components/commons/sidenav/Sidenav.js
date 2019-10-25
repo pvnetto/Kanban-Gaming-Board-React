@@ -26,7 +26,7 @@ const Sidenav = (props) => {
                 </div>
 
                 <div className="d-flex flex-column justify-content-end w-100 h-100">
-                    <SidenavLink title={"Logout"} icon={faPowerOff} isExpanded={isExpanded} />
+                    <SidenavLink title={"Logout"} url={"/logout"} icon={faPowerOff} isExpanded={isExpanded} />
                 </div>
 
                 <hr className="m-1 border border-light" />

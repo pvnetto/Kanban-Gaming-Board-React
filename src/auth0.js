@@ -59,10 +59,6 @@ export default class Auth0Client {
                 this.setSession(authResult);
                 return resolve(true);
             }
-            else if (err) {
-                console.log(`Could not get a new token. (${err.error}: ${err.error_description})`);
-                return reject(err);
-            }
 
             return resolve(false);
         });
@@ -79,8 +75,11 @@ export default class Auth0Client {
     signIn = () => this._auth0Client.authorize();
 
     // Removes the current user session by cleaning up idToken and profile
-    signOut = () => {
+    signOut = async () => {
         this._idToken = null;
+        this._accessToken = null;
         this._profile = null;
+
+        await this._auth0Client.logout();
     }
 }

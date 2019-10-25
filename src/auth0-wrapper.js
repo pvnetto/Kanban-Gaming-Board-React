@@ -91,7 +91,11 @@ export const Auth0Provider = ({
 
     const signIn = () => auth0Client.signIn();
 
-    const signOut = () => auth0Client.signOut() && firebaseClient.signOut();
+    const signOut = async () => {
+        setIsAuthenticated(false);
+        await auth0Client.signOut();
+        await firebaseClient.signOut();
+    };
 
     return (
 

@@ -11,6 +11,7 @@ import LoginRedirect from './components/login/LoginRedirect';
 import { useAuth0 } from './auth0-wrapper';
 import { ProjectsProvider } from './components/contexts/ProjectContext';
 import FullPageSpinner from './components/commons/FullPageSpinner';
+import LogoutRedirect from './components/login/LogoutRedirect';
 
 
 const AppRouter = () => {
@@ -31,6 +32,8 @@ const AppRouter = () => {
                     </Route>
                     <Route exact path="/login" component={LoginPage} />
                     <Route path="/redirect" component={LoginRedirect} />
+
+                    <Route exact path="/logout" component={LogoutRedirect} />
 
                     <ProjectsProvider>
                         <Route path="/workspace" component={UserWorkspace} />
