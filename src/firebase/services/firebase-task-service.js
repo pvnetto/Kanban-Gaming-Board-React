@@ -47,6 +47,13 @@ export default class TaskService {
         return await this.taskDAO.insertTaskToBacklog(projectRef, task);
     }
 
+    setBoardTasksListener = async (projectId, boardId, listener) => {
+        const projectRef = await this.projectDAO.getProjectRef(projectId);
+        const boardRef = await this.boardDAO.getBoardRef(projectRef, boardId);
+
+        return await this.taskDAO.setBoardTasksListener(boardRef, listener);
+    }
+
     updateBacklogTasks = async (projectId, tasks) => {
         const projectRef = await this.projectDAO.getProjectRef(projectId);
 
@@ -65,16 +72,27 @@ export default class TaskService {
         return await this.taskDAO.fetchTasksFromBacklog(projectRef);
     }
 
-    setBoardTasksListener = async (projectId, boardId, listener) => {
-        const projectRef = await this.projectDAO.getProjectRef(projectId);
-        const boardRef = await this.boardDAO.getBoardRef(projectRef, boardId);
-
-        return await this.taskDAO.setBoardTasksListener(boardRef, listener);
-    }
-
     setBacklogTasksListener = async (projectId, listener) => {
         const projectRef = await this.projectDAO.getProjectRef(projectId);
         return await this.taskDAO.setBacklogTasksListener(projectRef, listener);
+    }
+
+    fetchAllTasksFromProject = async (projectId) => {
+        const projectRef = await this.projectDAO.getProjectRef(projectId);
+        const boards = await this.boardDAO.fetchBoardRefsByProject(projectRef);
+
+        let tasks = [];
+        let boardPromises = boards.map(async (board) => {
+            let boardTasks = await this.taskDAO.fetchTasksFromBoard(board);
+            tasks.push(...boardTasks);
+        });
+
+        await Promise.all(boardPromises);
+
+        let backlogTasks = await this.taskDAO.fetchTasksFromBacklog(projectRef);
+        tasks.push(...backlogTasks);
+
+        return tasks;
     }
 
 }

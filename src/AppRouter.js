@@ -7,10 +7,10 @@ import ProjectWorkspace from './components/project/ProjectWorkspace';
 import ErrorPage from './components/commons/ErrorPage';
 import PageAlert from './components/commons/PageAlert';
 import LoginRedirect from './components/login/LoginRedirect';
-import LoadingSpinner from './components/commons/LoadingSpinner';
 
 import { useAuth0 } from './auth0-wrapper';
 import { ProjectsProvider } from './components/contexts/ProjectContext';
+import FullPageSpinner from './components/commons/FullPageSpinner';
 
 
 const AppRouter = () => {
@@ -23,7 +23,7 @@ const AppRouter = () => {
         <BrowserRouter>
             <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
 
-            {loading || isRenewingAuth ? <LoadingSpinner /> : null}
+            {loading || isRenewingAuth ? <FullPageSpinner /> : null}
             {isRenewingAuth ? null :
                 <Switch>
                     <Route exact path="/" component={LoginPage}>

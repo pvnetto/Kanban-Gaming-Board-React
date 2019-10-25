@@ -6,13 +6,18 @@ const ProjectsContext = React.createContext({});
 export const useProjects = () => useContext(ProjectsContext);
 export const ProjectsProvider = ({ children }) => {
     let [projects, setProjects] = useState([]);
+    let [isLoadingProjects, setLoading] = useState(true);
 
     const { firebaseClient, user } = useAuth0();
 
     useEffect(() => {
         const getProjects = async () => {
+            setLoading(true);
+
             const savedProjects = await firebaseClient.projectService.fetchProjects(user.email);
             setProjects([...savedProjects]);
+
+            setLoading(false);
         }
 
         getProjects();
@@ -66,8 +71,20 @@ export const ProjectsProvider = ({ children }) => {
         setProjects([...projectsCopy]);
     }
 
+    const fetchAllTasksFromAllProjects = async () => {
+        let tasks = [];
+        let taskPromises = projects.map(async (project) => {
+            let projectTasks = await firebaseClient.taskService.fetchAllTasksFromProject(project.id);
+            tasks.push(...projectTasks);
+        });
+
+        await Promise.all(taskPromises);
+
+        return tasks;
+    }
+
     return (
-        <ProjectsContext.Provider value={{ projects, addProject, removeProject, updateProject, addContributorToProject }}>
+        <ProjectsContext.Provider value={{ projects, addProject, removeProject, updateProject, fetchAllTasksFromAllProjects, addContributorToProject, isLoadingProjects }}>
             {children}
         </ProjectsContext.Provider>
     )

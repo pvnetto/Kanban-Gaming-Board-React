@@ -51,7 +51,7 @@ const BoardColumn = ({ tasks, removeTask, type, category, isTaskValid }) => {
         <div className={`w-100 h-100 d-flex flex-column align-items-center justify-content-start py-4`}>
             <div className={`w-100 px-3 pb-3 border-bottom ${columnBorder(type)}`}>
                 <p className="d-flex flex-row align-items-center justify-content-center text-center">
-                    <FontAwesomeIcon icon={columnIcon(type)} className="mr-3" /> {type} {tasks.length}
+                    <FontAwesomeIcon icon={columnIcon(type)} className="mr-3" /> {type}
                 </p>
             </div>
 

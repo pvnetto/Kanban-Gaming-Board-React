@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ProjectItem from '../../commons/ProjectItem';
-import UserMetrics from '../UserMetrics';
 import SectionContainer from '../../commons/SectionContainer'
 import SectionNavbar from '../../commons/SectionNavbar';
 
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/free-solid-svg-icons';
-import ProjectsContext from '../../contexts/ProjectContext';
+import { useProjects } from '../../contexts/ProjectContext';
 import { useAuth0 } from '../../../auth0-wrapper';
+import LoadingSpinner from '../../commons/LoadingSpinner';
+import TaskMetrics from '../metrics/TaskMetrics';
 
 const WelcomeSection = ({ username }) => {
     return (
@@ -19,9 +20,8 @@ const WelcomeSection = ({ username }) => {
 
 const UserDashboard = (props) => {
     const { user } = useAuth0();
-    const projectsContext = useContext(ProjectsContext);
+    const { projects, isLoadingProjects } = useProjects();
 
-    const projectItems = projectsContext.projects.map((project, idx) => <ProjectItem key={idx} {...project} />)
     const closedProjects = [];
 
     return (
@@ -34,22 +34,27 @@ const UserDashboard = (props) => {
                 <Col xs={6}>
                     <WelcomeSection username={user.name} />
                     <SectionContainer title={"Your Projects"} titleIcon={faDiceD20}>
-                        {projectItems.length > 0 ?
-                            projectItems :
-                            <p className="text-center">You have no active projects.</p>}
+                        {isLoadingProjects ?
+                            <LoadingSpinner size={'sm'} /> :
+                            projects.map((project, idx) => <ProjectItem key={idx} {...project} />)}
                     </SectionContainer>
 
                     <SectionContainer title={"Closed Projects"} titleIcon={faHourglassEnd} >
-                        {closedProjects.length > 0 ?
-                            closedProjects :
-                            <p className="text-center">You have no closed projects.</p>}
+                        {isLoadingProjects ?
+                            <LoadingSpinner size={'sm'} /> :
+
+                            closedProjects.length > 0 ?
+                                closedProjects
+                                : <p className="text-center">You have no closed projects.</p>}
                     </SectionContainer>
                 </Col>
 
                 {/* Right dashboard section */}
                 <Col xs={6} className="pl-2">
                     <SectionContainer title={"Metrics"} titleIcon={faChartPie}>
-                        <UserMetrics />
+                        {isLoadingProjects ?
+                            <LoadingSpinner size={'sm'} /> :
+                            <TaskMetrics />}
                     </SectionContainer>
                 </Col>
             </Row>

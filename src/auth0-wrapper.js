@@ -44,14 +44,14 @@ export const Auth0Provider = ({
     }
 
     const attemptSilentAuthentication = async () => {
-        console.log("Silent authentication is turned off!!");
-        // if (!isAuthenticated) {
-        //     setIsRenewingAuth(true);
-        //     const loggedInThroughSilentAuth = await auth0Client.handleSilentAuthentication();
-        //     if (loggedInThroughSilentAuth) {
-        //          await setFirebaseCustomToken();
-        //     }
-        // }
+        // console.log("Silent authentication is turned off!!");
+        if (!isAuthenticated) {
+            setIsRenewingAuth(true);
+            const loggedInThroughSilentAuth = await auth0Client.handleSilentAuthentication();
+            if (loggedInThroughSilentAuth) {
+                await setFirebaseCustomToken();
+            }
+        }
         setIsRenewingAuth(false);
     }
 

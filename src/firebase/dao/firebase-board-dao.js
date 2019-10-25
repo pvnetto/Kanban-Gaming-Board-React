@@ -63,4 +63,16 @@ export default class BoardDAO {
         return boards;
     }
 
+    fetchBoardRefsByProject = async (projectRef) => {
+        let boards = [];
+
+        await projectRef.collection('boards').get().then((querySnapshot) => {
+            querySnapshot.forEach(doc => {
+                boards.push(doc.ref);
+            })
+        });
+
+        return boards;
+    }
+
 }

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import SectionNavbar from '../../commons/SectionNavbar';
 import SectionContainer from '../../commons/SectionContainer';
-import UserMetrics from '../../user/UserMetrics';
 
 import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faChartPie, faDiceD20, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import BoardsContext from '../../contexts/BoardsContext';
+import ProjectMetrics from '../metrics/ProjectMetrics';
 
 const ProjectDescSection = ({ title, description }) => {
     return (
@@ -38,7 +38,7 @@ const ProjectDashboard = (props) => {
 
                 <Col xs={6} className="pl-2">
                     <SectionContainer title={"Metrics"} titleIcon={faChartPie}>
-                        <UserMetrics />
+                        <ProjectMetrics />
                     </SectionContainer>
                 </Col>
             </Row>

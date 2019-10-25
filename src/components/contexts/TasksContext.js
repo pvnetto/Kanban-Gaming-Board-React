@@ -35,6 +35,10 @@ export const TasksProvider = ({ children }) => {
         return await firebaseClient.taskService.insertTaskToBacklog(project.id, newTask);
     }
 
+    const fetchTasksFromProject = async () => {
+        return await firebaseClient.taskService.fetchAllTasksFromProject(project.id);
+    }
+
     const fetchTasksFromBoard = async (boardId) => {
         return await firebaseClient.taskService.fetchTasksFromBoard(project.id, boardId);
     }
@@ -73,6 +77,7 @@ export const TasksProvider = ({ children }) => {
         <TasksContext.Provider value={{
             addTaskToBoard,
             addTaskToBacklog,
+            fetchTasksFromProject,
             fetchTasksFromBoard,
             fetchTasksFromBacklog,
             listenToBoardTaskChanges,

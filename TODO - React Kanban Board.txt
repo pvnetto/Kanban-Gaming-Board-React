@@ -124,7 +124,7 @@ REACT KANBAN BOARD:
 				- Buscar							DONE
 				- Listener quando uma é adicionada	DONE
 				- Remover							DONE
-				- Reordenar (lista de tarefas)
+				- Reordenar (lista de tarefas)								DONE
 					- Adicionar lista de tarefas na subcollection tasks		DONE
 					- Salvar tarefas como elementos dessa lista				DONE
 					- Reordenar tarefas na mesma coluna						DONE
@@ -146,7 +146,8 @@ REACT KANBAN BOARD:
 		- Silent authentication												DONE
 		- Deixar design do login mais bonito	(refazer logo)				DONE
 		
-		- Métricas simples para usuário/projeto
+		- Ajustar seções de métricas										DONE
+		- Logout
 		- Responsividade
 
 	- Ajustes:
