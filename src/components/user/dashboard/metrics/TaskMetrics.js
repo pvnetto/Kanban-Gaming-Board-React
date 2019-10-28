@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useWorkspace } from '../../contexts/WorkspaceContext';
-import MetricsBase from '../../commons/MetricsBase';
-import TaskStatus from '../../commons/TaskStatus';
-import LoadingSpinner from '../../commons/spinners/LoadingSpinner';
+import { useWorkspace } from '../../../contexts/WorkspaceContext';
+import MetricsBase from '../../../commons/MetricsBase';
+import TaskStatus from '../../../commons/TaskStatus';
+import LoadingSpinner from '../../../commons/spinners/LoadingSpinner';
 
 const TaskMetrics = () => {
 

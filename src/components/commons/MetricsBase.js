@@ -30,7 +30,14 @@ const MetricsBase = ({ data, total, children }) => {
                 data={isEmpty ? emptyData : data}
                 lineWidth={15}
                 paddingAngle={isEmpty ? 0 : 5}
+                label={!isEmpty}
+                labelPosition={60}
+                labelStyle={{
+                    fontFamily: 'sans-serif',
+                    fontSize: '10px'
+                }}
             />
+
             <div className="d-flex flex-row justify-content-around align-items-center mt-4">
                 {children}
             </div>

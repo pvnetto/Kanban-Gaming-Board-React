@@ -17,7 +17,7 @@ export const BoardContainerHeader = ({ title, addTaskToBoard, addTaskToBacklog, 
         <>
             {/* Form used to create a new task */}
             <ModalBase title={"Add Task"} showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} >
-                <CreateTaskForm {...{addTaskToBoard, addTaskToBacklog}} />
+                <CreateTaskForm {...{ addTaskToBoard, addTaskToBacklog }} />
             </ModalBase>
 
             <SectionNavbar sectionTitle={title} sectionIcon={faGamepad}>
@@ -36,11 +36,16 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
         return task.status === type && (category === allCategories.ALL || task.category === category);
     }
 
-    const reorder = (list, srcIndex, destIndex) => {
+    const reorder = (list, srcIndex, destIndex, destType) => {
         const result = Array.from(list);
 
+        // Dest Index is given relative to the Destination list, so first we find the actual task in the list of destination type tasks
+        let destTypeTasks = result.filter(task => isTaskValid(task, destType, category));
+        let destTask = destTypeTasks[destIndex];
+        let destIndexInTasks = tasks.findIndex(task => task === destTask);
+
         const [removed] = result.splice(srcIndex, 1);
-        result.splice(destIndex, 0, removed);
+        result.splice(destIndexInTasks, 0, removed);
 
         return result;
     }
@@ -53,14 +58,8 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
         // Updating source task type to the same as destination task
         updatedTasks[srcIdx].status = destType;
 
-        // Dest Index is given relative to the Destination list, so first we find the actual task in the list of destination type tasks
-        let destTypeTasks = updatedTasks.filter(task => isTaskValid(task, destType, category));
-        let destTask = destTypeTasks[destIdx];
-        if (destTask) {
-            // After finding the destination task, we get its index in the list of all tasks, to reorder correctly
-            let destIndexInTasks = tasks.findIndex(task => task === destTask);
-            updatedTasks = reorder(updatedTasks, srcIdx, destIndexInTasks);
-        }
+        // Reordering tasks
+        updatedTasks = reorder(updatedTasks, srcIdx, destIdx, destType);
 
         return updatedTasks;
     }
@@ -77,7 +76,7 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
         // Else, the draggable was dropped on a different droppable column from its source, move it
         let newTasks = [...tasks];
         if (source.droppableId === destination.droppableId) {
-            newTasks = reorder(newTasks, source.index, destination.index);
+            newTasks = reorder(newTasks, source.index, destination.index, destination.droppableId);
         }
         else {
             newTasks = move(destination.droppableId, source.index, destination.index);

@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useAuth0 } from '../../auth0-wrapper';
 
+import FullPageSpinner from '../commons/spinners/FullPageSpinner';
+
 const WorkspaceContext = React.createContext({});
 
 export const useWorkspace = () => useContext(WorkspaceContext);
 export const WorkspaceProvider = ({ children }) => {
-    let [projects, setProjects] = useState([]);
+    let [projects, setProjects] = useState(null);
     let [isLoadingProjects, setLoading] = useState(true);
 
     const { firebaseClient, user } = useAuth0();
@@ -36,13 +38,12 @@ export const WorkspaceProvider = ({ children }) => {
     }
 
     const removeProject = async (projectId) => {
-        await firebaseClient.projectService.removeProject(projectId);
-
         const projectsCopy = [...projects];
         const projectToRemove = projectsCopy.findIndex(project => project.id === projectId);
         projectsCopy.splice(projectToRemove, 1);
-
         setProjects([...projectsCopy]);
+
+        await firebaseClient.projectService.removeProject(projectId);
     }
 
     const addContributorToProject = async (projectId, contributorEmail) => {
@@ -85,7 +86,7 @@ export const WorkspaceProvider = ({ children }) => {
 
     return (
         <WorkspaceContext.Provider value={{ projects, addProject, removeProject, updateProject, fetchAllTasksFromAllProjects, addContributorToProject, isLoadingProjects }}>
-            {children}
+            {projects ? children : <FullPageSpinner />}
         </WorkspaceContext.Provider>
     )
 

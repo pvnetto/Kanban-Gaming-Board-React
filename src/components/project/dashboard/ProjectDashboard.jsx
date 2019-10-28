@@ -5,7 +5,7 @@ import SectionContainer from '../../commons/SectionContainer';
 import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faChartPie, faDiceD20, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import BoardsContext from '../../contexts/BoardsContext';
+import { useBoards } from '../../contexts/BoardsContext';
 import ProjectMetrics from './metrics/ProjectMetrics';
 
 const ProjectDescSection = ({ title, description }) => {
@@ -18,8 +18,8 @@ const ProjectDescSection = ({ title, description }) => {
     );
 }
 
-const ProjectDashboard = (props) => {
-    const boardsContext = useContext(BoardsContext);
+const ProjectDashboard = () => {
+    const { project } = useBoards();
 
     return (
         <Row noGutters={true}>
@@ -28,10 +28,10 @@ const ProjectDashboard = (props) => {
 
             <Row noGutters={true} className="w-100 p-2">
                 <Col xs={6}>
-                    <ProjectDescSection {...boardsContext.project} />
+                    <ProjectDescSection {...project} />
 
                     <SectionContainer title={"General Info"} titleIcon={faInfoCircle} >
-                        <p>{boardsContext.project.generalInfo}</p>
+                        <p>{project.generalInfo}</p>
                     </SectionContainer>
                 </Col>
 

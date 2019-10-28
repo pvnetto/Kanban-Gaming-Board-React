@@ -9,7 +9,7 @@ export const useBoards = () => useContext(BoardsContext);
 export const BoardsProvider = ({ children, projectId }) => {
 
     let [boards, setBoards] = useState([]);
-    let [project, setProject] = useState({});
+    let [project, setProject] = useState(null);
 
     const { projects } = useWorkspace();
     const { firebaseClient } = useAuth0();
@@ -57,7 +57,7 @@ export const BoardsProvider = ({ children, projectId }) => {
 
     return (
         <BoardsContext.Provider value={{ project, boards, addBoard, removeBoard }}>
-            {children}
+            {project ? children : null}
         </BoardsContext.Provider>
     );
 }

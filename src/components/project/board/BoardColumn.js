@@ -6,23 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TaskStatus from '../../commons/TaskStatus';
 import TaskItem from './tasks/TaskItem';
 
-const columnIcon = (status) => {
-    switch (status) {
-        case TaskStatus.BACKLOG:
-            return faDiceD20;
-        case TaskStatus.PLANNED:
-            return faDiceD20;
-        case TaskStatus.IN_PROGRESS:
-            return faDiceD20;
-        case TaskStatus.TESTING:
-            return faDiceD20;
-        case TaskStatus.COMPLETED:
-            return faDiceD20;
-        default:
-            return faDiceD20;
-    }
-};
-
 const columnBorder = (status) => {
     switch (status) {
         case TaskStatus.BACKLOG:
@@ -51,7 +34,7 @@ const BoardColumn = ({ tasks, removeTask, type, category, isTaskValid }) => {
         <div className={`w-100 h-100 d-flex flex-column align-items-center justify-content-start py-4`}>
             <div className={`w-100 px-3 pb-3 border-bottom ${columnBorder(type)}`}>
                 <p className="d-flex flex-row align-items-center justify-content-center text-center">
-                    <FontAwesomeIcon icon={columnIcon(type)} className="mr-3" /> {type}
+                    <FontAwesomeIcon icon={faDiceD20} className="mr-3" /> {type}
                 </p>
             </div>
 

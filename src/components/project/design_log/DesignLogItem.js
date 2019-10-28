@@ -17,7 +17,7 @@ const DesignLogItem = (props) => {
                 </p>
 
                 <DropdownButton title={""} drop={"left"}>
-                    <Dropdown.Item>Edit</Dropdown.Item>
+                    {/* <Dropdown.Item>Edit</Dropdown.Item> */}
                     <Dropdown.Item onSelect={() => props.removeLog(props.id)}>Delete</Dropdown.Item>
                 </DropdownButton>
             </div>

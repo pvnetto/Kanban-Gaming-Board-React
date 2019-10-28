@@ -148,6 +148,7 @@ REACT KANBAN BOARD:
 		
 		- Ajustar seções de métricas										DONE
 		- Logout															DONE
+		- GitHub readme
 		- Responsividade
 
 	- Ajustes:
@@ -157,11 +158,8 @@ REACT KANBAN BOARD:
 		- Loading quando tiver inserindo dados								DONE
 			- No caso das tasks, salvar direto								DONE
 			- Para boards e projetos, loading sobreposto na tela			DONE
-		- Por loading antes de carregar context provider, para garantir que o context anterior foi carregado
-			- EX: Só carregar BoardsContext se ProjectsContext já tiver inicializado corretamente
-				- IMP: NÃO CARREGAR CHILDREN SE A CONDIÇÃO NÃO FOR ATINGIDA (NO CASO DE BOARDSCONTEXT, A CONDIÇÃO É CARREGAR O PROJETO)
-		- Label para as metrics
-				- IMP: PROCURAR NA DOCUMENTAÇÃO EXEMPLOS COM LABELS. DESABILITAR PARA METRICS EMPTY
+		- Loading antes de carregar context providers						DONE
+		- Label para as metrics												DONE
 		- Usar id estável como key para TaskItems, ao invés do índice
 			- Usar índices que mudam como keys é um anti-pattern
 				- IMP: GERAR UM ID ÚNICO QUANDO CRIAR A TASK, QUE SERÁ USADO COMO ID (TESTAR PRIMEIRO COM NOME, SÓ PRA VER SE RESOLVE O DRAG)

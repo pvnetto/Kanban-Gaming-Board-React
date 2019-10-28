@@ -43,7 +43,7 @@ const TaskItem = ({ index, task, removeTask }) => {
                     </div>
 
                     <Dropdown.Menu className="position-fixed" style={{ ...dropdownPos }} show={showDropdown}>
-                        <Dropdown.Item onClick={disableDropdown} onSelect={() => console.log("editing")}>Edit</Dropdown.Item>
+                        {/* <Dropdown.Item onClick={disableDropdown} onSelect={() => console.log("editing")}>Edit</Dropdown.Item> */}
                         <Dropdown.Item onClick={disableDropdown} onSelect={() => removeTask(task)}>Delete</Dropdown.Item>
                     </Dropdown.Menu>
                 </div>
