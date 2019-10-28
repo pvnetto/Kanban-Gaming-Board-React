@@ -9,7 +9,7 @@ import { useBoards } from '../../contexts/BoardsContext';
 
 const ProjectBoard = (props) => {
 
-    let [tasks, setTasks] = useState([]);
+    let [tasks, setTasks] = useState({});
     const { project, removeBoard } = useBoards();
     const { listenToBoardTaskChanges, addTaskToBoard, addTaskToBacklog, updateBoardTasks, removeTaskFromBoard } = useTasks();
 
@@ -19,7 +19,7 @@ const ProjectBoard = (props) => {
         const listenToTasks = async () => {
             const boardId = props.match.params.boardId;
             listener = await listenToBoardTaskChanges(boardId, (snapshotTasks) => {
-                setTasks([...snapshotTasks]);
+                setTasks(Object.assign({}, snapshotTasks));
             });
         }
 
@@ -32,7 +32,11 @@ const ProjectBoard = (props) => {
 
     const addTaskToBoardWithPreview = (boardId, name, description, category) => {
         const newTask = addTaskToBoard(boardId, name, description, category);
-        setTasks([...tasks, newTask])
+
+        let tasksCopy = Object.assign({}, tasks);
+        tasksCopy[newTask.status].push(newTask);
+
+        setTasks(tasksCopy);
     }
 
     return (

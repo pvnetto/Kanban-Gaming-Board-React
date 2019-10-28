@@ -32,54 +32,50 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
 
     let [category, setCategory] = useState(allCategories.ALL);
 
-    const isTaskValid = (task, type, category) => {
-        return task.status === type && (category === allCategories.ALL || task.category === category);
-    }
-
-    const reorder = (list, srcIndex, destIndex, destType) => {
-        const result = Array.from(list);
-
-        // Dest Index is given relative to the Destination list, so first we find the actual task in the list of destination type tasks
-        let destTypeTasks = result.filter(task => isTaskValid(task, destType, category));
-        let destTask = destTypeTasks[destIndex];
-        let destIndexInTasks = tasks.findIndex(task => task === destTask);
-
-        const [removed] = result.splice(srcIndex, 1);
-        result.splice(destIndexInTasks, 0, removed);
+    const reorder = (list, startIndex, endIndex) => {
+        const result = Array.from(list || []);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
 
         return result;
-    }
+    };
 
-    // Source Index = index of task considering the entire list
-    // Dest Index = Index of task local to the rendered list
-    const move = (destType, srcIdx, destIdx) => {
-        let updatedTasks = [...tasks];
+    /**
+     * Moves an item from one list to another list.
+     */
+    const move = (source, destination, droppableSource, droppableDestination) => {
+        const sourceClone = Array.from(source);
+        const destClone = Array.from(destination);
+        const [removed] = sourceClone.splice(droppableSource.index, 1);
 
-        // Updating source task type to the same as destination task
-        updatedTasks[srcIdx].status = destType;
+        removed.status = droppableDestination.droppableId;
 
-        // Reordering tasks
-        updatedTasks = reorder(updatedTasks, srcIdx, destIdx, destType);
+        destClone.splice(droppableDestination.index, 0, removed);
 
-        return updatedTasks;
-    }
+        const result = {};
+        result[droppableSource.droppableId] = sourceClone;
+        result[droppableDestination.droppableId] = destClone;
+
+        return result;
+    };
 
     const handleDragEnd = (result) => {
         const { source, destination } = result;
 
-        // If the draggable was dropped outside of a droppable, don't do anything
+        // dropped outside the list
         if (!destination) {
             return;
         }
 
-        // If the draggable was dropped on the same droppable column, reorder the list
-        // Else, the draggable was dropped on a different droppable column from its source, move it
-        let newTasks = [...tasks];
+        const newTasks = Object.assign({}, tasks);
         if (source.droppableId === destination.droppableId) {
-            newTasks = reorder(newTasks, source.index, destination.index, destination.droppableId);
+            const reorderedItems = reorder(newTasks[source.droppableId], source.index, destination.index);
+            newTasks[source.droppableId] = reorderedItems;
         }
         else {
-            newTasks = move(destination.droppableId, source.index, destination.index);
+            const movedTasks = move(newTasks[source.droppableId], newTasks[destination.droppableId], source, destination);
+            newTasks[source.droppableId] = movedTasks[source.droppableId];
+            newTasks[destination.droppableId] = movedTasks[destination.droppableId];
         }
 
         updateTasks(newTasks);
@@ -98,10 +94,10 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
                                 <Col key={idx} xs={12 / columns.length}>
                                     <BoardColumn
                                         type={status}
-                                        tasks={tasks}
+                                        tasks={tasks[status]}
                                         removeTask={removeTask}
                                         category={category}
-                                        isTaskValid={isTaskValid} />
+                                    />
                                 </Col>
                             ))
                         }

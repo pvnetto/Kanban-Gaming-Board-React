@@ -84,13 +84,14 @@ export default class TaskService {
         let tasks = [];
         let boardPromises = boards.map(async (board) => {
             let boardTasks = await this.taskDAO.fetchTasksFromBoard(board);
-            tasks.push(...boardTasks);
+            Object.keys(boardTasks).forEach(key => tasks.push(boardTasks[key]));
+            // tasks.push(...boardTasks);
         });
 
         await Promise.all(boardPromises);
 
         let backlogTasks = await this.taskDAO.fetchTasksFromBacklog(projectRef);
-        tasks.push(...backlogTasks);
+        Object.keys(backlogTasks).forEach(key => tasks.push(backlogTasks[key]));
 
         return tasks;
     }

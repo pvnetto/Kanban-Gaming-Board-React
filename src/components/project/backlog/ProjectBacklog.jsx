@@ -6,14 +6,14 @@ import { useTasks } from '../../contexts/TasksContext';
 
 const ProjectBacklog = (props) => {
 
-    let [tasks, setTasks] = useState([]);
+    let [tasks, setTasks] = useState({});
     const { listenToBacklogTaskChanges, addTaskToBoard, addTaskToBacklog, updateBacklogTasks, removeTaskFromBacklog } = useTasks();
 
     useEffect(() => {
         let listener = null;
         const listenToTasks = async () => {
             listener = await listenToBacklogTaskChanges((snapshotTasks) => {
-                setTasks([...snapshotTasks]);
+                setTasks(Object.assign({}, snapshotTasks));
             });
         }
 
@@ -26,7 +26,11 @@ const ProjectBacklog = (props) => {
 
     const addTaskToBacklogWithPreview = (name, description, category) => {
         const newTask = addTaskToBacklog(name, description, category);
-        setTasks([...tasks, newTask]);
+
+        let tasksCopy = Object.assign({}, tasks);
+        tasksCopy[newTask.status].push(newTask);
+
+        setTasks(tasksCopy);
     }
 
     return (

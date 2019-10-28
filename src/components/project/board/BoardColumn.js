@@ -27,7 +27,7 @@ const getDroppableStyle = isDraggingOver => {
     return isDraggingOver ? 'bg-blue' : '';
 }
 
-const BoardColumn = ({ tasks, removeTask, type, category, isTaskValid }) => {
+const BoardColumn = ({ tasks, removeTask, type, category }) => {
 
     return (
 
@@ -42,7 +42,7 @@ const BoardColumn = ({ tasks, removeTask, type, category, isTaskValid }) => {
                 {(provided, snapshot) => (
                     <div ref={provided.innerRef}
                         className={`w-100 d-flex flex-column justify-content-start align-items-stretch flex-fill my-3 ${getDroppableStyle(snapshot.isDraggingOver)}`}>
-                        {tasks.map((task, idx) => isTaskValid(task, type, category) ? <TaskItem key={idx} index={idx} task={task} removeTask={removeTask} /> : null)}
+                        {tasks ? tasks.map((task, idx) => <TaskItem key={task.id} index={idx} task={task} removeTask={removeTask} />) : null}
                         {provided.placeholder}
                     </div>
                 )}

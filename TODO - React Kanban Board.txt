@@ -160,9 +160,8 @@ REACT KANBAN BOARD:
 			- Para boards e projetos, loading sobreposto na tela			DONE
 		- Loading antes de carregar context providers						DONE
 		- Label para as metrics												DONE
-		- Usar id estável como key para TaskItems, ao invés do índice
-			- Usar índices que mudam como keys é um anti-pattern
-				- IMP: GERAR UM ID ÚNICO QUANDO CRIAR A TASK, QUE SERÁ USADO COMO ID (TESTAR PRIMEIRO COM NOME, SÓ PRA VER SE RESOLVE O DRAG)
+		- Usar id estável como key para TaskItems, ao invés do índice		DONE
+		- Ajeitar drag and drop 											DONE
 	- Experimentar:
 		- Firebase/firestore						DONE
 		- Context API								DONE

@@ -29,7 +29,7 @@ const TaskItem = ({ index, task, removeTask }) => {
     }
 
     return (
-        <Draggable key={index} draggableId={`${index}`} index={index}>
+        <Draggable key={task.id} draggableId={`${task.id}`} index={index}>
             {(provided, snapshot) => (
                 <div onClick={disableDropdown} onMouseLeave={disableDropdown} onContextMenu={enableDropdown}
                     ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
