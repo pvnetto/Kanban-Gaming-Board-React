@@ -5,7 +5,7 @@ import { categories } from '../../commons/Categories';
 import { useBoards } from '../../contexts/BoardsContext';
 import { useTasks } from '../../contexts/TasksContext';
 
-const CreateTaskForm = () => {
+const CreateTaskForm = ({ addTaskToBoard, addTaskToBacklog }) => {
 
     const backlogId = '-100';
 
@@ -15,7 +15,6 @@ const CreateTaskForm = () => {
     let [category, setCategory] = useState(categories.ART);
 
     let { boards } = useBoards();
-    let { addTaskToBoard, addTaskToBacklog } = useTasks();
 
     useEffect(() => {
         setBoardId(backlogId);

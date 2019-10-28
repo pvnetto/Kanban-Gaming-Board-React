@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import TaskStatus from '../../commons/TaskStatus';
-import LoadingSpinner from '../../commons/LoadingSpinner';
-import { useTasks } from '../../contexts/TasksContext';
-import MetricsBase from '../../commons/MetricsBase';
+import TaskStatus from '../../../commons/TaskStatus';
+import LoadingSpinner from '../../../commons/spinners/LoadingSpinner';
+import { useTasks } from '../../../contexts/TasksContext';
+import MetricsBase from '../../../commons/MetricsBase';
 
 const ProjectMetrics = () => {
     const [data, setData] = useState({});

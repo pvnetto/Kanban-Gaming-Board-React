@@ -12,7 +12,7 @@ export const TasksProvider = ({ children }) => {
     const { project } = useBoards();
     const { firebaseClient } = useAuth0();
 
-    const addTaskToBoard = async (boardId, name, description, category) => {
+    const addTaskToBoard = (boardId, name, description, category) => {
         let newTask = {
             name,
             description,
@@ -20,11 +20,13 @@ export const TasksProvider = ({ children }) => {
             status: TaskStatus.PLANNED
         };
 
+        firebaseClient.taskService.insertTaskToBoard(project.id, boardId, newTask);
         // setAlert({ show: true, msg: `${name} task was succesfully created.` });
-        return await firebaseClient.taskService.insertTaskToBoard(project.id, boardId, newTask);
+
+        return newTask;
     }
 
-    const addTaskToBacklog = async (name, description, category) => {
+    const addTaskToBacklog = (name, description, category) => {
         let newTask = {
             name,
             description,
@@ -32,7 +34,9 @@ export const TasksProvider = ({ children }) => {
             status: TaskStatus.BACKLOG
         };
 
-        return await firebaseClient.taskService.insertTaskToBacklog(project.id, newTask);
+        firebaseClient.taskService.insertTaskToBacklog(project.id, newTask);
+
+        return newTask;
     }
 
     const fetchTasksFromProject = async () => {

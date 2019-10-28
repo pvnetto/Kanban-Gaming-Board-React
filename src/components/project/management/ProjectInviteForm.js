@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 import { useBoards } from '../../contexts/BoardsContext';
-import { useProjects } from '../../contexts/ProjectContext';
+import { useWorkspace } from '../../contexts/WorkspaceContext';
 
 const ProjectInviteForm = () => {
 
     let [email, setEmail] = useState('');
 
     const { project } = useBoards();
-    const { addContributorToProject } = useProjects();
+    const { addContributorToProject } = useWorkspace();
 
     const addContributor = () => {
         addContributorToProject(project.id, email);

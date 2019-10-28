@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useProjects } from '../../contexts/ProjectContext';
+import { useWorkspace } from '../../contexts/WorkspaceContext';
 import MetricsBase from '../../commons/MetricsBase';
 import TaskStatus from '../../commons/TaskStatus';
-import LoadingSpinner from '../../commons/LoadingSpinner';
+import LoadingSpinner from '../../commons/spinners/LoadingSpinner';
 
 const TaskMetrics = () => {
 
     const [data, setData] = useState({});
-    const { projects, fetchAllTasksFromAllProjects } = useProjects();
+    const { projects, fetchAllTasksFromAllProjects } = useWorkspace();
 
     useEffect(() => {
         getMetricsData();

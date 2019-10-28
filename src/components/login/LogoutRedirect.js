@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAuth0 } from '../../auth0-wrapper';
 
-import FullPageSpinner from '../commons/FullPageSpinner';
+import FullPageSpinner from '../commons/spinners/FullPageSpinner';
 
 
 const LogoutRedirect = ({ history }) => {
@@ -11,7 +11,6 @@ const LogoutRedirect = ({ history }) => {
         const logout = async () => {
             if (isAuthenticated) {
                 await signOut();
-                console.log("Signed out");
             }
 
             history.push("login");

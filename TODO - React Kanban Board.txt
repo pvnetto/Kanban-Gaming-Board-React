@@ -144,27 +144,31 @@ REACT KANBAN BOARD:
 			- Linkar providers												DONE
 			- Log with twitter instead of github							DONE
 		- Silent authentication												DONE
-		- Deixar design do login mais bonito	(refazer logo)				DONE
+		- Deixar design do login mais bonito								DONE
 		
 		- Ajustar seções de métricas										DONE
-		- Logout
+		- Logout															DONE
 		- Responsividade
 
 	- Ajustes:
-		- Mover opção All Items para cima do BoardSidenav
-		- Inserir ícones corretos no board sidenav
+		- Mover opção All Items para cima do BoardSidenav					DONE
+		- Inserir ícones corretos no board sidenav							DONE
 		- Loading quando tiver carregando dados								DONE
-		- Loading quando tiver inserindo dados
-		- Usar id estável como key para TaskItems, ao invés do índice
-			- Usar índices que mudam como keys é um anti-pattern
-		- Alert quando inserir dados
+		- Loading quando tiver inserindo dados								DONE
+			- No caso das tasks, salvar direto								DONE
+			- Para boards e projetos, loading sobreposto na tela			DONE
 		- Por loading antes de carregar context provider, para garantir que o context anterior foi carregado
 			- EX: Só carregar BoardsContext se ProjectsContext já tiver inicializado corretamente
+				- IMP: NÃO CARREGAR CHILDREN SE A CONDIÇÃO NÃO FOR ATINGIDA (NO CASO DE BOARDSCONTEXT, A CONDIÇÃO É CARREGAR O PROJETO)
+		- Label para as metrics
+				- IMP: PROCURAR NA DOCUMENTAÇÃO EXEMPLOS COM LABELS. DESABILITAR PARA METRICS EMPTY
+		- Usar id estável como key para TaskItems, ao invés do índice
+			- Usar índices que mudam como keys é um anti-pattern
+				- IMP: GERAR UM ID ÚNICO QUANDO CRIAR A TASK, QUE SERÁ USADO COMO ID (TESTAR PRIMEIRO COM NOME, SÓ PRA VER SE RESOLVE O DRAG)
 	- Experimentar:
 		- Firebase/firestore						DONE
 		- Context API								DONE
 		- PropTypes
 		- Form validation (pure HTML or Formik, check https://react-bootstrap.github.io/components/forms/)
 		- Silent authentication						DONE
-		- Substituir classNames por componentes Bootstrap onde possível
 		- Testes

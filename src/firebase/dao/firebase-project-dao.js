@@ -31,7 +31,7 @@ export default class ProjectDAO {
     }
 
     removeProject = async (projectId) => {
-        const projectRef = await this._kanbanDB
+        const projectRef = await this._firestoreDB
             .collection('projects').doc(projectId);
 
         // Deletes the project

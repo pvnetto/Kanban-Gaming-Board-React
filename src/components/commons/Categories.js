@@ -8,10 +8,12 @@ const categories = {
     BUGS: "Bugs"
 };
 
+const allCategory = {
+    ALL: "All Items"
+}
+
 Object.freeze(categories);
 
-let allCategories = {};
-allCategories = Object.assign(allCategories, categories);
-allCategories.ALL = "All Items";
+let allCategories = Object.assign({}, allCategory, categories);
 
 export { categories, allCategories };

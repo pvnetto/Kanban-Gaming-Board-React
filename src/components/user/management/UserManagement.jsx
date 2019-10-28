@@ -4,10 +4,10 @@ import ProjectItem from '../../commons/ProjectItem';
 
 import { Row, Col } from 'react-bootstrap'
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
-import ProjectsContext from '../../contexts/ProjectContext';
+import WorkspaceContext from '../../contexts/WorkspaceContext';
 
 const UserManagement = (props) => {
-    const projectsContext = useContext(ProjectsContext);
+    const projectsContext = useContext(WorkspaceContext);
     const projectItems = projectsContext.projects.map((project, idx) => <ProjectItem key={idx} {...project} redirect={'/management'} />);
 
     return (

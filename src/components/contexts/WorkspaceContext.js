@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useAuth0 } from '../../auth0-wrapper';
 
-const ProjectsContext = React.createContext({});
+const WorkspaceContext = React.createContext({});
 
-export const useProjects = () => useContext(ProjectsContext);
-export const ProjectsProvider = ({ children }) => {
+export const useWorkspace = () => useContext(WorkspaceContext);
+export const WorkspaceProvider = ({ children }) => {
     let [projects, setProjects] = useState([]);
     let [isLoadingProjects, setLoading] = useState(true);
 
@@ -84,14 +84,14 @@ export const ProjectsProvider = ({ children }) => {
     }
 
     return (
-        <ProjectsContext.Provider value={{ projects, addProject, removeProject, updateProject, fetchAllTasksFromAllProjects, addContributorToProject, isLoadingProjects }}>
+        <WorkspaceContext.Provider value={{ projects, addProject, removeProject, updateProject, fetchAllTasksFromAllProjects, addContributorToProject, isLoadingProjects }}>
             {children}
-        </ProjectsContext.Provider>
+        </WorkspaceContext.Provider>
     )
 
 }
 
 
 
-export const ProjectsConsumer = ProjectsContext.Consumer;
-export default ProjectsContext;
+export const ProjectsConsumer = WorkspaceContext.Consumer;
+export default WorkspaceContext;

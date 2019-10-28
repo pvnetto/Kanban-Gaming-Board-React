@@ -5,9 +5,9 @@ import SectionNavbar from '../../commons/SectionNavbar';
 
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/free-solid-svg-icons';
-import { useProjects } from '../../contexts/ProjectContext';
+import { useWorkspace } from '../../contexts/WorkspaceContext';
 import { useAuth0 } from '../../../auth0-wrapper';
-import LoadingSpinner from '../../commons/LoadingSpinner';
+import LoadingSpinner from '../../commons/spinners/LoadingSpinner';
 import TaskMetrics from '../metrics/TaskMetrics';
 
 const WelcomeSection = ({ username }) => {
@@ -20,7 +20,7 @@ const WelcomeSection = ({ username }) => {
 
 const UserDashboard = (props) => {
     const { user } = useAuth0();
-    const { projects, isLoadingProjects } = useProjects();
+    const { projects, isLoadingProjects } = useWorkspace();
 
     const closedProjects = [];
 

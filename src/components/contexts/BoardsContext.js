@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { useProjects } from './ProjectContext';
+import { useWorkspace } from './WorkspaceContext';
 import { useAuth0 } from '../../auth0-wrapper';
 
 
@@ -11,7 +11,7 @@ export const BoardsProvider = ({ children, projectId }) => {
     let [boards, setBoards] = useState([]);
     let [project, setProject] = useState({});
 
-    const { projects } = useProjects();
+    const { projects } = useWorkspace();
     const { firebaseClient } = useAuth0();
 
     useEffect(() => {

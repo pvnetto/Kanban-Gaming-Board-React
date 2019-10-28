@@ -8,6 +8,7 @@ import CreateBoardForm from './CreateBoardForm';
 import CreateTaskForm from './CreateTaskForm';
 import SidenavExpand from '../../commons/sidenav/SidenavExpand';
 import { useBoards } from '../../contexts/BoardsContext';
+import { useTasks } from '../../contexts/TasksContext';
 
 
 const ProjectWorkspaceSidenav = ({ url, params, onExpand, addBoard }) => {
@@ -17,6 +18,7 @@ const ProjectWorkspaceSidenav = ({ url, params, onExpand, addBoard }) => {
     const [showCreateTask, setShowCreateTask] = useState(false);
 
     const { boards } = useBoards();
+    const { addTaskToBoard, addTaskToBacklog } = useTasks();
 
     const showExpandLinks = (show, isExpanded) => (
         <>
@@ -62,8 +64,8 @@ const ProjectWorkspaceSidenav = ({ url, params, onExpand, addBoard }) => {
                 <CreateBoardForm addBoard={addBoard} projectId={params.projectId} />
             </ModalBase>
 
-            <ModalBase showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} title="Create Task">
-                <CreateTaskForm boards={boards} projectId={params.projectId} />
+            <ModalBase showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} title={"Create Task"}>
+                <CreateTaskForm {...{ addTaskToBoard, addTaskToBacklog }} boards={boards} projectId={params.projectId} />
             </ ModalBase>
 
             <Sidenav onExpand={onExpand}>

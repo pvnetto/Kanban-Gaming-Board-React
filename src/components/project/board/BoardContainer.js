@@ -11,17 +11,19 @@ import CreateTaskForm from '../sidenav/CreateTaskForm';
 import BoardSidenav from './BoardSidenav';
 import BoardColumn from './BoardColumn';
 
-export const BoardContainerHeader = ({ title, children }) => {
+export const BoardContainerHeader = ({ title, addTaskToBoard, addTaskToBacklog, children }) => {
     let [showCreateTask, setShowCreateTask] = useState(false);
     return (
         <>
+            {/* Form used to create a new task */}
+            <ModalBase title={"Add Task"} showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} >
+                <CreateTaskForm {...{addTaskToBoard, addTaskToBacklog}} />
+            </ModalBase>
+
             <SectionNavbar sectionTitle={title} sectionIcon={faGamepad}>
                 <SectionNavbarButton btnTitle={"Add Task"} btnIcon={faPlusSquare} onClick={() => setShowCreateTask(true)} />
                 {children}
             </SectionNavbar>
-            <ModalBase title={"Add Task"} showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} >
-                <CreateTaskForm />
-            </ModalBase>
         </>
     );
 }

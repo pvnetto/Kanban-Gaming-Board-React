@@ -6,7 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faChartPie, faDiceD20, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import BoardsContext from '../../contexts/BoardsContext';
-import ProjectMetrics from '../metrics/ProjectMetrics';
+import ProjectMetrics from './metrics/ProjectMetrics';
 
 const ProjectDescSection = ({ title, description }) => {
     return (

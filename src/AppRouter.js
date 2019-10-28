@@ -9,8 +9,8 @@ import PageAlert from './components/commons/PageAlert';
 import LoginRedirect from './components/login/LoginRedirect';
 
 import { useAuth0 } from './auth0-wrapper';
-import { ProjectsProvider } from './components/contexts/ProjectContext';
-import FullPageSpinner from './components/commons/FullPageSpinner';
+import { WorkspaceProvider } from './components/contexts/WorkspaceContext';
+import FullPageSpinner from './components/commons/spinners/FullPageSpinner';
 import LogoutRedirect from './components/login/LogoutRedirect';
 
 
@@ -35,10 +35,10 @@ const AppRouter = () => {
 
                     <Route exact path="/logout" component={LogoutRedirect} />
 
-                    <ProjectsProvider>
+                    <WorkspaceProvider>
                         <Route path="/workspace" component={UserWorkspace} />
                         <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} />} />
-                    </ ProjectsProvider>
+                    </ WorkspaceProvider>
 
                     <Route component={ErrorPage} />
                 </Switch>
