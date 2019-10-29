@@ -139,6 +139,8 @@ export default class TaskDAO {
         return boardData;
     };
 
+    getEmptyBoardData = () => (this._checkBoardData({}));
+
     _checkBoardData = (boardData) => {
         Object.values(TaskStatus).forEach(status => {
             if (status !== TaskStatus.BACKLOG && !boardData[status]) {

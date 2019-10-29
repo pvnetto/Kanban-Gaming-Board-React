@@ -81,13 +81,10 @@ export default class TaskService {
         const projectRef = await this.projectDAO.getProjectRef(projectId);
         const boards = await this.boardDAO.fetchBoardRefsByProject(projectRef);
 
-        let taskData = {};
+        let taskData = this.taskDAO.getEmptyBoardData();
         let boardPromises = boards.map(async (board) => {
             let boardTasks = await this.taskDAO.fetchTasksFromBoard(board);
             Object.keys(boardTasks).forEach(key => {
-                if (!taskData[key]) {
-                    taskData[key] = [];
-                }
                 taskData[key].push(...boardTasks[key]);
             });
         });

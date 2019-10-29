@@ -169,7 +169,7 @@ REACT KANBAN BOARD:
 		- Usar id estável como key para TaskItems, ao invés do índice		DONE
 		- Ajeitar drag and drop 											DONE
 		- Ajeitar filtro por category										DONE
-		- Ajeitar metrics
+		- Ajeitar metrics													DONE
 		- Sign In/Sign Up página inicial
 	- Experimentar:
 		- Firebase/firestore						DONE
