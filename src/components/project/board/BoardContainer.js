@@ -43,7 +43,8 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
     }, [category, tasks]);
 
     const filteredToRegularIndex = (idx, type) => {
-        const regularIdx = tasks[type].findIndex(task => task.id === filteredTasks[type][idx]);
+        const selectedTask = filteredTasks[type][idx];
+        const regularIdx = tasks[type].findIndex(task => task.id === selectedTask.id);
         return regularIdx != -1 ? regularIdx : idx;
     };
 

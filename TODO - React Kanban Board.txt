@@ -162,7 +162,7 @@ REACT KANBAN BOARD:
 		- Label para as metrics												DONE
 		- Usar id estável como key para TaskItems, ao invés do índice		DONE
 		- Ajeitar drag and drop 											DONE
-		- Ajeitar filtro por category
+		- Ajeitar filtro por category										DONE
 	- Experimentar:
 		- Firebase/firestore						DONE
 		- Context API								DONE
