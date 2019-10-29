@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 
 import ProjectWorkspaceRoutes from './routes';
@@ -22,14 +23,14 @@ const WorkspaceNavbar = ({ path }) => {
     )
 }
 
-const ProjectWorkspace = (props) => {
+const ProjectWorkspace = ({ history, match, location }) => {
     let [expandWorkspace, setExpandWorkspace] = useState(true);
 
     const { isAuthenticated } = useAuth0();
 
     useEffect(() => {
         if (!isAuthenticated) {
-            props.history.push('/');
+            history.push('/');
         }
     });
 
@@ -38,18 +39,24 @@ const ProjectWorkspace = (props) => {
     }
 
     return (
-        <BoardsProvider projectId={props.match.params.projectId}>
+        <BoardsProvider projectId={match.params.projectId}>
             <TasksProvider>
-                <ProjectWorkspaceSidenav {...props.match} onExpand={toggleExpandWorkspace} />
+                <ProjectWorkspaceSidenav {...match} onExpand={toggleExpandWorkspace} />
                 <Container fluid={true} className="full-height bg-primary p-0">
                     <div className={`workspace ${expandWorkspace ? 'expand' : ''} d-flex flex-column h-100`}>
-                        <WorkspaceNavbar path={props.location.pathname} />
-                        <ProjectWorkspaceRoutes {...props.match} {...props} />
+                        <WorkspaceNavbar path={location.pathname} />
+                        <ProjectWorkspaceRoutes url={match.url} />
                     </div>
                 </Container>
             </TasksProvider>
         </BoardsProvider>
     );
+};
+
+ProjectWorkspace.propTypes = {
+    history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
 };
 
 export default ProjectWorkspace;

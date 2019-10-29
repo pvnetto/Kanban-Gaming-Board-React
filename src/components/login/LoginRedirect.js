@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { useAuth0 } from '../../auth0-wrapper';
 
 
-const LoginRedirect = (props) => {
+const LoginRedirect = ({ history }) => {
 
     const { isAuthenticated, loginThroughCallback } = useAuth0();
 
@@ -11,7 +13,7 @@ const LoginRedirect = (props) => {
             if (!isAuthenticated) {
                 await loginThroughCallback();
             }
-            props.history.push("workspace/dashboard");
+            history.push("workspace/dashboard");
         }
 
         authenticate();
@@ -21,5 +23,9 @@ const LoginRedirect = (props) => {
         <div></div>
     );
 };
+
+LoginRedirect.propTypes = {
+    history: PropTypes.object.isRequired,
+}
 
 export default LoginRedirect;

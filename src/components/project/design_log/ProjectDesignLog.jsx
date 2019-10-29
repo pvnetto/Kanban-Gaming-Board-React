@@ -55,8 +55,8 @@ const ProjectDesignLog = () => {
                 <DesignLogForm addLog={addLog} />
             </ModalBase>
 
-            <SectionNavbar sectionTitle={"Design Logs"} sectionIcon={faPencilRuler}>
-                <SectionNavbarButton onClick={() => setShowModal(true)} btnTitle={"Add Log"} btnIcon={faPlusSquare} />
+            <SectionNavbar title={"Design Logs"} icon={faPencilRuler}>
+                <SectionNavbarButton onClick={() => setShowModal(true)} title={"Add Log"} icon={faPlusSquare} />
             </SectionNavbar>
 
             <Col xs={12} className="p-4 d-flex flex-column-reverse">

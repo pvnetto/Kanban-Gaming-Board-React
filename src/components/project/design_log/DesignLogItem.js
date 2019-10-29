@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-const DesignLogItem = (props) => {
+const DesignLogItem = ({ id, title, content, removeLog, index }) => {
 
     let [showContent, setShowContent] = useState(false);
 
@@ -12,25 +13,33 @@ const DesignLogItem = (props) => {
             <div className="d-flex flex-row justify-content-between">
                 <p className="d-flex flex-row align-items-center">
                     <FontAwesomeIcon style={{ width: '15px' }} className="mr-2" icon={showContent ? faMinus : faPlus} />
-                    <span className="font-weight-bold mr-1">Log #{props.index}:</span>
-                    {props.title}
+                    <span className="font-weight-bold mr-1">Log #{index}:</span>
+                    {title}
                 </p>
 
                 <DropdownButton title={""} drop={"left"}>
                     {/* <Dropdown.Item>Edit</Dropdown.Item> */}
-                    <Dropdown.Item onSelect={() => props.removeLog(props.id)}>Delete</Dropdown.Item>
+                    <Dropdown.Item onSelect={() => removeLog(id)}>Delete</Dropdown.Item>
                 </DropdownButton>
             </div>
 
             {showContent &&
                 <div>
                     <p className="ml-4">
-                        {props.content}
+                        {content}
                     </p>
                 </div>
             }
         </div>
     );
+};
+
+DesignLogItem.propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    removeLog: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
 };
 
 export default DesignLogItem;

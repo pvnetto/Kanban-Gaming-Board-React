@@ -31,7 +31,7 @@ export default class TaskDAO {
 
         await tasksRef.set(tasks);
 
-        return await tasksRef.get().then(doc => this.getBoardData(doc));
+        return await tasksRef.get().then(doc => this._getBoardData(doc));
     }
 
     removeTaskFromBoard = async (boardRef, task) => {
@@ -55,7 +55,7 @@ export default class TaskDAO {
         const tasksRef = await boardRef
             .collection('tasks').doc('tasks');
 
-        return await tasksRef.get().then(doc => this.getBoardData(doc));
+        return await tasksRef.get().then(doc => this._getBoardData(doc));
     }
 
     insertTaskToBacklog = async (projectRef, task) => {
@@ -81,7 +81,7 @@ export default class TaskDAO {
 
         await tasksRef.set(tasks);
 
-        return await tasksRef.get().then(doc => this.getBacklogData(doc));
+        return await tasksRef.get().then(doc => this._getBacklogData(doc));
     }
 
     removeTaskFromBacklog = async (projectRef, task) => {
@@ -105,51 +105,62 @@ export default class TaskDAO {
         const tasksRef = await projectRef
             .collection('backlog').doc('tasks');
 
-        return await tasksRef.get().then(doc => this.getBacklogData(doc));
+        return await tasksRef.get().then(doc => this._getBacklogData(doc));
     }
 
     setBoardTasksListener = async (boardRef, listener) => {
         return await boardRef
-            .collection('tasks').onSnapshot(this._delegateTasksListener(listener, this.getBoardData));
+            .collection('tasks').onSnapshot(this._delegateTasksListener(listener, this._getBoardData, this._checkBoardData));
     }
 
     setBacklogTasksListener = async (projectRef, listener) => {
         return await projectRef
-            .collection('backlog').onSnapshot(this._delegateTasksListener(listener, this.getBacklogData));
+            .collection('backlog').onSnapshot(this._delegateTasksListener(listener, this._getBacklogData, this._checkBacklogData));
     }
 
     // Converts snapshot's list of docs to a list of items with doc data, so listeners don't have to deal directly with snapshots
-    _delegateTasksListener = (listener, taskBuilder) => {
+    _delegateTasksListener = (listener, dataBuilder, dataChecker) => {
         return (snapshot) => {
-            let items = [];
+            let taskData = {};
+
             snapshot.forEach(doc => {
-                items = taskBuilder(doc);
+                taskData = dataBuilder(doc);
             });
 
-            listener(items);
+            taskData = dataChecker(taskData);
+
+            listener(taskData);
         }
     }
 
-    getBoardData = (doc) => {
+    _getBoardData = (doc) => {
         let boardData = doc.exists ? Object.assign({}, doc.data()) : {};
+        boardData = this._checkBoardData(boardData);
+        return boardData;
+    };
 
+    _checkBoardData = (boardData) => {
         Object.values(TaskStatus).forEach(status => {
-            if (status != TaskStatus.BACKLOG && !boardData[status]) {
+            if (status !== TaskStatus.BACKLOG && !boardData[status]) {
                 boardData[status] = [];
             }
         });
 
         return boardData;
-    };
+    }
 
-    getBacklogData = (doc) => {
+    _getBacklogData = (doc) => {
         let backlogData = doc.exists ? Object.assign({}, doc.data()) : {};
+        backlogData = this._checkBacklogData(backlogData);
+        return backlogData;
+    }
 
+    _checkBacklogData = (backlogData) => {
         if (!backlogData[TaskStatus.BACKLOG]) {
             backlogData[TaskStatus.BACKLOG] = [];
         }
 
         return backlogData;
-    }
+    };
 
 }

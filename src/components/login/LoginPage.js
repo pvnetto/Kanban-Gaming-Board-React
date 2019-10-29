@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Row, Col, Container, Button } from 'react-bootstrap';
+
 import LoginForm from './LoginForm';
 import XboxImg from '../../assets/images/action-analogue.jpg';
 
-import { Row, Col, Container, Button } from 'react-bootstrap';
 import { useAuth0 } from '../../auth0-wrapper';
 
 function LoginPage({ history }) {
@@ -54,6 +56,10 @@ function LoginPage({ history }) {
 
     </div >
   );
+}
+
+LoginPage.propTypes = {
+  history: PropTypes.object.isRequired,
 }
 
 export default LoginPage;

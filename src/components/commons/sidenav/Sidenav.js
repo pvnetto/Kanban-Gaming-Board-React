@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import SidenavLogo from './SidenavLogo';
 import SidenavLink from './SidenavLink';
+import PropTypes from 'prop-types';
 
 import { faPowerOff, faWindowMinimize } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Sidenav = (props) => {
+const Sidenav = ({ children, onExpand }) => {
 
     let [isExpanded, setExpanded] = useState(true);
 
     const toggleExpanded = () => {
         setExpanded(!isExpanded);
-        props.onExpand();
+        onExpand();
     }
 
     return (
@@ -22,7 +23,7 @@ const Sidenav = (props) => {
                 <hr className="m-1 border border-light" />
 
                 <div>
-                    {props.children(isExpanded)}
+                    {children(isExpanded)}
                 </div>
 
                 <div className="d-flex flex-column justify-content-end w-100 h-100">
@@ -38,5 +39,10 @@ const Sidenav = (props) => {
         </div>
     );
 };
+
+Sidenav.propTypes = {
+    children: PropTypes.func.isRequired,
+    onExpand: PropTypes.func.isRequired,
+}
 
 export default Sidenav;

@@ -35,10 +35,10 @@ const LoginForm = () => {
                     <FontAwesomeIcon icon={faFacebookSquare} className="mx-2" />
                     <span className="ml-4">Sign in with Facebook</span>
                 </Button>
-                <Button variant="twitter" className="d-flex flex-row align-items-center justify-content-start" onClick={loginWithGitHub}>
+                {/* <Button variant="twitter" className="d-flex flex-row align-items-center justify-content-start" onClick={loginWithGitHub}>
                     <FontAwesomeIcon icon={faTwitter} className="mx-2" />
                     <span className="ml-4">Sign in with Twitter</span>
-                </Button>
+                </Button> */}
             </div>
         </div>
     );

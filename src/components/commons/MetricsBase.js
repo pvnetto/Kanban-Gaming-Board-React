@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 
 export const MetricsItem = (props) => {
@@ -10,7 +11,7 @@ export const MetricsItem = (props) => {
     );
 }
 
-const MetricsBase = ({ data, total, children }) => {
+const MetricsBase = ({ data, children }) => {
 
     let isEmpty = true;
 
@@ -46,5 +47,12 @@ const MetricsBase = ({ data, total, children }) => {
 };
 
 MetricsBase.Item = MetricsItem;
+MetricsBase.propTypes = {
+    data: PropTypes.array.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.element,
+    ]).isRequired,
+}
 
 export default MetricsBase;

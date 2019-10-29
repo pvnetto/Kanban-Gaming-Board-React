@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import SidenavButton from './SidenavButton';
 
-export const ExpandLink = ({ title, icon, link, url, show, isExpanded }) => {
+export const ExpandLink = ({ title, icon, link = '', url = '', show, isExpanded }) => {
 
     if (!show) {
         return null;
     }
 
     return (
-        <NavLink className={`nav-link py-1 ${isExpanded ? 'pl-3' : 'pl-1'} d-flex flex-row align-items-center`} to={`${url || ''}${link || ''}`}>
+        <NavLink className={`nav-link py-1 ${isExpanded ? 'pl-3' : 'pl-1'} d-flex flex-row align-items-center`} to={`${url}${link}`}>
             <FontAwesomeIcon className="ml-4" style={{ width: '15px' }} icon={icon} />
 
             {
@@ -22,6 +23,15 @@ export const ExpandLink = ({ title, icon, link, url, show, isExpanded }) => {
             }
         </NavLink>
     );
+}
+
+ExpandLink.propTypes = {
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.object.isRequired,
+    link: PropTypes.string,
+    url: PropTypes.string,
+    show: PropTypes.bool,
+    isExpanded: PropTypes.bool,
 }
 
 export const ExpandButton = ({ title, icon, show, isExpanded, onClick }) => {
@@ -41,6 +51,14 @@ export const ExpandButton = ({ title, icon, show, isExpanded, onClick }) => {
             }
         </p>
     );
+}
+
+ExpandButton.propTypes = {
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.object.isRequired,
+    show: PropTypes.bool,
+    isExpanded: PropTypes.bool,
+    onClick: PropTypes.func,
 }
 
 const SidenavExpand = (props) => {
@@ -64,5 +82,11 @@ const SidenavExpand = (props) => {
 
 SidenavExpand.Button = ExpandButton;
 SidenavExpand.Link = ExpandLink;
+SidenavExpand.propTypes = {
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.object.isRequired,
+    active: PropTypes.bool,
+    isRequired: PropTypes.bool,
+}
 
 export default SidenavExpand;

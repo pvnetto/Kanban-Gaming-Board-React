@@ -4,9 +4,9 @@ import BoardContainer from '../board/BoardContainer';
 import TaskStatus from '../../commons/TaskStatus';
 import { useTasks } from '../../contexts/TasksContext';
 
-const ProjectBacklog = (props) => {
+const ProjectBacklog = () => {
 
-    let [tasks, setTasks] = useState({});
+    let [tasks, setTasks] = useState(null);
     const { listenToBacklogTaskChanges, addTaskToBoard, addTaskToBacklog, updateBacklogTasks, removeTaskFromBacklog } = useTasks();
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const ProjectBacklog = (props) => {
     }
 
     return (
-        <BoardContainer {...props} tasks={tasks} removeTask={removeTaskFromBacklog} updateTasks={updateBacklogTasks} columns={[TaskStatus.BACKLOG]}>
+        <BoardContainer tasks={tasks} removeTask={removeTaskFromBacklog} updateTasks={updateBacklogTasks} columns={[TaskStatus.BACKLOG]}>
             <BoardContainer.Header addTaskToBoard={addTaskToBoard} addTaskToBacklog={addTaskToBacklogWithPreview} title={"Backlog"}>
             </BoardContainer.Header>
         </BoardContainer>

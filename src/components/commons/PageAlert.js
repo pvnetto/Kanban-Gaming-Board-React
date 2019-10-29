@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Alert } from 'react-bootstrap';
 
 const PageAlert = ({ msg, show, onClose }) => {
@@ -17,5 +18,11 @@ const PageAlert = ({ msg, show, onClose }) => {
         </Alert>
     );
 };
+
+PageAlert.propTypes = {
+    msg: PropTypes.string.isRequired,
+    show: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+}
 
 export default PageAlert;

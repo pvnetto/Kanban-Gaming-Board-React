@@ -37,7 +37,7 @@ const AppRouter = () => {
 
                     <WorkspaceProvider>
                         <Route path="/workspace" component={UserWorkspace} />
-                        <Route path="/project/:projectId" render={(routeProps) => <ProjectWorkspace {...routeProps} />} />
+                        <Route path="/project/:projectId" component={ProjectWorkspace} />
                     </ WorkspaceProvider>
 
                     <Route component={ErrorPage} />

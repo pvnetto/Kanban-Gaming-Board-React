@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import ProjectDashboard from '../dashboard';
@@ -9,32 +10,26 @@ import ProjectManagement from '../management';
 import ErrorPage from '../../commons/ErrorPage';
 
 
-const ProjectWorkspaceRoutes = (props) => {
+const ProjectWorkspaceRoutes = ({ url }) => {
 
     return (
         <Switch>
-            <Route exact path={`${props.url}/dashboard`} component={ProjectDashboard} />
-            <Route exact path={`${props.url}/boards/:boardId`} render={(routeProps) => {
-                return <ProjectBoard {...routeProps} addTask={props.addTask} updateTask={props.updateTask} />
-            }} />
-
-            <Route exact path={`${props.url}/backlog`} render={(routeProps) => {
-                return <ProjectBacklog {...routeProps} addTask={props.addTask} />
-            }} />
-
-            <Route exact path={`${props.url}/design_log`} render={(routeProps) => {
-                return <ProjectDesignLog {...routeProps} addLog={props.addLog} />
-            }} />
-
-            <Route exact path={`${props.url}/management`} component={ProjectManagement} />
-
-            <Route exact path={`${props.url}`}>
-                <Redirect to={`${props.url}/dashboard`} />
+            <Route exact path={`${url}/dashboard`} component={ProjectDashboard} />
+            <Route exact path={`${url}/boards/:boardId`} component={ProjectBoard} />
+            <Route exact path={`${url}/backlog`} component={ProjectBacklog} />
+            <Route exact path={`${url}/design_log`} component={ProjectDesignLog} />
+            <Route exact path={`${url}/management`} component={ProjectManagement} />
+            <Route exact path={`${url}`}>
+                <Redirect to={`${url}/dashboard`} />
             </Route>
 
             <Route component={ErrorPage} />
         </Switch>
     );
 };
+
+ProjectWorkspaceRoutes.propTypes = {
+    url: PropTypes.string.isRequired,
+}
 
 export default ProjectWorkspaceRoutes;

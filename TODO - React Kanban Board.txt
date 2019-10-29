@@ -149,7 +149,13 @@ REACT KANBAN BOARD:
 		- Ajustar seções de métricas										DONE
 		- Logout															DONE
 		- GitHub readme
-		- Responsividade
+			- Add TODO to remember what to do when coming back
+				- Fix clunky drag and drop
+				- Live version
+				- Test with Jest/Cypress
+				- Task Editing
+					- Assign to member, move to other board etc
+				- Login with twitter (nearly done)
 
 	- Ajustes:
 		- Mover opção All Items para cima do BoardSidenav					DONE
@@ -163,10 +169,12 @@ REACT KANBAN BOARD:
 		- Usar id estável como key para TaskItems, ao invés do índice		DONE
 		- Ajeitar drag and drop 											DONE
 		- Ajeitar filtro por category										DONE
+		- Ajeitar metrics
+		- Sign In/Sign Up página inicial
 	- Experimentar:
 		- Firebase/firestore						DONE
 		- Context API								DONE
 		- PropTypes
-		- Form validation (pure HTML or Formik, check https://react-bootstrap.github.io/components/forms/)
+		- Form validation (FormIk)
 		- Silent authentication						DONE
 		- Testes

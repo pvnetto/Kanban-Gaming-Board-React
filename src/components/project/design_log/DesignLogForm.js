@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
 
 const DesignLogForm = ({ addLog }) => {
@@ -30,5 +31,9 @@ const DesignLogForm = ({ addLog }) => {
         </Form>
     );
 };
+
+DesignLogForm.propTypes = {
+    addLog: PropTypes.func.isRequired,
+}
 
 export default DesignLogForm;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +11,7 @@ import ModalBase from '../../commons/ModalBase';
 import CreateTaskForm from '../sidenav/CreateTaskForm';
 import BoardSidenav from './BoardSidenav';
 import BoardColumn from './BoardColumn';
+import LoadingSpinner from '../../commons/spinners/LoadingSpinner';
 
 export const BoardContainerHeader = ({ title, addTaskToBoard, addTaskToBacklog, children }) => {
     let [showCreateTask, setShowCreateTask] = useState(false);
@@ -20,8 +22,8 @@ export const BoardContainerHeader = ({ title, addTaskToBoard, addTaskToBacklog, 
                 <CreateTaskForm {...{ addTaskToBoard, addTaskToBacklog }} />
             </ModalBase>
 
-            <SectionNavbar sectionTitle={title} sectionIcon={faGamepad}>
-                <SectionNavbarButton btnTitle={"Add Task"} btnIcon={faPlusSquare} onClick={() => setShowCreateTask(true)} />
+            <SectionNavbar title={title} icon={faGamepad}>
+                <SectionNavbarButton title={"Add Task"} icon={faPlusSquare} onClick={() => setShowCreateTask(true)} />
                 {children}
             </SectionNavbar>
         </>
@@ -34,16 +36,22 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
     let [filteredTasks, setFilteredTasks] = useState({});
 
     useEffect(() => {
-        let filtered = {};
-        Object.keys(tasks).forEach(key => {
-            filtered[key] = tasks[key].filter(task => task.category === category || category === allCategories.ALL)
-        });
+        if (tasks) {
+            let filtered = {};
+            Object.keys(tasks).forEach(key => {
+                filtered[key] = tasks[key].filter(task => task.category === category || category === allCategories.ALL)
+            });
 
-        setFilteredTasks(filtered);
+            setFilteredTasks(filtered);
+        }
     }, [category, tasks]);
 
     const filteredToRegularIndex = (idx, type) => {
         const selectedTask = filteredTasks[type][idx];
+        if (!selectedTask) {
+            return idx;
+        }
+
         const regularIdx = tasks[type].findIndex(task => task.id === selectedTask.id);
         return regularIdx != -1 ? regularIdx : idx;
     };
@@ -108,7 +116,7 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
                     <BoardSidenav onClick={setCategory} activeCategory={category} />
 
                     <Col className="inner-workspace d-flex flex-row align-items-stretch">
-                        {
+                        {tasks ?
                             columns.map((status, idx) => (
                                 <Col key={idx} xs={12 / columns.length}>
                                     <BoardColumn
@@ -118,8 +126,8 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
                                         category={category}
                                     />
                                 </Col>
-                            ))
-                        }
+                            )) :
+                            <LoadingSpinner size={'sm'} />}
                     </Col>
                 </Row>
             </DragDropContext>
@@ -128,5 +136,12 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
 };
 
 BoardContainer.Header = BoardContainerHeader;
+BoardContainer.propTypes = {
+    tasks: PropTypes.objectOf(PropTypes.array),
+    updateTasks: PropTypes.func.isRequired,
+    removeTask: PropTypes.func.isRequired,
+    columns: PropTypes.arrayOf(PropTypes.string).isRequired,
+    children: PropTypes.node,
+}
 
 export default BoardContainer;

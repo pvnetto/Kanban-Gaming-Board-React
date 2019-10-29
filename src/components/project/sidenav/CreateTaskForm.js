@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Button, Col } from 'react-bootstrap';
 
 import { categories } from '../../commons/Categories';
 import { useBoards } from '../../contexts/BoardsContext';
-import { useTasks } from '../../contexts/TasksContext';
 
 const CreateTaskForm = ({ addTaskToBoard, addTaskToBacklog }) => {
 
@@ -70,6 +70,11 @@ const CreateTaskForm = ({ addTaskToBoard, addTaskToBacklog }) => {
             <Button className="float-right" variant="dark" onClick={onClick}>Create Task</Button>
         </Form>
     );
+};
+
+CreateTaskForm.propTypes = {
+    addTaskToBoard: PropTypes.func.isRequired,
+    addTaskToBacklog: PropTypes.func.isRequired,
 };
 
 export default CreateTaskForm;

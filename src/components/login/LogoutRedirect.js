@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useAuth0 } from '../../auth0-wrapper';
+import PropTypes from 'prop-types';
 
+import { useAuth0 } from '../../auth0-wrapper';
 import FullPageSpinner from '../commons/spinners/FullPageSpinner';
 
 
@@ -24,6 +25,10 @@ const LogoutRedirect = ({ history }) => {
             <FullPageSpinner />
         </div>
     );
+};
+
+LogoutRedirect.propTypes = {
+    history: PropTypes.object.isRequired,
 };
 
 export default LogoutRedirect;

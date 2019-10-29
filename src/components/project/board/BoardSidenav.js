@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { faGamepad, faCode, faMusic, faPencilAlt, faBug, faPalette, faPoll, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
 import SidenavButton from '../../commons/sidenav/SidenavButton';
@@ -29,5 +30,10 @@ const BoardSidenav = ({ onClick, activeCategory }) => {
         </div>
     );
 };
+
+BoardSidenav.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    activeCategory: PropTypes.oneOf(Object.values(allCategories)).isRequired,
+}
 
 export default BoardSidenav;

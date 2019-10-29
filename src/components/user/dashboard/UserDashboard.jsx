@@ -18,7 +18,7 @@ const WelcomeSection = ({ username }) => {
     );
 }
 
-const UserDashboard = (props) => {
+const UserDashboard = () => {
     const { user } = useAuth0();
     const { projects, isLoadingProjects } = useWorkspace();
 
@@ -27,19 +27,19 @@ const UserDashboard = (props) => {
     return (
         <Row noGutters={true}>
 
-            <SectionNavbar sectionTitle={"My Dashboard"} sectionIcon={faGamepad} items={[]} />
+            <SectionNavbar title={"My Dashboard"} icon={faGamepad} />
 
             <Row noGutters={true} className="w-100 p-2">
                 {/* Left dashboard section */}
                 <Col xs={6}>
                     <WelcomeSection username={user.name} />
-                    <SectionContainer title={"Your Projects"} titleIcon={faDiceD20}>
+                    <SectionContainer title={"Your Projects"} icon={faDiceD20}>
                         {isLoadingProjects ?
                             <LoadingSpinner size={'sm'} /> :
                             projects.map((project, idx) => <ProjectItem key={idx} {...project} />)}
                     </SectionContainer>
 
-                    <SectionContainer title={"Closed Projects"} titleIcon={faHourglassEnd} >
+                    <SectionContainer title={"Closed Projects"} icon={faHourglassEnd} >
                         {isLoadingProjects ?
                             <LoadingSpinner size={'sm'} /> :
 
@@ -51,7 +51,7 @@ const UserDashboard = (props) => {
 
                 {/* Right dashboard section */}
                 <Col xs={6} className="pl-2">
-                    <SectionContainer title={"Metrics"} titleIcon={faChartPie}>
+                    <SectionContainer title={"Metrics"} icon={faChartPie}>
                         {isLoadingProjects ?
                             <LoadingSpinner size={'sm'} /> :
                             <TaskMetrics />}

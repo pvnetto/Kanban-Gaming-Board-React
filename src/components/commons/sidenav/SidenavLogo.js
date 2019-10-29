@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SidenavLogo = ({ isExpanded }) => {
     return (
@@ -9,5 +10,9 @@ const SidenavLogo = ({ isExpanded }) => {
         </li>
     );
 };
+
+SidenavLogo.propTypes = {
+    isExpanded: PropTypes.bool,
+}
 
 export default SidenavLogo;

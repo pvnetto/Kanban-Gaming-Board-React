@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 
-const ModalBase = ({ showModal, handleClose, title, children }) => {
+const ModalBase = ({ title, showModal, handleClose, children }) => {
     return (
         <Modal show={showModal} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -17,5 +18,15 @@ const ModalBase = ({ showModal, handleClose, title, children }) => {
         </Modal>
     );
 };
+
+ModalBase.propTypes = {
+    showModal: PropTypes.bool.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.element,
+    ]),
+}
 
 export default ModalBase;

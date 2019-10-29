@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
@@ -8,7 +9,7 @@ import NavigationBar from '../commons/NavigationBar';
 
 import { useAuth0 } from '../../auth0-wrapper';
 
-const UserWorkspace = (props) => {
+const UserWorkspace = ({ history, match }) => {
 
     // TODO: Replace with Context
     let [expandWorkspace, setExpandWorkspace] = useState(true);
@@ -16,23 +17,28 @@ const UserWorkspace = (props) => {
 
     useEffect(() => {
         if (!isAuthenticated) {
-            props.history.push('/');
+            history.push('/');
         }
     });
 
     return (
         <>
-            <UserWorkspaceSidenav url={props.match.url} onExpand={() => setExpandWorkspace(!expandWorkspace)} addProject={props.addProject} />
+            <UserWorkspaceSidenav url={match.url} onExpand={() => setExpandWorkspace(!expandWorkspace)} />
             <Container fluid={true} className="bg-primary p-0">
                 <div className={`workspace ${expandWorkspace ? 'expand' : ''}`}>
                     <NavigationBar>
                         <Link to={`/workspace/dashboard`}>Workspace</Link>
                     </NavigationBar>
-                    <UserWorkspaceRoutes {...props.match} />
+                    <UserWorkspaceRoutes url={match.url} />
                 </div>
             </Container>
         </>
     );
 };
+
+UserWorkspace.propTypes = {
+    history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+}
 
 export default UserWorkspace;

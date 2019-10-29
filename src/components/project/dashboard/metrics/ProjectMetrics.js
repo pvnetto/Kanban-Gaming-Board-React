@@ -41,7 +41,7 @@ const ProjectMetrics = () => {
     const buildChartData = (title, value, color) => ({ title, value, color });
 
     if (!data['total']) {
-        return <LoadingSpinner />;
+        return <LoadingSpinner size={'sm'} />;
     }
 
     return (

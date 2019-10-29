@@ -24,20 +24,20 @@ const ProjectDashboard = () => {
     return (
         <Row noGutters={true}>
 
-            <SectionNavbar sectionTitle={"My Dashboard"} sectionIcon={faGamepad} items={[]} />
+            <SectionNavbar title={"My Dashboard"} icon={faGamepad} />
 
             <Row noGutters={true} className="w-100 p-2">
                 <Col xs={6}>
                     <ProjectDescSection {...project} />
 
-                    <SectionContainer title={"General Info"} titleIcon={faInfoCircle} >
+                    <SectionContainer title={"General Info"} icon={faInfoCircle} >
                         <p>{project.generalInfo}</p>
                     </SectionContainer>
                 </Col>
 
 
                 <Col xs={6} className="pl-2">
-                    <SectionContainer title={"Metrics"} titleIcon={faChartPie}>
+                    <SectionContainer title={"Metrics"} icon={faChartPie}>
                         <ProjectMetrics />
                     </SectionContainer>
                 </Col>

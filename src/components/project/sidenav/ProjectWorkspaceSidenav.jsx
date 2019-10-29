@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArrowLeft, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
 import Sidenav from '../../commons/sidenav/Sidenav';
@@ -11,7 +12,7 @@ import { useBoards } from '../../contexts/BoardsContext';
 import { useTasks } from '../../contexts/TasksContext';
 
 
-const ProjectWorkspaceSidenav = ({ url, params, onExpand, addBoard }) => {
+const ProjectWorkspaceSidenav = ({ url, onExpand }) => {
 
     // Sidenav hooks
     const [showCreateBoard, setShowCreateBoard] = useState(false);
@@ -61,11 +62,11 @@ const ProjectWorkspaceSidenav = ({ url, params, onExpand, addBoard }) => {
     return (
         <>
             <ModalBase title={"Create Board"} showModal={showCreateBoard} handleClose={() => setShowCreateBoard(false)}>
-                <CreateBoardForm addBoard={addBoard} projectId={params.projectId} />
+                <CreateBoardForm />
             </ModalBase>
 
             <ModalBase showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} title={"Create Task"}>
-                <CreateTaskForm {...{ addTaskToBoard, addTaskToBacklog }} boards={boards} projectId={params.projectId} />
+                <CreateTaskForm {...{ addTaskToBoard, addTaskToBacklog }} />
             </ ModalBase>
 
             <Sidenav onExpand={onExpand}>
@@ -74,5 +75,10 @@ const ProjectWorkspaceSidenav = ({ url, params, onExpand, addBoard }) => {
         </>
     );
 }
+
+ProjectWorkspaceSidenav.propTypes = {
+    url: PropTypes.string.isRequired,
+    onExpand: PropTypes.func.isRequired,
+};
 
 export default ProjectWorkspaceSidenav;

@@ -12,17 +12,17 @@ const ProjectManagement = () => {
     return (
         <Row className="p-2" noGutters={true}>
             <Col xs={12} lg={6} className="pr-2">
-                <SectionContainer title={"Edit Project"} titleIcon={faEdit}>
+                <SectionContainer title={"Edit Project"} icon={faEdit}>
                     <ProjectEditForm />
                 </SectionContainer>
             </Col>
 
             <Col xs={12} lg={6}>
-                <SectionContainer title={"Manage Project Members"} titleIcon={faUsers}>
+                <SectionContainer title={"Manage Project Members"} icon={faUsers}>
                     <ProjectInviteForm />
                 </SectionContainer>
 
-                <SectionContainer title={"Manage Project"} titleIcon={faDiceD20}>
+                <SectionContainer title={"Manage Project"} icon={faDiceD20}>
                     <ProjectDeleteForm />
                 </SectionContainer>
             </Col>

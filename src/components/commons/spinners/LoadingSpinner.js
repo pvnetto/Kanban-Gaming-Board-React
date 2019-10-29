@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
@@ -24,5 +25,9 @@ const LoadingSpinner = ({ size }) => {
         </div>
     );
 };
+
+LoadingSpinner.propTypes = {
+    size: PropTypes.oneOf(['sm', 'md', 'lg']).isRequired,
+}
 
 export default LoadingSpinner;

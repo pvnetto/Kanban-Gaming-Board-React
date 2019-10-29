@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -22,7 +23,7 @@ const TaskItem = ({ index, task, removeTask }) => {
         setDropdownPos({ top: e.pageY - 10, left: e.pageX - 90 })
     }
 
-    const disableDropdown = (e) => {
+    const disableDropdown = () => {
         if (showDropdown) {
             setShowDropdown(false)
         }
@@ -50,6 +51,12 @@ const TaskItem = ({ index, task, removeTask }) => {
             )}
         </Draggable>
     );
+};
+
+TaskItem.propTypes = {
+    index: PropTypes.number.isRequired,
+    task: PropTypes.object.isRequired,
+    removeTask: PropTypes.func.isRequired,
 };
 
 export default TaskItem;

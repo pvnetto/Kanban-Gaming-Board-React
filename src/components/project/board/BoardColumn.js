@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Droppable } from 'react-beautiful-dnd';
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,7 +28,7 @@ const getDroppableStyle = isDraggingOver => {
     return isDraggingOver ? 'bg-blue' : '';
 }
 
-const BoardColumn = ({ tasks, removeTask, type, category }) => {
+const BoardColumn = ({ tasks, removeTask, type }) => {
 
     return (
 
@@ -51,6 +52,12 @@ const BoardColumn = ({ tasks, removeTask, type, category }) => {
             <div className={`w-100 p-3 border-bottom ${columnBorder(type)}`}></div>
         </div>
     );
+};
+
+BoardColumn.propTypes = {
+    tasks: PropTypes.arrayOf(PropTypes.object),
+    removeTask: PropTypes.func.isRequired,
+    type: PropTypes.string.isRequired,
 };
 
 export default BoardColumn;
