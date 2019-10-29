@@ -13,9 +13,6 @@ import FullPageSpinner from '../../commons/spinners/FullPageSpinner';
 
 const CreateBoardForm = () => {
 
-    // let [title, setTitle] = useState("");
-    // let [description, setDescription] = useState("");
-
     let [startDate, setStartDate] = useState(null);
     let [startFocused, setStartFocused] = useState(false);
 
@@ -53,6 +50,7 @@ const CreateBoardForm = () => {
                     touched,
                     isValid,
                     errors, }) => (
+
                         <Form noValidate onSubmit={handleSubmit}>
                             <Form.Group controlId={"validationFormikTitle"}>
                                 <Form.Label>Board Title: </Form.Label>
