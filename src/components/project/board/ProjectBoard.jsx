@@ -41,12 +41,10 @@ const ProjectBoard = ({ match }) => {
     }
 
     return (
-        <BoardContainer
-            tasks={tasks}
-            updateTasks={(tasks) => updateBoardTasks(match.params.boardId, tasks)}
-            removeTask={(task) => removeTaskFromBoard(match.params.boardId, task)}
-            columns={[TaskStatus.PLANNED, TaskStatus.IN_PROGRESS, TaskStatus.TESTING, TaskStatus.COMPLETED]}
-        >
+        <BoardContainer tasks={tasks}
+                updateTasks={(tasks) => updateBoardTasks(match.params.boardId, tasks)}
+                removeTask={(task) => removeTaskFromBoard(match.params.boardId, task)}
+                columns={[TaskStatus.PLANNED, TaskStatus.IN_PROGRESS, TaskStatus.TESTING, TaskStatus.COMPLETED]}>
 
             <BoardContainer.Header addTaskToBoard={addTaskToBoardWithPreview} addTaskToBacklog={addTaskToBacklog} title={"Boards"}>
                 <SectionNavbarLink title={"Close board"} icon={faWindowClose} link={`/project/${project.id}`} onClick={() => removeBoard(match.params.boardId)} />

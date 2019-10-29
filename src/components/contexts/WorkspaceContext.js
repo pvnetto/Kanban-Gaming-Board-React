@@ -73,15 +73,21 @@ export const WorkspaceProvider = ({ children }) => {
     }
 
     const fetchAllTasksFromAllProjects = async () => {
-        let tasks = [];
+        let taskData = {};
         let taskPromises = projects.map(async (project) => {
-            let projectTasks = await firebaseClient.taskService.fetchAllTasksFromProject(project.id);
-            tasks.push(...projectTasks);
+            let projectData = await firebaseClient.taskService.fetchAllTasksFromProject(project.id);
+
+            Object.keys(projectData).forEach(key => {
+                if (!taskData[key]) {
+                    taskData[key] = [];
+                }
+                taskData[key].push(...projectData[key]);
+            });
         });
 
         await Promise.all(taskPromises);
 
-        return tasks;
+        return taskData;
     }
 
     return (

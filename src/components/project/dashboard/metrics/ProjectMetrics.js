@@ -13,22 +13,14 @@ const ProjectMetrics = () => {
     }, []);
 
     const getMetricsData = async () => {
-        let tasks = await fetchTasksFromProject();
+        let taskData = await fetchTasksFromProject();
 
-        let pendingCount = 0;
-        let completedCount = 0;
-        let totalCount = tasks.length;
-
-        if (totalCount > 0) {
-            tasks.forEach(task => {
-                if (task.status == TaskStatus.COMPLETED) {
-                    completedCount += 1;
-                }
-                else {
-                    pendingCount += 1;
-                }
-            });
-        }
+        let completedCount = taskData[TaskStatus.COMPLETED].length;
+        let totalCount = 0;
+        Object.keys(taskData).forEach(key => {
+            totalCount += taskData[key].length;
+        });
+        let pendingCount = totalCount - completedCount;
 
         let metricsData = {};
         metricsData['total'] = buildChartData('Total Tasks', totalCount, '');
