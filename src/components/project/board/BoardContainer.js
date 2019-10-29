@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
@@ -31,9 +31,24 @@ export const BoardContainerHeader = ({ title, addTaskToBoard, addTaskToBacklog, 
 const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) => {
 
     let [category, setCategory] = useState(allCategories.ALL);
+    let [filteredTasks, setFilteredTasks] = useState({});
+
+    useEffect(() => {
+        let filtered = {};
+        Object.keys(tasks).forEach(key => {
+            filtered[key] = tasks[key].filter(task => task.category === category || category === allCategories.ALL)
+        });
+
+        setFilteredTasks(filtered);
+    }, [category, tasks]);
+
+    const filteredToRegularIndex = (idx, type) => {
+        const regularIdx = tasks[type].findIndex(task => task.id === filteredTasks[type][idx]);
+        return regularIdx != -1 ? regularIdx : idx;
+    };
 
     const reorder = (list, startIndex, endIndex) => {
-        const result = Array.from(list || []);
+        const result = Array.from(list);
         const [removed] = result.splice(startIndex, 1);
         result.splice(endIndex, 0, removed);
 
@@ -43,14 +58,14 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
     /**
      * Moves an item from one list to another list.
      */
-    const move = (source, destination, droppableSource, droppableDestination) => {
+    const move = (source, destination, droppableSource, droppableDestination, sourceIdx, destinationIdx) => {
         const sourceClone = Array.from(source);
         const destClone = Array.from(destination);
-        const [removed] = sourceClone.splice(droppableSource.index, 1);
+        const [removed] = sourceClone.splice(sourceIdx, 1);
 
         removed.status = droppableDestination.droppableId;
 
-        destClone.splice(droppableDestination.index, 0, removed);
+        destClone.splice(destinationIdx, 0, removed);
 
         const result = {};
         result[droppableSource.droppableId] = sourceClone;
@@ -68,12 +83,15 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
         }
 
         const newTasks = Object.assign({}, tasks);
+        const sourceIdx = filteredToRegularIndex(source.index, source.droppableId);
+        const destinationIdx = filteredToRegularIndex(destination.index, destination.droppableId);
+
         if (source.droppableId === destination.droppableId) {
-            const reorderedItems = reorder(newTasks[source.droppableId], source.index, destination.index);
+            const reorderedItems = reorder(newTasks[source.droppableId], sourceIdx, destinationIdx);
             newTasks[source.droppableId] = reorderedItems;
         }
         else {
-            const movedTasks = move(newTasks[source.droppableId], newTasks[destination.droppableId], source, destination);
+            const movedTasks = move(newTasks[source.droppableId], newTasks[destination.droppableId], source, destination, sourceIdx, destinationIdx);
             newTasks[source.droppableId] = movedTasks[source.droppableId];
             newTasks[destination.droppableId] = movedTasks[destination.droppableId];
         }
@@ -94,7 +112,7 @@ const BoardContainer = ({ tasks, updateTasks, removeTask, columns, children }) =
                                 <Col key={idx} xs={12 / columns.length}>
                                     <BoardColumn
                                         type={status}
-                                        tasks={tasks[status]}
+                                        tasks={filteredTasks[status]}
                                         removeTask={removeTask}
                                         category={category}
                                     />
