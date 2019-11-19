@@ -97,12 +97,21 @@ else {
     app.get('*', async (request, response) => {
         const fs = require('fs');
 
-        const currentPath = path.resolve(__dirname, '../');
+        const currentPath = __dirname;
         await fs.readdir(currentPath, (err, pathItems) => {
             console.log(pathItems);
 
             for (let i = 0; i < pathItems.length; i++) {
-                console.log(pathItems[i]);
+                // console.log(pathItems[i]);
+            }
+        });
+
+        const rootPath = path.resolve(__dirname, '../');
+        await fs.readdir(rootPath, (err, pathItems) => {
+            console.log(pathItems);
+
+            for (let i = 0; i < pathItems.length; i++) {
+                // console.log(pathItems[i]);
             }
         });
 
@@ -111,7 +120,7 @@ else {
             console.log(uiItems);
 
             for (let i = 0; i < uiItems.length; i++) {
-                console.log(uiItems[i]);
+                // console.log(uiItems[i]);
             }
         });
 
