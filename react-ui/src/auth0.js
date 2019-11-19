@@ -7,8 +7,6 @@ export default class Auth0Client {
         this._accessToken = null;
         this._profile = null;
 
-        console.log(process.env);
-
         // Initializes the auth0 library with the developer's auth0 credentials (found in auth0 dashboard)
         this._auth0Client = new auth0.WebAuth({
             domain: process.env.REACT_APP_AUTH0_DOMAIN,             // Declared in .env
