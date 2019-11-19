@@ -16,6 +16,7 @@
     "firebase": "^7.0.0",
     "firebase-admin": "^8.6.0",
     "formik": "^2.0.3",
+    "http-proxy-middleware": "^0.20.0",
     "jwks-rsa": "^1.6.0",
     "npm-run-all": "^4.1.5",
     "react": "^16.9.0",
@@ -32,7 +33,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
+    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;"
   },
   "eslintConfig": {
     "extends": "react-app"
