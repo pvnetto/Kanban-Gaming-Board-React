@@ -7,6 +7,8 @@ const path = require('path');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 
+const { readdirSync } = require('fs')
+
 require('dotenv').config();
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -92,7 +94,27 @@ else {
     });
 
     // All remaining requests return the React app, so it can handle routing.
-    app.get('*', function (request, response) {
+    app.get('*', async (request, response) => {
+        const fs = require('fs');
+
+        const currentPath = path.resolve(__dirname, '../');
+        await fs.readdir(currentPath, (err, items) => {
+            console.log(items);
+
+            for (let i = 0; i < items.length; i++) {
+                console.log(items[i]);
+            }
+        });
+
+        const reactUIPath = path.resolve(__dirname, '../react-ui/build');
+        await fs.readdir(reactUIPath, (err, items) => {
+            console.log(items);
+
+            for (let i = 0; i < items.length; i++) {
+                console.log(items[i]);
+            }
+        });
+
         response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
     });
 
