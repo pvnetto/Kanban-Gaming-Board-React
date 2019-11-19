@@ -17,7 +17,7 @@ def splitLineIntoParts(line):
 def setConfigVar(name, value):
 	os.system('heroku config:set ' + name + '=' + value)
 
-with open('.env') as e:
+with open('.env.production') as e:
 	
 	for line in e:
 		l = splitLineIntoParts(line)
