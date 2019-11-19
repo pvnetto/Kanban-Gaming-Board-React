@@ -80,6 +80,6 @@ export default class Auth0Client {
         this._accessToken = null;
         this._profile = null;
 
-        await this._auth0Client.logout();
+        await this._auth0Client.logout({ returnTo: process.env.REACT_APP_AUTH0_LOGOUT_URL });
     }
 }
