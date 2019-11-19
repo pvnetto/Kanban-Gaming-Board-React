@@ -98,20 +98,29 @@ else {
         const fs = require('fs');
 
         const currentPath = path.resolve(__dirname, '../');
-        await fs.readdir(currentPath, (err, items) => {
-            console.log(items);
+        await fs.readdir(currentPath, (err, pathItems) => {
+            console.log(pathItems);
 
-            for (let i = 0; i < items.length; i++) {
-                console.log(items[i]);
+            for (let i = 0; i < pathItems.length; i++) {
+                console.log(pathItems[i]);
             }
         });
 
-        const reactUIPath = path.resolve(__dirname, '../react-ui/build');
-        await fs.readdir(reactUIPath, (err, items) => {
-            console.log(items);
+        const reactUIPath = path.resolve(__dirname, '../', 'react-ui');
+        await fs.readdir(reactUIPath, (err, uiItems) => {
+            console.log(uiItems);
 
-            for (let i = 0; i < items.length; i++) {
-                console.log(items[i]);
+            for (let i = 0; i < uiItems.length; i++) {
+                console.log(uiItems[i]);
+            }
+        });
+
+        const buildPath = path.resolve(__dirname, '../react-ui/build');
+        await fs.readdir(buildPath, (err, buildItems) => {
+            console.log(buildItems);
+
+            for (let i = 0; i < buildItems.length; i++) {
+                console.log(buildItems[i]);
             }
         });
 
