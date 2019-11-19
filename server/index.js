@@ -7,12 +7,9 @@ const path = require('path');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 
-const { readdirSync } = require('fs')
+require('dotenv').config();
 
 const isDev = process.env.NODE_ENV !== 'production';
-
-require('dotenv').config({ path: isDev ? ".env.development" : ".env" });
-
 const PORT = process.env.PORT || 3001;
 
 // Multi-process to utilize all CPU cores.
