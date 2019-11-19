@@ -53,7 +53,19 @@ else {
 
 
     // Gets firebase-key JSON, which contains configuration from firebase
-    const serviceAccount = require('../firebase/firebase-key');
+    const serviceAccount = {
+        "type": process.env.REACT_APP_FIREBASE_KEY_TYPE,
+        "project_id": process.env.REACT_APP_PROJECT_ID,
+        "private_key_id": process.env.REACT_APP_FIREBASE_PRIVATE_KEY_ID,
+        "private_key": `${process.env.REACT_APP_FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')}`,
+        "client_email": process.env.REACT_APP_FIREBASE_CLIENT_EMAIL,
+        "client_id": process.env.REACT_APP_FIREBASE_CLIENT_ID,
+        "auth_uri": process.env.REACT_APP_FIREBASE_AUTH_URI,
+        "token_uri": process.env.REACT_APP_FIREBASE_TOKEN_URI,
+        "auth_provider_x509_cert_url": process.env.REACT_APP_FIREBASE_AUTH_PROVIDER_X509,
+        "client_x509_cert_url": process.env.REACT_APP_FIREBASE_CLIENT_X509,
+        "type": process.env.REACT_APP_FIREBASE_TYPE,
+    }
 
     // Initializes firebase admin SDK with the credentials required above
     firebaseAdmin.initializeApp({
