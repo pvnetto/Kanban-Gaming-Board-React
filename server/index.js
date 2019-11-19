@@ -93,39 +93,39 @@ else {
         }
     });
 
-    // All remaining requests return the React app, so it can handle routing.
-    app.get('*', async (request, response) => {
-        const fs = require('fs');
+    // // All remaining requests return the React app, so it can handle routing.
+    // app.get('*', async (request, response) => {
+    //     const fs = require('fs');
 
-        const currentPath = path.resolve(__dirname, '../');
-        await fs.readdir(currentPath, (err, pathItems) => {
-            console.log(pathItems);
+    //     const currentPath = path.resolve(__dirname, '../');
+    //     await fs.readdir(currentPath, (err, pathItems) => {
+    //         console.log(pathItems);
 
-            for (let i = 0; i < pathItems.length; i++) {
-                console.log(pathItems[i]);
-            }
-        });
+    //         for (let i = 0; i < pathItems.length; i++) {
+    //             console.log(pathItems[i]);
+    //         }
+    //     });
 
-        const reactUIPath = path.resolve(__dirname, '../', 'react-ui');
-        await fs.readdir(reactUIPath, (err, uiItems) => {
-            console.log(uiItems);
+    //     const reactUIPath = path.resolve(__dirname, '../', 'react-ui');
+    //     await fs.readdir(reactUIPath, (err, uiItems) => {
+    //         console.log(uiItems);
 
-            for (let i = 0; i < uiItems.length; i++) {
-                console.log(uiItems[i]);
-            }
-        });
+    //         for (let i = 0; i < uiItems.length; i++) {
+    //             console.log(uiItems[i]);
+    //         }
+    //     });
 
-        const buildPath = path.resolve(__dirname, '../react-ui/build');
-        await fs.readdir(buildPath, (err, buildItems) => {
-            console.log(buildItems);
+    //     const buildPath = path.resolve(__dirname, '../react-ui/build');
+    //     await fs.readdir(buildPath, (err, buildItems) => {
+    //         console.log(buildItems);
 
-            for (let i = 0; i < buildItems.length; i++) {
-                console.log(buildItems[i]);
-            }
-        });
+    //         for (let i = 0; i < buildItems.length; i++) {
+    //             console.log(buildItems[i]);
+    //         }
+    //     });
 
-        response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
-    });
+    //     response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+    // });
 
     app.listen(PORT, () => console.log("Server running on localhost: 3001"));
 }
