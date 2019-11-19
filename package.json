@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "The server side application for kanban gaming board",
   "engines": {
-    "node": "10.x"
+    "node": "10.15.0"
   },
   "scripts": {
     "start": "node server",
