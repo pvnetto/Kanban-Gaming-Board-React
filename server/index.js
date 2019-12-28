@@ -91,10 +91,13 @@ else {
         }
     });
 
-    // All remaining requests return the React app, so it can handle routing.
-    app.get('*', async (request, response) => {
-        response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
-    });
+    // This server only serves files on production environment
+    if (process.env.NODE_ENV === 'production') {
+        // All remaining requests return the React app, so it can handle routing.
+        app.get('*', async (request, response) => {
+            response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+        });
+    }
 
-    app.listen(PORT, () => console.log("Server running on localhost: 3001"));
+    app.listen(PORT, () => console.log(`Server running on localhost: ${PORT}`));
 }
