@@ -58,7 +58,7 @@ export const Auth0Provider = ({
     const setFirebaseCustomToken = async () => {
         let firebaseClient = new Firebase();
 
-        const response = await fetch('http://localhost:3001/firebase', {
+        const response = await fetch('/firebase', {
             headers: {
                 Authorization: `Bearer ${auth0Client.getAccessToken()}`,
             },
