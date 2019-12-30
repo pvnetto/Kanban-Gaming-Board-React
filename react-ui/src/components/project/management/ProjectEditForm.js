@@ -1,6 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
+
+import { updateProject } from '../../../firebase/dispatchers/fetchProjects';
 import { useBoards } from '../../contexts/BoardsContext';
+import { useAuth0 } from '../../../auth0-wrapper';
 
 const ProjectEditForm = () => {
 
@@ -8,20 +12,19 @@ const ProjectEditForm = () => {
     let [description, setDescription] = useState("");
     let [generalInfo, setGeneralInfo] = useState("");
 
-    let { project } = useBoards();
-    // let { updateProject } = useWorkspace();
+    const { project } = useBoards();
+    const { firebaseClient } = useAuth0();
+    const dispatch = useDispatch();
 
     // Initializing state on useEffect, instead of initializing with props as default values
     useEffect(() => {
-        console.log("TODO: UPDATE PROJECT");
         setTitle(project.title);
         setDescription(project.description);
         setGeneralInfo(project.generalInfo);
     }, []);
 
     const onClick = () => {
-        console.log("TODO: UPDATE PROJECT");
-        // updateProject(project.id, title, description, generalInfo);
+        dispatch(updateProject(project, title, description, generalInfo, firebaseClient.projectService));
     }
 
     return (

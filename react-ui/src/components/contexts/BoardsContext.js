@@ -11,10 +11,11 @@ export const BoardsProvider = ({ children, projectId }) => {
     let [boards, setBoards] = useState([]);
     let [project, setProject] = useState(null);
 
-    const { projects } = useSelector(state => state.projects);
+    const projects = useSelector(state => state.projects);
     const { firebaseClient } = useAuth0();
 
     useEffect(() => {
+        console.log(projectId);
         const currentProject = projects.find(element => element.id === projectId);
         setProject({ ...currentProject });
 

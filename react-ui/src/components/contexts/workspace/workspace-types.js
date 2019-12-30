@@ -1,4 +1,6 @@
-export const ADD_PROJECT = "ADD_PROJECT";
 export const FETCH_PROJECTS = "FETCH_PROJECTS";
+export const ADD_PROJECT = "ADD_PROJECT";
+export const REMOVE_PROJECT = "REMOVE_PROJECT";
+export const UPDATE_PROJECT_INFO = "UPDATE_PROJECT_INFO";
 export const LOADING = "LOADING";
 export const ERROR = "ERROR";

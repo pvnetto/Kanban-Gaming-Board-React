@@ -1,4 +1,11 @@
-import { ADD_PROJECT, FETCH_PROJECTS, LOADING, ERROR } from './workspace-types';
+import { FETCH_PROJECTS, ADD_PROJECT, REMOVE_PROJECT, UPDATE_PROJECT_INFO, LOADING, ERROR } from './workspace-types';
+
+export const fetchProjectsSuccess = (projects) => {
+    return {
+        type: FETCH_PROJECTS,
+        data: projects,
+    }
+}
 
 export const addProjectSuccess = (projectData) => {
     return {
@@ -7,10 +14,17 @@ export const addProjectSuccess = (projectData) => {
     }
 }
 
-export const fetchProjectsSuccess = (projects) => {
+export const removeProjectSuccess = (projectId) => {
     return {
-        type: FETCH_PROJECTS,
-        data: projects,
+        type: REMOVE_PROJECT,
+        data: projectId,
+    }
+}
+
+export const updateProjectSuccess = (newProject) => {
+    return {
+        type: UPDATE_PROJECT_INFO,
+        data: newProject,
     }
 }
 

@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+import { addProject } from '../../../firebase/dispatchers/fetchProjects';
 import FullPageSpinner from '../../commons/spinners/FullPageSpinner';
+import { useAuth0 } from '../../../auth0-wrapper';
 
 const CreateProjectForm = () => {
 
-    let [isAdding, setIsAdding] = useState(false);
+    const isLoading = useSelector(state => state.isLoading);
+    const dispatch = useDispatch();
 
-    // const { addProject } = useWorkspace();
-    console.log("TODO: ADD PROJECT");
+    const { firebaseClient } = useAuth0();
+
     const submitProject = async (values, e) => {
-        setIsAdding(true);
-        console.log("TODO: ADD PROJECT");
-        // await addProject(values.title, values.description, values.generalInfo);
-        setIsAdding(false);
+        dispatch(addProject(values.title, values.description, values.generalInfo, firebaseClient.projectService));
 
         e.resetForm();
     }
@@ -29,7 +29,7 @@ const CreateProjectForm = () => {
 
     return (
         <>
-            {isAdding ? <FullPageSpinner /> : null}
+            {isLoading ? <FullPageSpinner /> : null}
 
             <Formik validationSchema={schema} onSubmit={submitProject} initialValues={{ title: "", description: "", generalInfo: "" }}>
 
