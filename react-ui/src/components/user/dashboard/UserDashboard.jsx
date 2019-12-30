@@ -1,11 +1,12 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+
 import ProjectItem from '../../commons/ProjectItem';
 import SectionContainer from '../../commons/SectionContainer'
 import SectionNavbar from '../../commons/SectionNavbar';
 
-import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/free-solid-svg-icons';
-import { useWorkspace } from '../../contexts/WorkspaceContext';
 import { useAuth0 } from '../../../auth0-wrapper';
 import LoadingSpinner from '../../commons/spinners/LoadingSpinner';
 import TaskMetrics from './metrics/TaskMetrics';
@@ -20,7 +21,8 @@ const WelcomeSection = ({ username }) => {
 
 const UserDashboard = () => {
     const { user } = useAuth0();
-    const { projects, isLoadingProjects } = useWorkspace();
+    const projects = useSelector(state => state.projects);
+    const isLoading = useSelector(state => state.isLoading);
 
     const closedProjects = [];
 
@@ -34,13 +36,13 @@ const UserDashboard = () => {
                 <Col xs={6}>
                     <WelcomeSection username={user.name} />
                     <SectionContainer title={"Your Projects"} icon={faDiceD20}>
-                        {isLoadingProjects ?
+                        {isLoading ?
                             <LoadingSpinner size={'sm'} /> :
                             projects.map((project, idx) => <ProjectItem key={idx} {...project} />)}
                     </SectionContainer>
 
                     <SectionContainer title={"Closed Projects"} icon={faHourglassEnd} >
-                        {isLoadingProjects ?
+                        {isLoading ?
                             <LoadingSpinner size={'sm'} /> :
 
                             closedProjects.length > 0 ?
@@ -52,7 +54,7 @@ const UserDashboard = () => {
                 {/* Right dashboard section */}
                 <Col xs={6} className="pl-2">
                     <SectionContainer title={"Metrics"} icon={faChartPie}>
-                        {isLoadingProjects ?
+                        {isLoading ?
                             <LoadingSpinner size={'sm'} /> :
                             <TaskMetrics />}
                     </SectionContainer>

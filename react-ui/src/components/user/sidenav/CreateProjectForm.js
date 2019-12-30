@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { useWorkspace } from '../../contexts/WorkspaceContext';
 import FullPageSpinner from '../../commons/spinners/FullPageSpinner';
 
 const CreateProjectForm = () => {
 
     let [isAdding, setIsAdding] = useState(false);
 
-    const { addProject } = useWorkspace();
-
+    // const { addProject } = useWorkspace();
+    console.log("TODO: ADD PROJECT");
     const submitProject = async (values, e) => {
         setIsAdding(true);
-        await addProject(values.title, values.description, values.generalInfo);
+        console.log("TODO: ADD PROJECT");
+        // await addProject(values.title, values.description, values.generalInfo);
         setIsAdding(false);
 
         e.resetForm();

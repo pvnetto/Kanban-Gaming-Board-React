@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+
 import SectionContainer from '../../commons/SectionContainer';
 import ProjectItem from '../../commons/ProjectItem';
 
 import { Row, Col } from 'react-bootstrap'
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
-import WorkspaceContext from '../../contexts/WorkspaceContext';
 
 const UserManagement = () => {
-    const projectsContext = useContext(WorkspaceContext);
-    const projectItems = projectsContext.projects.map((project, idx) => <ProjectItem key={idx} {...project} redirect={'/management'} />);
+    const projects = useSelector(state => state.projects);
+    const projectItems = projects.map((project, idx) => <ProjectItem key={idx} {...project} redirect={'/management'} />);
 
     return (
 

@@ -1,34 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { useWorkspace } from '../../../contexts/WorkspaceContext';
+import { useSelector } from 'react-redux';
+
+import { fetchAllTasksFromAllProjects } from '../../../../firebase/dispatchers/fetchProjects';
+
 import MetricsBase from '../../../commons/MetricsBase';
 import TaskStatus from '../../../commons/TaskStatus';
 import LoadingSpinner from '../../../commons/spinners/LoadingSpinner';
+import { useAuth0 } from '../../../../auth0-wrapper';
 
 const TaskMetrics = () => {
 
     const [data, setData] = useState({});
-    const { projects, fetchAllTasksFromAllProjects } = useWorkspace();
+    const projects = useSelector(state => state.projects);
+    const { firebaseClient } = useAuth0();
 
     useEffect(() => {
         getMetricsData();
-    }, []);
+    }, [projects]);
 
     const getMetricsData = async () => {
-        let taskData = await fetchAllTasksFromAllProjects();
+        let taskData = await fetchAllTasksFromAllProjects(projects, firebaseClient.taskService);
 
-        let completedCount = taskData[TaskStatus.COMPLETED].length;
-        let totalCount = 0;
-        Object.keys(taskData).forEach(key => {
-            totalCount += taskData[key].length;
-        });
-        let pendingCount = totalCount - completedCount;
+        if (taskData[TaskStatus.COMPLETED]) {
+            let completedCount = taskData[TaskStatus.COMPLETED].length;
+            let totalCount = 0;
+            Object.keys(taskData).forEach(key => {
+                totalCount += taskData[key].length;
+            });
+            let pendingCount = totalCount - completedCount;
 
-        let metricsData = {};
-        metricsData['total'] = buildChartData('Total Tasks', totalCount, '');
-        metricsData['pending'] = buildChartData('Pending', pendingCount, '#E38627');
-        metricsData['completed'] = buildChartData('Completed', completedCount, '#C13C37');
+            let metricsData = {};
+            metricsData['total'] = buildChartData('Total Tasks', totalCount, '');
+            metricsData['pending'] = buildChartData('Pending', pendingCount, '#E38627');
+            metricsData['completed'] = buildChartData('Completed', completedCount, '#C13C37');
 
-        setData(metricsData);
+            setData(metricsData);
+        }
     }
 
     const buildChartData = (title, value, color) => ({ title, value, color });

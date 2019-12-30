@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import {Provider} from 'react-redux';
+
+import workspaceStore from './components/contexts/workspace/workspace-store';
 
 import LoginPage from './components/login/LoginPage';
 import UserWorkspace from './components/user/UserWorkspace';
@@ -9,7 +12,6 @@ import PageAlert from './components/commons/PageAlert';
 import LoginRedirect from './components/login/LoginRedirect';
 
 import { useAuth0 } from './auth0-wrapper';
-import { WorkspaceProvider } from './components/contexts/WorkspaceContext';
 import FullPageSpinner from './components/commons/spinners/FullPageSpinner';
 import LogoutRedirect from './components/login/LogoutRedirect';
 
@@ -35,10 +37,10 @@ const AppRouter = () => {
 
                     <Route exact path="/logout" component={LogoutRedirect} />
 
-                    <WorkspaceProvider>
+                    <Provider store={workspaceStore}>
                         <Route path="/workspace" component={UserWorkspace} />
                         <Route path="/project/:projectId" component={ProjectWorkspace} />
-                    </ WorkspaceProvider>
+                    </ Provider>
 
                     <Route component={ErrorPage} />
                 </Switch>

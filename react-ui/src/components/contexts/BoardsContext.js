@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useSelector } from 'react-redux';
 
-import { useWorkspace } from './WorkspaceContext';
 import { useAuth0 } from '../../auth0-wrapper';
 
 
@@ -11,7 +11,7 @@ export const BoardsProvider = ({ children, projectId }) => {
     let [boards, setBoards] = useState([]);
     let [project, setProject] = useState(null);
 
-    const { projects } = useWorkspace();
+    const { projects } = useSelector(state => state.projects);
     const { firebaseClient } = useAuth0();
 
     useEffect(() => {
@@ -41,10 +41,8 @@ export const BoardsProvider = ({ children, projectId }) => {
 
         const addedBoard = await firebaseClient.boardService.insertBoard(project.id, newBoard);
         setBoards([...boards, addedBoard]);
-        // setAlert({ show: true, msg: `${title} board was succesfully created.` });
     }
 
-    // TODO: Also remove all tasks
     const removeBoard = async (boardId) => {
         await firebaseClient.boardService.removeBoard(project.id, boardId);
 
