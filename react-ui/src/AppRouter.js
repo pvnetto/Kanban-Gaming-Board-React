@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 
-import workspaceStore from './components/contexts/workspace/workspace-store';
+import store from './components/contexts/store';
 
 import LoginPage from './components/login/LoginPage';
 import UserWorkspace from './components/user/UserWorkspace';
@@ -37,7 +37,7 @@ const AppRouter = () => {
 
                     <Route exact path="/logout" component={LogoutRedirect} />
 
-                    <Provider store={workspaceStore}>
+                    <Provider store={store}>
                         <Route path="/workspace" component={UserWorkspace} />
                         <Route path="/project/:projectId" component={ProjectWorkspace} />
                     </ Provider>

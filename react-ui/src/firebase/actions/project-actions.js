@@ -1,36 +1,36 @@
-import { loading, fetchProjectsSuccess, addProjectSuccess, removeProjectSuccess, updateProjectSuccess } from '../../components/contexts/workspace/workspace-actions';
+import { loadingProject, fetchProjectsSuccess, addProjectSuccess, removeProjectSuccess, updateProjectSuccess } from '../../components/contexts/projects/project-actions';
 
 export const fetchProjectsAction = (userEmail, projectService) => {
     return async (dispatch) => {
-        dispatch(loading());
+        dispatch(loadingProject());
         const projects = await projectService.fetchProjects(userEmail);
         dispatch(fetchProjectsSuccess(projects));
     }
 }
 
-export const addProject = (title, description, generalInfo, projectService) => {
+export const addProjectAction = (title, description, generalInfo, projectService) => {
     return async (dispatch) => {
         const newProject = { title, description, generalInfo };
 
-        dispatch(loading());
+        dispatch(loadingProject());
         const insertedProject = await projectService.insertProject(newProject);
         dispatch(addProjectSuccess(insertedProject));
     }
 }
 
-export const removeProject = (projectId, projectService) => {
+export const removeProjectAction = (projectId, projectService) => {
     return async (dispatch) => {
-        dispatch(loading());
+        dispatch(loadingProject());
         await projectService.removeProject(projectId);
         dispatch(removeProjectSuccess(projectId));
     }
 }
 
-export const updateProject = (project, title, description, generalInfo, projectService) => {
+export const updateProjectAction = (project, title, description, generalInfo, projectService) => {
     return async (dispatch) => {
         let updatedProject = { ...project, title, description, generalInfo };
 
-        dispatch(loading());
+        dispatch(loadingProject());
         updatedProject = await projectService.updateProject(updatedProject);
         dispatch(updateProjectSuccess(updatedProject));
     }

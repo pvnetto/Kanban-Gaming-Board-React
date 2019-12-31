@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 import TaskStatus from '../commons/TaskStatus';
 import { useAuth0 } from '../../auth0-wrapper';
-import { useBoards } from './BoardsContext';
 
 
 const TasksContext = React.createContext({});
 export const useTasks = () => useContext(TasksContext);
 export const TasksProvider = ({ children }) => {
 
-    const { project } = useBoards();
+    const currentProject = useSelector(state => state.boards.currentProject);
     const { firebaseClient } = useAuth0();
 
     const addTaskToBoard = (boardId, name, description, category) => {
@@ -21,7 +21,7 @@ export const TasksProvider = ({ children }) => {
             status: TaskStatus.PLANNED
         };
 
-        firebaseClient.taskService.insertTaskToBoard(project.id, boardId, newTask);
+        firebaseClient.taskService.insertTaskToBoard(currentProject.id, boardId, newTask);
 
         return newTask;
     }
@@ -35,7 +35,7 @@ export const TasksProvider = ({ children }) => {
             status: TaskStatus.BACKLOG
         };
 
-        firebaseClient.taskService.insertTaskToBacklog(project.id, newTask);
+        firebaseClient.taskService.insertTaskToBacklog(currentProject.id, newTask);
 
         return newTask;
     }
@@ -43,41 +43,41 @@ export const TasksProvider = ({ children }) => {
     const generateTaskID = () => (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase();
 
     const fetchTasksFromProject = async () => {
-        return await firebaseClient.taskService.fetchAllTasksFromProject(project.id);
+        return await firebaseClient.taskService.fetchAllTasksFromProject(currentProject.id);
     }
 
     const fetchTasksFromBoard = async (boardId) => {
-        return await firebaseClient.taskService.fetchTasksFromBoard(project.id, boardId);
+        return await firebaseClient.taskService.fetchTasksFromBoard(currentProject.id, boardId);
     }
 
     const fetchTasksFromBacklog = async () => {
-        return await firebaseClient.taskService.fetchTasksFromBacklog(project.id);
+        return await firebaseClient.taskService.fetchTasksFromBacklog(currentProject.id);
     }
 
     const listenToBoardTaskChanges = async (boardId, listener) => {
-        let listenerRef = await firebaseClient.taskService.setBoardTasksListener(project.id, boardId, listener);
+        let listenerRef = await firebaseClient.taskService.setBoardTasksListener(currentProject.id, boardId, listener);
         return listenerRef;
     }
 
     const listenToBacklogTaskChanges = async (listener) => {
-        let listenerRef = await firebaseClient.taskService.setBacklogTasksListener(project.id, listener);
+        let listenerRef = await firebaseClient.taskService.setBacklogTasksListener(currentProject.id, listener);
         return listenerRef;
     }
 
     const updateBoardTasks = async (boardId, tasks) => {
-        return await firebaseClient.taskService.updateBoardTasks(project.id, boardId, tasks);
+        return await firebaseClient.taskService.updateBoardTasks(currentProject.id, boardId, tasks);
     }
 
     const updateBacklogTasks = async (tasks) => {
-        return await firebaseClient.taskService.updateBacklogTasks(project.id, tasks);
+        return await firebaseClient.taskService.updateBacklogTasks(currentProject.id, tasks);
     }
 
     const removeTaskFromBoard = async (boardId, task) => {
-        return await firebaseClient.taskService.removeTaskFromBoard(project.id, boardId, task);
+        return await firebaseClient.taskService.removeTaskFromBoard(currentProject.id, boardId, task);
     }
 
     const removeTaskFromBacklog = async (task) => {
-        return await firebaseClient.taskService.removeTaskFromBacklog(project.id, task);
+        return await firebaseClient.taskService.removeTaskFromBacklog(currentProject.id, task);
     }
 
     return (

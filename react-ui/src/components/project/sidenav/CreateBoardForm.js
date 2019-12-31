@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, Col } from 'react-bootstrap';
 import { SingleDatePicker } from 'react-dates';
 
@@ -8,8 +9,9 @@ import * as yup from 'yup';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
-import BoardsContext from '../../contexts/BoardsContext';
+import { addBoardAction } from '../../../firebase/actions/board-actions';
 import FullPageSpinner from '../../commons/spinners/FullPageSpinner';
+import { useAuth0 } from '../../../auth0-wrapper';
 
 const CreateBoardForm = () => {
 
@@ -19,14 +21,12 @@ const CreateBoardForm = () => {
     let [endDate, setEndDate] = useState(null);
     let [endFocused, setEndFocused] = useState(false);
 
-    let { addBoard } = useContext(BoardsContext);
-
-    let [isAdding, setIsAdding] = useState(false);
+    const { firebaseClient } = useAuth0();
+    const isLoading = useSelector(state => state.boards.isLoading);
+    const dispatch = useDispatch();
 
     const submitBoard = async (values, e) => {
-        setIsAdding(true);
-        await addBoard(values.title, values.description, startDate, endDate);
-        setIsAdding(false);
+        dispatch(addBoardAction(values.title, values.description, startDate, endDate, firebaseClient.boardService));
 
         e.resetForm();
         setStartDate(null);
@@ -40,7 +40,7 @@ const CreateBoardForm = () => {
 
     return (
         <>
-            {isAdding ? <FullPageSpinner /> : null}
+            {isLoading ? <FullPageSpinner /> : null}
             <Formik validationSchema={schema} onSubmit={submitBoard} initialValues={{ title: "", description: "" }}>
 
                 {({ handleSubmit,

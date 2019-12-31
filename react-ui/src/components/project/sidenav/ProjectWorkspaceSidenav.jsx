@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArrowLeft, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +9,6 @@ import ModalBase from '../../commons/ModalBase';
 import CreateBoardForm from './CreateBoardForm';
 import CreateTaskForm from './CreateTaskForm';
 import SidenavExpand from '../../commons/sidenav/SidenavExpand';
-import { useBoards } from '../../contexts/BoardsContext';
 import { useTasks } from '../../contexts/TasksContext';
 
 
@@ -18,7 +18,7 @@ const ProjectWorkspaceSidenav = ({ url, onExpand }) => {
     const [showCreateBoard, setShowCreateBoard] = useState(false);
     const [showCreateTask, setShowCreateTask] = useState(false);
 
-    const { boards } = useBoards();
+    const boards = useSelector(state => state.boards.boards);
     const { addTaskToBoard, addTaskToBacklog } = useTasks();
 
     const showExpandLinks = (show, isExpanded) => (

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 
-import { useBoards } from '../../contexts/BoardsContext';
 
 const ProjectInviteForm = () => {
 
     let [email, setEmail] = useState('');
 
-    const { project } = useBoards();
+    const currentProject = useSelector(state => state.boards.currentProject);
+    const dispatch = useDispatch();
     // const { addContributorToProject } = useWorkspace();
+    console.log("TODO: Add contributor");
 
     const addContributor = () => {
         console.log("TODO: Add contributor");

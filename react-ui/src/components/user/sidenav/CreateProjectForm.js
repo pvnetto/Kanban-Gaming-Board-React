@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { addProject } from '../../../firebase/dispatchers/fetchProjects';
+import { addProjectAction } from '../../../firebase/actions/project-actions';
 import FullPageSpinner from '../../commons/spinners/FullPageSpinner';
 import { useAuth0 } from '../../../auth0-wrapper';
 
@@ -16,7 +16,7 @@ const CreateProjectForm = () => {
     const { firebaseClient } = useAuth0();
 
     const submitProject = async (values, e) => {
-        dispatch(addProject(values.title, values.description, values.generalInfo, firebaseClient.projectService));
+        dispatch(addProjectAction(values.title, values.description, values.generalInfo, firebaseClient.projectService));
 
         e.resetForm();
     }

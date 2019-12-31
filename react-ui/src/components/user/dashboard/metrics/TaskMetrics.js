@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { fetchAllTasksFromAllProjects } from '../../../../firebase/dispatchers/fetchProjects';
+import { fetchAllTasksFromAllProjects } from '../../../../firebase/actions/project-actions';
 
 import MetricsBase from '../../../commons/MetricsBase';
 import TaskStatus from '../../../commons/TaskStatus';
@@ -11,7 +11,7 @@ import { useAuth0 } from '../../../../auth0-wrapper';
 const TaskMetrics = () => {
 
     const [data, setData] = useState({});
-    const projects = useSelector(state => state.projects);
+    const projects = useSelector(state => state.projects.projects);
     const { firebaseClient } = useAuth0();
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const TaskMetrics = () => {
     }, [projects]);
 
     const getMetricsData = async () => {
-        let taskData = await fetchAllTasksFromAllProjects(projects, firebaseClient.taskService);
+        const taskData = await fetchAllTasksFromAllProjects(projects, firebaseClient.taskService);
 
         if (taskData[TaskStatus.COMPLETED]) {
             let completedCount = taskData[TaskStatus.COMPLETED].length;

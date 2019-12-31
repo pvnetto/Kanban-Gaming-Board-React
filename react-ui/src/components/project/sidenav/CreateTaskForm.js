@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, Button, Col } from 'react-bootstrap';
 
@@ -6,13 +7,12 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import { categories } from '../../commons/Categories';
-import { useBoards } from '../../contexts/BoardsContext';
 
 const CreateTaskForm = ({ addTaskToBoard, addTaskToBacklog }) => {
 
     const backlogId = '-100';
 
-    let { boards } = useBoards();
+    const boards = useSelector(state => state.boards.boards);
 
     useEffect(() => {
         // setBoardId(backlogId);

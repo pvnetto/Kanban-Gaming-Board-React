@@ -21,8 +21,8 @@ const WelcomeSection = ({ username }) => {
 
 const UserDashboard = () => {
     const { user } = useAuth0();
-    const projects = useSelector(state => state.projects);
-    const isLoading = useSelector(state => state.isLoading);
+    const projects = useSelector(state => state.projects.projects);
+    const isLoading = useSelector(state => state.projects.isLoading);
 
     const closedProjects = [];
 

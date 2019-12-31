@@ -1,14 +1,14 @@
-import { FETCH_PROJECTS, ADD_PROJECT, REMOVE_PROJECT, UPDATE_PROJECT_INFO, LOADING, ERROR } from './workspace-types';
+import { FETCH_PROJECTS, ADD_PROJECT, REMOVE_PROJECT, UPDATE_PROJECT_INFO, LOADING_PROJECT, ERROR_PROJECT } from './project-types';
 
 export const defaultState = { projects: [], isLoading: false, error: null };
-const workspaceReducer = (state = defaultState, action) => {
+const projectsReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case LOADING:
+        case LOADING_PROJECT:
             return {
                 ...state,
                 isLoading: true,
             }
-        case ERROR:
+        case ERROR_PROJECT:
             return {
                 ...state,
                 error: action.error,
@@ -50,4 +50,4 @@ const workspaceReducer = (state = defaultState, action) => {
     }
 };
 
-export default workspaceReducer; 
+export default projectsReducer; 

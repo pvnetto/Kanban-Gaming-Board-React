@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+
 import SectionNavbar from '../../commons/SectionNavbar';
 import SectionContainer from '../../commons/SectionContainer';
 
 import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faChartPie, faDiceD20, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { useBoards } from '../../contexts/BoardsContext';
 import ProjectMetrics from './metrics/ProjectMetrics';
 
 const ProjectDescSection = ({ title, description }) => {
@@ -19,7 +20,7 @@ const ProjectDescSection = ({ title, description }) => {
 }
 
 const ProjectDashboard = () => {
-    const { project } = useBoards();
+    const currentProject = useSelector(state => state.boards.currentProject);
 
     return (
         <Row noGutters={true}>
@@ -28,10 +29,10 @@ const ProjectDashboard = () => {
 
             <Row noGutters={true} className="w-100 p-2">
                 <Col xs={6}>
-                    <ProjectDescSection {...project} />
+                    <ProjectDescSection {...currentProject} />
 
                     <SectionContainer title={"General Info"} icon={faInfoCircle} >
-                        <p>{project.generalInfo}</p>
+                        <p>{currentProject.generalInfo}</p>
                     </SectionContainer>
                 </Col>
 

@@ -1,22 +1,21 @@
-import React, { useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 
-import { removeProject } from '../../../firebase/dispatchers/fetchProjects';
-import BoardsContext from '../../contexts/BoardsContext';
+import { removeProjectAction } from '../../../firebase/actions/project-actions';
 import { useAuth0 } from '../../../auth0-wrapper';
 
 const ProjectDeleteForm = () => {
 
-    const { project } = useContext(BoardsContext);
     const { firebaseClient } = useAuth0();
+    const currentProject = useSelector(state => state.boards.currentProject);
     const dispatch = useDispatch();
 
     return (
         <Form className="d-flex flex-column align-items-center" >
             <Link to="/workspace/dashboard">
-                <Button onClick={() => dispatch(removeProject(project.id, firebaseClient.projectService))} className="align-self-center" variant="secondary">Delete Project</Button>
+                <Button onClick={() => dispatch(removeProjectAction(currentProject.id, firebaseClient.projectService))} className="align-self-center" variant="secondary">Delete Project</Button>
             </Link>
         </Form>
     );

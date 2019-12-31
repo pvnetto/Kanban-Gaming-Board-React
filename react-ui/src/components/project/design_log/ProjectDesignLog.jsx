@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import { faPlusSquare, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +9,7 @@ import DesignLogItem from './DesignLogItem';
 import SectionNavbarButton from '../../commons/SectionNavbarButton';
 import DesignLogForm from './DesignLogForm';
 import { useAuth0 } from '../../../auth0-wrapper';
-import { useBoards } from '../../contexts/BoardsContext';
+
 
 const ProjectDesignLog = () => {
 
@@ -16,13 +17,13 @@ const ProjectDesignLog = () => {
     let [logs, setLogs] = useState([]);
 
     const { firebaseClient } = useAuth0();
-    const { project } = useBoards();
+    const currentProject = useSelector(state => state.boards.currentProject);
 
     useEffect(() => {
         let listener = null;
 
         const listenToLogs = async () => {
-            listener = await firebaseClient.designLogService.setDesignLogListener(project.id, (snapshotLogs) => {
+            listener = await firebaseClient.designLogService.setDesignLogListener(currentProject.id, (snapshotLogs) => {
                 setLogs([...snapshotLogs]);
             });
         }
@@ -41,11 +42,11 @@ const ProjectDesignLog = () => {
             content
         };
 
-        newLog = await firebaseClient.designLogService.insertDesignLog(project.id, newLog);
+        newLog = await firebaseClient.designLogService.insertDesignLog(currentProject.id, newLog);
     }
 
     const removeLog = async (logId) => {
-        await firebaseClient.designLogService.removeDesignLog(project.id, logId);
+        await firebaseClient.designLogService.removeDesignLog(currentProject.id, logId);
     }
 
     return (

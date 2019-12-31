@@ -1,0 +1,6 @@
+export const SET_CURRENT_PROJECT = "SET_CURRENT_PROJECT";
+export const FETCH_BOARDS = "FETCH_BOARDS";
+export const ADD_BOARD = "ADD_BOARD";
+export const REMOVE_BOARD = "REMOVE_BOARD";
+export const LOADING_BOARD = "LOADING_BOARD";
+export const ERROR_BOARD = "ERROR_BOARD";

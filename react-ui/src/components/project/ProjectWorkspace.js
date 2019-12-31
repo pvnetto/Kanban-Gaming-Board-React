@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 
+import { loadProject } from '../../firebase/actions/board-actions';
 import ProjectWorkspaceRoutes from './routes';
 import ProjectWorkspaceSidenav from './sidenav';
 import NavigationBar from '../commons/NavigationBar';
-import { BoardsProvider, useBoards } from '../contexts/BoardsContext';
 import { useAuth0 } from '../../auth0-wrapper';
 import { TasksProvider } from '../contexts/TasksContext';
 
@@ -13,12 +14,12 @@ import { Link } from "react-router-dom";
 
 const WorkspaceNavbar = ({ path }) => {
 
-    const { project } = useBoards();
+    const currentProject = useSelector(state => state.boards.currentProject);
 
     return (
         <NavigationBar>
             <Link to={`/workspace/dashboard`}>Workspace</Link>
-            <Link to={path}>{project.title}</Link>
+            <Link to={path}>{currentProject ? currentProject.title : ''}</Link>
         </NavigationBar>
     )
 }
@@ -26,7 +27,15 @@ const WorkspaceNavbar = ({ path }) => {
 const ProjectWorkspace = ({ history, match, location }) => {
     let [expandWorkspace, setExpandWorkspace] = useState(true);
 
-    const { isAuthenticated } = useAuth0();
+    const { isAuthenticated, firebaseClient } = useAuth0();
+
+    const projects = useSelector(state => state.projects.projects);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const projectId = match.params.projectId;
+        dispatch(loadProject(projectId, projects, firebaseClient.boardService));
+    }, []);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -39,17 +48,15 @@ const ProjectWorkspace = ({ history, match, location }) => {
     }
 
     return (
-        <BoardsProvider projectId={match.params.projectId}>
-            <TasksProvider>
-                <ProjectWorkspaceSidenav {...match} onExpand={toggleExpandWorkspace} />
-                <Container fluid={true} className="full-height bg-primary p-0">
-                    <div className={`workspace ${expandWorkspace ? 'expand' : ''} d-flex flex-column h-100`}>
-                        <WorkspaceNavbar path={location.pathname} />
-                        <ProjectWorkspaceRoutes url={match.url} />
-                    </div>
-                </Container>
-            </TasksProvider>
-        </BoardsProvider>
+        <TasksProvider>
+            <ProjectWorkspaceSidenav {...match} onExpand={toggleExpandWorkspace} />
+            <Container fluid={true} className="full-height bg-primary p-0">
+                <div className={`workspace ${expandWorkspace ? 'expand' : ''} d-flex flex-column h-100`}>
+                    <WorkspaceNavbar path={location.pathname} />
+                    <ProjectWorkspaceRoutes url={match.url} />
+                </div>
+            </Container>
+        </TasksProvider>
     );
 };
 
