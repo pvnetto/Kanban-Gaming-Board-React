@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Provider } from 'react-redux';
-
-import store from './components/contexts/store';
 
 import LoginPage from './components/login/LoginPage';
 import UserWorkspace from './components/user/UserWorkspace';
@@ -11,7 +9,6 @@ import ErrorPage from './components/commons/ErrorPage';
 import PageAlert from './components/commons/PageAlert';
 import LoginRedirect from './components/login/LoginRedirect';
 
-import { useAuth0 } from './auth0-wrapper';
 import FullPageSpinner from './components/commons/spinners/FullPageSpinner';
 import LogoutRedirect from './components/login/LogoutRedirect';
 
@@ -20,14 +17,14 @@ const AppRouter = () => {
 
     let [alert, setAlert] = useState({ show: false, msg: "" });
 
-    const { loading, isRenewingAuth } = useAuth0();
+    const isPending = useSelector(state => state.auth.isPending);
 
     return (
         <BrowserRouter>
             <PageAlert {...alert} onClose={() => setAlert({ show: false, msg: "" })} />
 
-            {loading || isRenewingAuth ? <FullPageSpinner /> : null}
-            {isRenewingAuth ? null :
+            {isPending ? <FullPageSpinner /> : null}
+            {isPending ? null :
                 <Switch>
                     <Route exact path="/" component={LoginPage}>
                         <Redirect to="/login" />
@@ -37,10 +34,8 @@ const AppRouter = () => {
 
                     <Route exact path="/logout" component={LogoutRedirect} />
 
-                    <Provider store={store}>
-                        <Route path="/workspace" component={UserWorkspace} />
-                        <Route path="/project/:projectId" component={ProjectWorkspace} />
-                    </ Provider>
+                    <Route path="/workspace" component={UserWorkspace} />
+                    <Route path="/project/:projectId" component={ProjectWorkspace} />
 
                     <Route component={ErrorPage} />
                 </Switch>

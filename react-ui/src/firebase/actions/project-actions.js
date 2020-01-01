@@ -1,15 +1,20 @@
 import { loadingProject, fetchProjectsSuccess, addProjectSuccess, removeProjectSuccess, updateProjectSuccess } from '../../components/contexts/projects/project-actions';
 
-export const fetchProjectsAction = (userEmail, projectService) => {
-    return async (dispatch) => {
+export const fetchProjectsAction = (userEmail) => {
+    return async (dispatch, getState) => {
+        const {auth} = getState();
+        const projectService = auth.firebaseClient.projectService;
+
         dispatch(loadingProject());
         const projects = await projectService.fetchProjects(userEmail);
         dispatch(fetchProjectsSuccess(projects));
     }
 }
 
-export const addProjectAction = (title, description, generalInfo, projectService) => {
-    return async (dispatch) => {
+export const addProjectAction = (title, description, generalInfo) => {
+    return async (dispatch, getState) => {
+        const {auth} = getState();
+        const projectService = auth.firebaseClient.projectService;
         const newProject = { title, description, generalInfo };
 
         dispatch(loadingProject());
@@ -18,16 +23,22 @@ export const addProjectAction = (title, description, generalInfo, projectService
     }
 }
 
-export const removeProjectAction = (projectId, projectService) => {
-    return async (dispatch) => {
+export const removeProjectAction = (projectId) => {
+    return async (dispatch, getState) => {
+        const {auth} = getState();
+        const projectService = auth.firebaseClient.projectService;
+
         dispatch(loadingProject());
         await projectService.removeProject(projectId);
         dispatch(removeProjectSuccess(projectId));
     }
 }
 
-export const updateProjectAction = (project, title, description, generalInfo, projectService) => {
-    return async (dispatch) => {
+export const updateProjectAction = (project, title, description, generalInfo) => {
+    return async (dispatch, getState) => {
+        const {auth} = getState();
+        const projectService = auth.firebaseClient.projectService;
+        
         let updatedProject = { ...project, title, description, generalInfo };
 
         dispatch(loadingProject());

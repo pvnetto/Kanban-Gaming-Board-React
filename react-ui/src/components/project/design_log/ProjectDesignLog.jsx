@@ -8,7 +8,6 @@ import SectionNavbar from '../../commons/SectionNavbar';
 import DesignLogItem from './DesignLogItem';
 import SectionNavbarButton from '../../commons/SectionNavbarButton';
 import DesignLogForm from './DesignLogForm';
-import { useAuth0 } from '../../../auth0-wrapper';
 
 
 const ProjectDesignLog = () => {
@@ -16,7 +15,7 @@ const ProjectDesignLog = () => {
     let [showModal, setShowModal] = useState(false);
     let [logs, setLogs] = useState([]);
 
-    const { firebaseClient } = useAuth0();
+    const firebaseClient = useSelector(state => state.auth.firebaseClient);
     const currentProject = useSelector(state => state.boards.currentProject);
 
     useEffect(() => {

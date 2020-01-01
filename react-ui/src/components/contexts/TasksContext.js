@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 
 import TaskStatus from '../commons/TaskStatus';
-import { useAuth0 } from '../../auth0-wrapper';
 
 
 const TasksContext = React.createContext({});
@@ -10,7 +9,7 @@ export const useTasks = () => useContext(TasksContext);
 export const TasksProvider = ({ children }) => {
 
     const currentProject = useSelector(state => state.boards.currentProject);
-    const { firebaseClient } = useAuth0();
+    const firebaseClient = useSelector(state => state.auth.firebaseClient);
 
     const addTaskToBoard = (boardId, name, description, category) => {
         let newTask = {

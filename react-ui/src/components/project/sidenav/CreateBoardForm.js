@@ -11,7 +11,6 @@ import 'react-dates/lib/css/_datepicker.css';
 
 import { addBoardAction } from '../../../firebase/actions/board-actions';
 import FullPageSpinner from '../../commons/spinners/FullPageSpinner';
-import { useAuth0 } from '../../../auth0-wrapper';
 
 const CreateBoardForm = () => {
 
@@ -21,12 +20,11 @@ const CreateBoardForm = () => {
     let [endDate, setEndDate] = useState(null);
     let [endFocused, setEndFocused] = useState(false);
 
-    const { firebaseClient } = useAuth0();
     const isLoading = useSelector(state => state.boards.isLoading);
     const dispatch = useDispatch();
 
     const submitBoard = async (values, e) => {
-        dispatch(addBoardAction(values.title, values.description, startDate, endDate, firebaseClient.boardService));
+        dispatch(addBoardAction(values.title, values.description, startDate, endDate));
 
         e.resetForm();
         setStartDate(null);

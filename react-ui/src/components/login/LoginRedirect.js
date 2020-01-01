@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { useAuth0 } from '../../auth0-wrapper';
-
+import { callbackAuthentication } from '../../auth0/auth-actions';
 
 const LoginRedirect = ({ history }) => {
 
-    const { isAuthenticated, loginThroughCallback } = useAuth0();
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const user = useSelector(state => state.auth.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const authenticate = async () => {
             if (!isAuthenticated) {
-                await loginThroughCallback();
+                await dispatch(callbackAuthentication());
             }
             history.push("workspace/dashboard");
         }

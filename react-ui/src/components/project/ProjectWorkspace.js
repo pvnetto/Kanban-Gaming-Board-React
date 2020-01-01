@@ -7,7 +7,6 @@ import { loadProject } from '../../firebase/actions/board-actions';
 import ProjectWorkspaceRoutes from './routes';
 import ProjectWorkspaceSidenav from './sidenav';
 import NavigationBar from '../commons/NavigationBar';
-import { useAuth0 } from '../../auth0-wrapper';
 import { TasksProvider } from '../contexts/TasksContext';
 
 import { Link } from "react-router-dom";
@@ -27,7 +26,8 @@ const WorkspaceNavbar = ({ path }) => {
 const ProjectWorkspace = ({ history, match, location }) => {
     let [expandWorkspace, setExpandWorkspace] = useState(true);
 
-    const { isAuthenticated, firebaseClient } = useAuth0();
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const firebaseClient = useSelector(state => state.auth.firebaseClient);
 
     const projects = useSelector(state => state.projects.projects);
     const dispatch = useDispatch();

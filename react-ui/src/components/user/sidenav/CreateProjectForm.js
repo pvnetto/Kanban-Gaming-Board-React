@@ -6,17 +6,14 @@ import * as yup from 'yup';
 
 import { addProjectAction } from '../../../firebase/actions/project-actions';
 import FullPageSpinner from '../../commons/spinners/FullPageSpinner';
-import { useAuth0 } from '../../../auth0-wrapper';
 
 const CreateProjectForm = () => {
 
     const isLoading = useSelector(state => state.isLoading);
     const dispatch = useDispatch();
 
-    const { firebaseClient } = useAuth0();
-
     const submitProject = async (values, e) => {
-        dispatch(addProjectAction(values.title, values.description, values.generalInfo, firebaseClient.projectService));
+        dispatch(addProjectAction(values.title, values.description, values.generalInfo));
 
         e.resetForm();
     }

@@ -1,12 +1,14 @@
 import React from 'react';
-import { Auth0Provider } from './auth0-wrapper';
+import { Provider } from 'react-redux';
+
+import store from './components/contexts/store';
 import AppRouter from './AppRouter';
 
 const KGBApp = () => {
     return (
-        <Auth0Provider>
+        <Provider store={store}>
             <AppRouter/>
-        </Auth0Provider>
+        </Provider>
     );
 };
 

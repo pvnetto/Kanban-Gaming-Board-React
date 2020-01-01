@@ -8,12 +8,11 @@ import TaskStatus from '../../commons/TaskStatus';
 import SectionNavbarLink from '../../commons/SectionNavbarLink';
 import { removeBoardAction } from '../../../firebase/actions/board-actions';
 import { useTasks } from '../../contexts/TasksContext';
-import { useAuth0 } from '../../../auth0-wrapper';
 
 const ProjectBoard = ({ match }) => {
 
     let [tasks, setTasks] = useState(null);
-    const { firebaseClient } = useAuth0();
+    const firebaseClient = useSelector(state => state.auth.firebaseClient);
     const currentProject = useSelector(state => state.boards.currentProject);
     const dispatch = useDispatch();
 

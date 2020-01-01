@@ -6,13 +6,12 @@ import { fetchAllTasksFromAllProjects } from '../../../../firebase/actions/proje
 import MetricsBase from '../../../commons/MetricsBase';
 import TaskStatus from '../../../commons/TaskStatus';
 import LoadingSpinner from '../../../commons/spinners/LoadingSpinner';
-import { useAuth0 } from '../../../../auth0-wrapper';
 
 const TaskMetrics = () => {
 
     const [data, setData] = useState({});
     const projects = useSelector(state => state.projects.projects);
-    const { firebaseClient } = useAuth0();
+    const firebaseClient = useSelector(state => state.auth.firebaseClient);
 
     useEffect(() => {
         getMetricsData();

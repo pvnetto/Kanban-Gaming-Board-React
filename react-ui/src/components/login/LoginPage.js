@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Row, Col, Container, Button } from 'react-bootstrap';
 
 import LoginForm from './LoginForm';
 import XboxImg from '../../assets/images/action-analogue.jpg';
 
-import { useAuth0 } from '../../auth0-wrapper';
-
 function LoginPage({ history }) {
 
-  const { isAuthenticated } = useAuth0();
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   useEffect(() => {
     if (isAuthenticated) {

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 
 import { updateProjectAction } from '../../../firebase/actions/project-actions';
-import { useAuth0 } from '../../../auth0-wrapper';
 
 const ProjectEditForm = () => {
 
@@ -12,7 +11,6 @@ const ProjectEditForm = () => {
     let [generalInfo, setGeneralInfo] = useState("");
 
     const currentProject = useSelector(state => state.boards.currentProject);
-    const { firebaseClient } = useAuth0();
     const dispatch = useDispatch();
 
     // Initializing state on useEffect, instead of initializing with props as default values
@@ -23,7 +21,7 @@ const ProjectEditForm = () => {
     }, []);
 
     const onClick = () => {
-        dispatch(updateProjectAction(currentProject, title, description, generalInfo, firebaseClient.projectService));
+        dispatch(updateProjectAction(currentProject, title, description, generalInfo));
     }
 
     return (

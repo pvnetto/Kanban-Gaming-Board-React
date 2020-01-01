@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { useAuth0 } from '../../auth0-wrapper';
+import { signOut } from '../../auth0/auth-actions';
 import FullPageSpinner from '../commons/spinners/FullPageSpinner';
 
 
 const LogoutRedirect = ({ history }) => {
-    const { isAuthenticated, signOut } = useAuth0();
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const logout = async () => {
             if (isAuthenticated) {
-                await signOut();
+                await dispatch(signOut());
             }
 
             history.push("login");

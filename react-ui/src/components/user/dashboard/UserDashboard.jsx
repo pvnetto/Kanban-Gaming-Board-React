@@ -7,7 +7,6 @@ import SectionContainer from '../../commons/SectionContainer'
 import SectionNavbar from '../../commons/SectionNavbar';
 
 import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/free-solid-svg-icons';
-import { useAuth0 } from '../../../auth0-wrapper';
 import LoadingSpinner from '../../commons/spinners/LoadingSpinner';
 import TaskMetrics from './metrics/TaskMetrics';
 
@@ -20,7 +19,7 @@ const WelcomeSection = ({ username }) => {
 }
 
 const UserDashboard = () => {
-    const { user } = useAuth0();
+    const user = useSelector(state => state.auth.user);
     const projects = useSelector(state => state.projects.projects);
     const isLoading = useSelector(state => state.projects.isLoading);
 

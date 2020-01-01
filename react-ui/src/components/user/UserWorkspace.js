@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
@@ -10,17 +10,19 @@ import UserWorkspaceSidenav from './sidenav';
 import UserWorkspaceRoutes from './routes';
 import NavigationBar from '../commons/NavigationBar';
 
-import { useAuth0 } from '../../auth0-wrapper';
 
 const UserWorkspace = ({ history, match }) => {
 
     let [expandWorkspace, setExpandWorkspace] = useState(true);
-    const { firebaseClient, user, isAuthenticated } = useAuth0();
+    const user = useSelector(state => state.auth.user);
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchProjectsAction(user.email, firebaseClient.projectService));
+        if (user) {
+            dispatch(fetchProjectsAction(user.email));
+        }
     }, []);
 
     useEffect(() => {

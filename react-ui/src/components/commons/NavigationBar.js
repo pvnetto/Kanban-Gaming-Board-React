@@ -1,14 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 
-import { useAuth0 } from '../../auth0-wrapper';
 
 const NavigationBar = ({ children }) => {
 
-    const { user } = useAuth0();
+    const user = useSelector(state => state.auth.user);
 
     return (
         <Row noGutters={true} className="w-100 bg-dark border-2 border-light pl-3 py-1">

@@ -1,12 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useAuth0 } from '../../auth0-wrapper';
+
+import { signIn, loginWithGoogle, loginWithGitHub, loginWithFacebook } from '../../auth0/auth-actions';
 
 const LoginForm = () => {
 
-    const { signIn, loginWithGoogle, loginWithGitHub, loginWithFacebook } = useAuth0();
+    const auth0Client = useSelector(state => state.auth.auth0Client);
 
     return (
         <div className="p-4" style={{ width: '70%' }}>
@@ -27,11 +29,11 @@ const LoginForm = () => {
             </div>
 
             <div className="d-flex flex-column pt-4">
-                <Button variant="danger" className="d-flex flex-row align-items-center justify-content-start" onClick={loginWithGoogle}>
+                <Button variant="danger" className="d-flex flex-row align-items-center justify-content-start" onClick={() => loginWithGoogle(auth0Client)}>
                     <FontAwesomeIcon icon={faGoogle} className="mx-2" />
                     <span className="ml-4">Sign in with Google</span>
                 </Button>
-                <Button variant="info" className="my-2 d-flex flex-row align-items-center justify-content-start" onClick={loginWithFacebook}>
+                <Button variant="info" className="my-2 d-flex flex-row align-items-center justify-content-start" onClick={() => loginWithFacebook(auth0Client)}>
                     <FontAwesomeIcon icon={faFacebookSquare} className="mx-2" />
                     <span className="ml-4">Sign in with Facebook</span>
                 </Button>
