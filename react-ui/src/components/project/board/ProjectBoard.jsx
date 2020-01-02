@@ -11,7 +11,7 @@ import { updateBoardTasks, removeTaskFromBoard, fetchTasksFromBoard } from '../.
 
 const ProjectBoard = ({ match }) => {
 
-    const isPending = useSelector(state => state.tasks.backlog.isPending);
+    const isPending = useSelector(state => state.tasks.board.isPending);
     const tasks = useSelector(state => state.tasks.board.tasks);
     const currentProject = useSelector(state => state.boards.currentProject);
     const dispatch = useDispatch();

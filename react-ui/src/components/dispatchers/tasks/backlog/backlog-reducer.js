@@ -31,7 +31,7 @@ const backlogTasksReducer = (state = defaultState, action) => {
         case UPDATE_TASKS_BACKLOG_SUCCESS:
             return {
                 ...state,
-                tasks: [...action.data],
+                tasks: Object.assign({}, action.data),
                 isPending: false,
             }
         case BACKLOG_PENDING:

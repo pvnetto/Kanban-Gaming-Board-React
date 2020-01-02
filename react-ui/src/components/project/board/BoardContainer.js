@@ -51,6 +51,10 @@ const BoardContainer = ({ tasks, isPending, updateTasks, removeTask, columns, ch
         return tasks[status].filter(task => task.category === category || category === allCategories.ALL);
     }
 
+    const areTasksLoaded = () => {
+        return tasks && Object.keys(tasks).length > 0;
+    }
+
     return (
         <>
             {children}
@@ -60,7 +64,7 @@ const BoardContainer = ({ tasks, isPending, updateTasks, removeTask, columns, ch
                     <BoardSidenav onClick={setCategory} activeCategory={category} />
 
                     <Col className="inner-workspace d-flex flex-row align-items-stretch">
-                        {tasks && Object.keys(tasks).length > 0 && !isPending ?
+                        {areTasksLoaded() && !isPending ?
                             columns.map((status, idx) => (
                                 <Col key={idx} xs={12 / columns.length}>
                                     <BoardColumn type={status} tasks={getFilteredTasksByStatus(status)} removeTask={removeTask} category={category} />
