@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import { Draggable } from 'react-beautiful-dnd';
@@ -8,7 +9,8 @@ import "./TaskItem.scss";
 const getDraggableStyle = (isDragging, draggableStyle) => {
     return {
         userSelect: 'none',
-        ...draggableStyle
+        ...draggableStyle,
+        transitionDuration: `0.0001s`,
     }
 }
 
@@ -16,6 +18,7 @@ const TaskItem = ({ index, task, removeTask }) => {
 
     let [showDropdown, setShowDropdown] = useState(false);
     let [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
+    const dispatch = useDispatch();
 
     const enableDropdown = (e) => {
         e.preventDefault();
@@ -35,7 +38,7 @@ const TaskItem = ({ index, task, removeTask }) => {
                 <div onClick={disableDropdown} onMouseLeave={disableDropdown} onContextMenu={enableDropdown}
                     ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
                     style={getDraggableStyle(snapshot.isDragging, provided.draggableProps.style)}
-                    className={`task-hover bg-dark bg-dark-hover border-radius-5 p-3 mb-2 disable-select cursor-pointer`}>
+                    className={`bg-dark bg-dark-hover border-radius-5 p-3 mb-2 disable-select cursor-pointer`}>
 
                     <p className="text-break"><span className="font-weight-bold">{task.name}</span></p>
                     <div className="d-flex flex-row justify-content-between">
@@ -44,8 +47,7 @@ const TaskItem = ({ index, task, removeTask }) => {
                     </div>
 
                     <Dropdown.Menu className="position-fixed" style={{ ...dropdownPos }} show={showDropdown}>
-                        {/* <Dropdown.Item onClick={disableDropdown} onSelect={() => console.log("editing")}>Edit</Dropdown.Item> */}
-                        <Dropdown.Item onClick={disableDropdown} onSelect={() => removeTask(task)}>Delete</Dropdown.Item>
+                        <Dropdown.Item onClick={disableDropdown} onSelect={() => dispatch(removeTask(task))}>Delete</Dropdown.Item>
                     </Dropdown.Menu>
                 </div>
             )}

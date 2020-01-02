@@ -9,6 +9,7 @@ const ProjectBacklog = () => {
 
     const currentProject = useSelector(state => state.boards.currentProject);
     const tasks = useSelector(state => state.tasks.backlog.tasks);
+    const isPending = useSelector(state => state.tasks.backlog.isPending);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,9 +19,8 @@ const ProjectBacklog = () => {
     if (!currentProject) return null;
 
     return (
-        <BoardContainer tasks={tasks} removeTask={removeTaskFromBacklog} updateTasks={updateBacklogTasks} columns={[TaskStatus.BACKLOG]}>
-            <BoardContainer.Header title={"Backlog"}>
-            </BoardContainer.Header>
+        <BoardContainer tasks={tasks} isPending={isPending} removeTask={removeTaskFromBacklog} updateTasks={updateBacklogTasks} columns={[TaskStatus.BACKLOG]}>
+            <BoardContainer.Header title={"Backlog"}></BoardContainer.Header>
         </BoardContainer>
     );
 };

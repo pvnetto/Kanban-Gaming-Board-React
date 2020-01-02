@@ -83,8 +83,8 @@ export const updateBoardTasks = (boardId, tasks) => {
         const taskService = auth.firebaseClient.taskService;
 
         dispatch(boardPending());
-        const updatedTasks = await taskService.updateBoardTasks(boards.currentProject.id, boardId, tasks);
-        dispatch(updateBoardTasksSuccess(updatedTasks));
+        taskService.updateBoardTasks(boards.currentProject.id, boardId, tasks);
+        dispatch(updateBoardTasksSuccess(tasks));
     }
 }
 
@@ -94,8 +94,8 @@ export const updateBacklogTasks = (tasks) => {
         const taskService = auth.firebaseClient.taskService;
 
         dispatch(backlogPending());
-        const updatedTasks = await taskService.updateBacklogTasks(boards.currentProject.id, tasks);
-        dispatch(updateTasksBacklogSuccess(updatedTasks));
+        taskService.updateBacklogTasks(boards.currentProject.id, tasks);
+        dispatch(updateTasksBacklogSuccess(tasks));
     }
 }
 
