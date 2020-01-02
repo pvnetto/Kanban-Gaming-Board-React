@@ -8,7 +8,7 @@ import { Row, Col } from 'react-bootstrap'
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 
 const UserManagement = () => {
-    const projects = useSelector(state => state.projects);
+    const projects = useSelector(state => state.projects.projects);
     const projectItems = projects.map((project, idx) => <ProjectItem key={idx} {...project} redirect={'/management'} />);
 
     return (
