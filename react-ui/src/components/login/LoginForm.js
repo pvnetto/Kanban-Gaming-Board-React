@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookSquare, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { signIn, loginWithGoogle, loginWithGitHub, loginWithFacebook } from '../../auth0/auth-actions';
+import { loginWithGoogle, loginWithFacebook } from '../dispatchers/auth/auth-actions-async';
 
 const LoginForm = () => {
 
@@ -37,10 +37,6 @@ const LoginForm = () => {
                     <FontAwesomeIcon icon={faFacebookSquare} className="mx-2" />
                     <span className="ml-4">Sign in with Facebook</span>
                 </Button>
-                {/* <Button variant="twitter" className="d-flex flex-row align-items-center justify-content-start" onClick={loginWithGitHub}>
-                    <FontAwesomeIcon icon={faTwitter} className="mx-2" />
-                    <span className="ml-4">Sign in with Twitter</span>
-                </Button> */}
             </div>
         </div>
     );

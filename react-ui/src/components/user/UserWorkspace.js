@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
-import { fetchProjectsAction } from '../../firebase/actions/project-actions';
+import { fetchProjectsAction } from '../dispatchers/projects/project-actions-async';
 
 import UserWorkspaceSidenav from './sidenav';
 import UserWorkspaceRoutes from './routes';

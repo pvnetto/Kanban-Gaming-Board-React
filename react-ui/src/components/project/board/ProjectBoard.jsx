@@ -6,8 +6,8 @@ import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import BoardContainer from './BoardContainer';
 import TaskStatus from '../../commons/TaskStatus';
 import SectionNavbarLink from '../../commons/SectionNavbarLink';
-import { removeBoardAction } from '../../../firebase/actions/board-actions';
-import { updateBoardTasks, removeTaskFromBoard, fetchTasksFromBoard } from '../../../firebase/actions/task-actions';
+import { removeBoardAction } from '../../dispatchers/boards/board-actions-async';
+import { updateBoardTasks, removeTaskFromBoard, fetchTasksFromBoard } from '../../dispatchers/tasks/task-actions-async';
 
 const ProjectBoard = ({ match }) => {
 

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { signOut } from '../../auth0/auth-actions';
+import { signOut } from '../dispatchers/auth/auth-actions-async';
 import FullPageSpinner from '../commons/spinners/FullPageSpinner';
 
 

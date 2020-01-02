@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import TaskStatus from '../../../commons/TaskStatus';
 import LoadingSpinner from '../../../commons/spinners/LoadingSpinner';
 import MetricsBase from '../../../commons/MetricsBase';
-import { fetchTasksFromProject } from '../../../../firebase/actions/task-actions';
+import { fetchTasksFromProject } from '../../../dispatchers/tasks/task-actions-async';
 
 const ProjectMetrics = () => {
     const [data, setData] = useState({});

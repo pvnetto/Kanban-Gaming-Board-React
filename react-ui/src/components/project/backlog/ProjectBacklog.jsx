@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchTasksFromBacklog, updateBacklogTasks, removeTaskFromBacklog } from '../../../firebase/actions/task-actions';
+import { fetchTasksFromBacklog, updateBacklogTasks, removeTaskFromBacklog } from '../../dispatchers/tasks/task-actions-async';
 import BoardContainer from '../board/BoardContainer';
 import TaskStatus from '../../commons/TaskStatus';
 

@@ -1,5 +1,5 @@
-import Firebase from '../firebase/firebase-manager';
-import { authenticationPending, authenticationSuccess, authenticationError, logout } from '../components/contexts/auth/auth-actions';
+import Firebase from '../../../firebase/firebase-manager';
+import { authenticationPending, authenticationSuccess, authenticationError, logout } from './auth-actions';
 
 export const callbackAuthentication = () => {
     return async (dispatch, getState) => {
@@ -16,8 +16,6 @@ export const callbackAuthentication = () => {
                 dispatch(authenticationError());
             }
         }
-
-        console.log("end of auth");
     }
 }
 

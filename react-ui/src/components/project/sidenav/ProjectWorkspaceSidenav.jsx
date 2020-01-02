@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArrowLeft, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
-import { addTaskToBoard, addTaskToBacklog } from '../../../firebase/actions/task-actions';
+import { addTaskToBoard, addTaskToBacklog } from '../../dispatchers/tasks/task-actions-async';
 import Sidenav from '../../commons/sidenav/Sidenav';
 import SidenavLink from '../../commons/sidenav/SidenavLink';
 import ModalBase from '../../commons/ModalBase';

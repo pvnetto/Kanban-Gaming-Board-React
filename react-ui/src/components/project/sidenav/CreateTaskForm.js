@@ -4,7 +4,7 @@ import { Form, Button, Col } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { addTaskToBoard, addTaskToBacklog } from '../../../firebase/actions/task-actions';
+import { addTaskToBoard, addTaskToBacklog } from '../../dispatchers/tasks/task-actions-async';
 import { categories } from '../../commons/Categories';
 
 const CreateTaskForm = () => {

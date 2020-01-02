@@ -1,6 +1,6 @@
-import { fetchBoardTasksSuccess, addTaskBoardSuccess, removeTaskBoardSuccess, boardPending, updateBoardTasksSuccess } from '../../components/contexts/tasks/board/board-actions';
-import { fetchBacklogTasksSuccess, addTaskBacklogSuccess, removeTaskBacklogSuccess, backlogPending, updateTasksBacklogSuccess } from '../../components/contexts/tasks/backlog/backlog-actions';
-import TaskStatus from '../../components/commons/TaskStatus';
+import { fetchBoardTasksSuccess, addTaskBoardSuccess, removeTaskBoardSuccess, boardPending, updateBoardTasksSuccess } from './board/board-actions';
+import { fetchBacklogTasksSuccess, addTaskBacklogSuccess, removeTaskBacklogSuccess, backlogPending, updateTasksBacklogSuccess } from './backlog/backlog-actions';
+import TaskStatus from '../../commons/TaskStatus';
 
 export const fetchTasksFromBacklog = () => {
     return async (dispatch, getState) => {

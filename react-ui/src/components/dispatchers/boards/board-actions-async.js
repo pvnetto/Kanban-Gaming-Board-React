@@ -1,4 +1,4 @@
-import { loadingBoard, setCurrentProject, fetchBoardsSuccess, addBoardSuccess, removeBoardSuccess } from '../../components/contexts/boards/board-actions';
+import { loadingBoard, setCurrentProject, fetchBoardsSuccess, addBoardSuccess, removeBoardSuccess } from './board-actions';
 
 export const loadProject = (projectId, projects) => {
     return async (dispatch, getState) => {

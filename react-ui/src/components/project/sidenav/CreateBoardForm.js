@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
-import { addBoardAction } from '../../../firebase/actions/board-actions';
+import { addBoardAction } from '../../dispatchers/boards/board-actions-async';
 import FullPageSpinner from '../../commons/spinners/FullPageSpinner';
 
 const CreateBoardForm = () => {

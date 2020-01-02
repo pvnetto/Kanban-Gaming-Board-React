@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 
-import { updateProjectAction } from '../../../firebase/actions/project-actions';
+import { updateProjectAction } from '../../dispatchers/projects/project-actions-async';
 
 const ProjectEditForm = () => {
 

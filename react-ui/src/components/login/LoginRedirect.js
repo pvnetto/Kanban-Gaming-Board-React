@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { callbackAuthentication } from '../../auth0/auth-actions';
+import { callbackAuthentication } from '../dispatchers/auth/auth-actions-async';
 
 const LoginRedirect = ({ history }) => {
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-    const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
 
     useEffect(() => {

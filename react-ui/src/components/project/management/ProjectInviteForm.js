@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 
+import { addContributorAction } from '../../dispatchers/projects/project-actions-async';
+
 
 const ProjectInviteForm = () => {
 
@@ -9,13 +11,9 @@ const ProjectInviteForm = () => {
 
     const currentProject = useSelector(state => state.boards.currentProject);
     const dispatch = useDispatch();
-    // const { addContributorToProject } = useWorkspace();
-    console.log("TODO: Add contributor");
 
     const addContributor = () => {
-        console.log("TODO: Add contributor");
-        // addContributorToProject(project.id, email);
-
+        dispatch(addContributorAction(currentProject.id, email));
         setEmail("");
     }
 

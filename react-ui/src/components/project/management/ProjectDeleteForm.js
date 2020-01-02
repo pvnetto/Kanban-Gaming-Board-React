@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 
-import { removeProjectAction } from '../../../firebase/actions/project-actions';
+import { removeProjectAction } from '../../dispatchers/projects/project-actions-async';
 
 const ProjectDeleteForm = () => {
 

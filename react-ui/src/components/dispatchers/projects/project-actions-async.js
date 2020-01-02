@@ -1,8 +1,8 @@
-import { loadingProject, fetchProjectsSuccess, addProjectSuccess, removeProjectSuccess, updateProjectSuccess } from '../../components/contexts/projects/project-actions';
+import { loadingProject, fetchProjectsSuccess, addProjectSuccess, removeProjectSuccess, updateProjectSuccess } from './project-actions';
 
 export const fetchProjectsAction = (userEmail) => {
     return async (dispatch, getState) => {
-        const {auth} = getState();
+        const { auth } = getState();
         const projectService = auth.firebaseClient.projectService;
 
         dispatch(loadingProject());
@@ -13,7 +13,7 @@ export const fetchProjectsAction = (userEmail) => {
 
 export const addProjectAction = (title, description, generalInfo) => {
     return async (dispatch, getState) => {
-        const {auth} = getState();
+        const { auth } = getState();
         const projectService = auth.firebaseClient.projectService;
         const newProject = { title, description, generalInfo };
 
@@ -25,7 +25,7 @@ export const addProjectAction = (title, description, generalInfo) => {
 
 export const removeProjectAction = (projectId) => {
     return async (dispatch, getState) => {
-        const {auth} = getState();
+        const { auth } = getState();
         const projectService = auth.firebaseClient.projectService;
 
         dispatch(loadingProject());
@@ -36,9 +36,9 @@ export const removeProjectAction = (projectId) => {
 
 export const updateProjectAction = (project, title, description, generalInfo) => {
     return async (dispatch, getState) => {
-        const {auth} = getState();
+        const { auth } = getState();
         const projectService = auth.firebaseClient.projectService;
-        
+
         let updatedProject = { ...project, title, description, generalInfo };
 
         dispatch(loadingProject());
@@ -47,9 +47,20 @@ export const updateProjectAction = (project, title, description, generalInfo) =>
     }
 }
 
+export const addContributorAction = (projectId, contributorEmail) => {
+    return async (dispatch, getState) => {
+        const { auth } = getState();
+        const projectService = auth.firebaseClient.projectService;
+
+        dispatch(loadingProject());
+        const updatedProject = await projectService.insertProjectContributor(projectId, contributorEmail);
+        dispatch(updateProjectSuccess(updatedProject));
+    }
+}
+
 export const fetchAllTasksFromAllProjects = async (projects, taskService) => {
     let taskData = {};
-    let taskPromises = projects.map(async (project) => {
+    const taskPromises = projects.map(async (project) => {
         let projectData = await taskService.fetchAllTasksFromProject(project.id);
 
         Object.keys(projectData).forEach(key => {

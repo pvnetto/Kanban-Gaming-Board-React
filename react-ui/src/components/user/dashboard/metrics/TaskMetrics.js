@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { fetchAllTasksFromAllProjects } from '../../../../firebase/actions/project-actions';
+import { fetchAllTasksFromAllProjects } from '../../../dispatchers/projects/project-actions-async';
 
 import MetricsBase from '../../../commons/MetricsBase';
 import TaskStatus from '../../../commons/TaskStatus';

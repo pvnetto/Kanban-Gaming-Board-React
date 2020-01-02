@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { addProjectAction } from '../../../firebase/actions/project-actions';
+import { addProjectAction } from '../../dispatchers/projects/project-actions-async';
 import FullPageSpinner from '../../commons/spinners/FullPageSpinner';
 
 const CreateProjectForm = () => {
