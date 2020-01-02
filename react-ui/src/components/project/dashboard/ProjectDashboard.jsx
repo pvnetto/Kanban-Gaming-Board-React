@@ -22,6 +22,8 @@ const ProjectDescSection = ({ title, description }) => {
 const ProjectDashboard = () => {
     const currentProject = useSelector(state => state.boards.currentProject);
 
+    if (!currentProject) return null;
+
     return (
         <Row noGutters={true}>
 

@@ -13,13 +13,14 @@ export const loadProject = (projectId, projects) => {
 
 export const fetchBoardsAction = () => {
     return async (dispatch, getState) => {
-        const { auth } = getState();
+        const { auth, boards } = getState();
         const boardService = auth.firebaseClient.boardService;
 
-        dispatch(loadingBoard());
-        const state = getState();
-        const projectBoards = await boardService.fetchBoardsByProject(state.boards.currentProject.id);
-        dispatch(fetchBoardsSuccess(projectBoards));
+        if(boards.currentProject) {
+            dispatch(loadingBoard());
+            const projectBoards = await boardService.fetchBoardsByProject(boards.currentProject.id);
+            dispatch(fetchBoardsSuccess(projectBoards));
+        }
     }
 }
 

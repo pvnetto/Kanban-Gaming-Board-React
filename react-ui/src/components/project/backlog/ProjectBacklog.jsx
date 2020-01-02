@@ -7,12 +7,15 @@ import TaskStatus from '../../commons/TaskStatus';
 
 const ProjectBacklog = () => {
 
+    const currentProject = useSelector(state => state.boards.currentProject);
     const tasks = useSelector(state => state.tasks.backlog.tasks);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchTasksFromBacklog());
-    }, []);
+    }, [currentProject]);
+
+    if (!currentProject) return null;
 
     return (
         <BoardContainer tasks={tasks} removeTask={removeTaskFromBacklog} updateTasks={updateBacklogTasks} columns={[TaskStatus.BACKLOG]}>

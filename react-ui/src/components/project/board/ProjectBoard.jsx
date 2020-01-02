@@ -18,7 +18,9 @@ const ProjectBoard = ({ match }) => {
     useEffect(() => {
         const boardId = match.params.boardId;
         dispatch(fetchTasksFromBoard(boardId));
-    }, [match]);
+    }, [match, currentProject]);
+
+    if (!currentProject) return null;
 
     return (
         <BoardContainer tasks={tasks}

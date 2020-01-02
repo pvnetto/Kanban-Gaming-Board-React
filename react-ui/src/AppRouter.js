@@ -12,12 +12,13 @@ import LoginRedirect from './components/login/LoginRedirect';
 import FullPageSpinner from './components/commons/spinners/FullPageSpinner';
 import LogoutRedirect from './components/login/LogoutRedirect';
 
+import useLoadProjects from './components/dispatchers/projects/useLoadProjects';
 
 const AppRouter = () => {
 
     let [alert, setAlert] = useState({ show: false, msg: "" });
-
     const isPending = useSelector(state => state.auth.isPending);
+    const user = useLoadProjects();
 
     return (
         <BrowserRouter>

@@ -10,31 +10,19 @@ import NavigationBar from '../commons/NavigationBar';
 
 import { Link } from "react-router-dom";
 
-const WorkspaceNavbar = ({ path }) => {
-
-    const currentProject = useSelector(state => state.boards.currentProject);
-
-    return (
-        <NavigationBar>
-            <Link to={`/workspace/dashboard`}>Workspace</Link>
-            <Link to={path}>{currentProject ? currentProject.title : ''}</Link>
-        </NavigationBar>
-    )
-}
-
 const ProjectWorkspace = ({ history, match, location }) => {
     let [expandWorkspace, setExpandWorkspace] = useState(true);
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-    const firebaseClient = useSelector(state => state.auth.firebaseClient);
 
     const projects = useSelector(state => state.projects.projects);
+    const currentProject = useSelector(state => state.boards.currentProject);
     const dispatch = useDispatch();
 
     useEffect(() => {
         const projectId = match.params.projectId;
-        dispatch(loadProject(projectId, projects, firebaseClient.boardService));
-    }, []);
+        dispatch(loadProject(projectId, projects));
+    }, [projects]);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -51,7 +39,10 @@ const ProjectWorkspace = ({ history, match, location }) => {
             <ProjectWorkspaceSidenav {...match} onExpand={toggleExpandWorkspace} />
             <Container fluid={true} className="full-height bg-primary p-0">
                 <div className={`workspace ${expandWorkspace ? 'expand' : ''} d-flex flex-column h-100`}>
-                    <WorkspaceNavbar path={location.pathname} />
+                    <NavigationBar>
+                        <Link to={`/workspace/dashboard`}>Workspace</Link>
+                        <Link to={location.pathname}>{currentProject ? currentProject.title : ''}</Link>
+                    </NavigationBar>
                     <ProjectWorkspaceRoutes url={match.url} />
                 </div>
             </Container>

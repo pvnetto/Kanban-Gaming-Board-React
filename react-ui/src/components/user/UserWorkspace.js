@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-
-import { fetchProjectsAction } from '../dispatchers/projects/project-actions-async';
 
 import UserWorkspaceSidenav from './sidenav';
 import UserWorkspaceRoutes from './routes';
@@ -14,16 +12,7 @@ import NavigationBar from '../commons/NavigationBar';
 const UserWorkspace = ({ history, match }) => {
 
     let [expandWorkspace, setExpandWorkspace] = useState(true);
-    const user = useSelector(state => state.auth.user);
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (user) {
-            dispatch(fetchProjectsAction(user.email));
-        }
-    }, []);
 
     useEffect(() => {
         if (!isAuthenticated) {

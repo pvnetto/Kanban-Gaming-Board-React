@@ -7,9 +7,11 @@ export const fetchTasksFromBacklog = () => {
         const { auth, boards } = getState();
         const taskService = auth.firebaseClient.taskService;
 
-        dispatch(backlogPending())
-        const tasks = await taskService.fetchTasksFromBacklog(boards.currentProject.id);
-        dispatch(fetchBacklogTasksSuccess(tasks));
+        if (boards.currentProject) {
+            dispatch(backlogPending())
+            const tasks = await taskService.fetchTasksFromBacklog(boards.currentProject.id);
+            dispatch(fetchBacklogTasksSuccess(tasks));
+        }
     }
 }
 
@@ -30,9 +32,11 @@ export const removeTaskFromBacklog = (task) => {
         const { auth, boards } = getState();
         const taskService = auth.firebaseClient.taskService;
 
-        dispatch(backlogPending());
-        await taskService.removeTaskFromBacklog(boards.currentProject.id, task);
-        dispatch(removeTaskBacklogSuccess(task.id));
+        if (boards.currentProject) {
+            dispatch(backlogPending());
+            await taskService.removeTaskFromBacklog(boards.currentProject.id, task);
+            dispatch(removeTaskBacklogSuccess(task.id));
+        }
     }
 }
 
@@ -41,9 +45,11 @@ export const fetchTasksFromBoard = (boardId) => {
         const { auth, boards } = getState();
         const taskService = auth.firebaseClient.taskService;
 
-        dispatch(boardPending());
-        const boardTasks = await taskService.fetchTasksFromBoard(boards.currentProject.id, boardId);
-        dispatch(fetchBoardTasksSuccess(boardTasks));
+        if (boards.currentProject) {
+            dispatch(boardPending());
+            const boardTasks = await taskService.fetchTasksFromBoard(boards.currentProject.id, boardId);
+            dispatch(fetchBoardTasksSuccess(boardTasks));
+        }
     }
 }
 
