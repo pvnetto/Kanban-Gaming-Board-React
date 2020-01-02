@@ -141,6 +141,7 @@ export default class TaskDAO {
 
     getEmptyBoardData = () => (this._checkBoardData({}));
 
+    // Checks if an object contains keys for all TaskStatus types
     _checkBoardData = (boardData) => {
         Object.values(TaskStatus).forEach(status => {
             if (status !== TaskStatus.BACKLOG && !boardData[status]) {

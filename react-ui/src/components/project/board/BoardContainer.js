@@ -13,13 +13,13 @@ import BoardSidenav from './BoardSidenav';
 import BoardColumn from './BoardColumn';
 import LoadingSpinner from '../../commons/spinners/LoadingSpinner';
 
-export const BoardContainerHeader = ({ title, addTaskToBoard, addTaskToBacklog, children }) => {
+export const BoardContainerHeader = ({ title, children }) => {
     let [showCreateTask, setShowCreateTask] = useState(false);
     return (
         <>
             {/* Form used to create a new task */}
             <ModalBase title={"Add Task"} showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} >
-                <CreateTaskForm {...{ addTaskToBoard, addTaskToBacklog }} />
+                <CreateTaskForm />
             </ModalBase>
 
             <SectionNavbar title={title} icon={faGamepad}>

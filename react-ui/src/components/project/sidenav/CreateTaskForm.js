@@ -1,29 +1,25 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, Col } from 'react-bootstrap';
-
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+import { addTaskToBoard, addTaskToBacklog } from '../../../firebase/actions/task-actions';
 import { categories } from '../../commons/Categories';
 
-const CreateTaskForm = ({ addTaskToBoard, addTaskToBacklog }) => {
+const CreateTaskForm = () => {
 
-    const backlogId = '-100';
+    const backlogID = '-100';
 
     const boards = useSelector(state => state.boards.boards);
-
-    useEffect(() => {
-        // setBoardId(backlogId);
-    }, []);
+    const dispatch = useDispatch();
 
     const submitTask = (values, e) => {
-        if (values.boardId === backlogId) {
-            addTaskToBacklog(values.name, values.description, values.category);
+        if (values.boardId === backlogID) {
+            dispatch(addTaskToBacklog(values.name, values.description, values.category));
         }
         else {
-            addTaskToBoard(values.boardId, values.name, values.description, values.category);
+            dispatch(addTaskToBoard(values.boardId, values.name, values.description, values.category));
         }
 
         // Resetting form
@@ -38,7 +34,7 @@ const CreateTaskForm = ({ addTaskToBoard, addTaskToBacklog }) => {
     });
 
     return (
-        <Formik validationSchema={schema} onSubmit={submitTask} initialValues={{ name: "", description: "", boardId: backlogId, category: categories.ART }}>
+        <Formik validationSchema={schema} onSubmit={submitTask} initialValues={{ name: "", description: "", boardId: backlogID, category: categories.ART }}>
 
             {({ handleSubmit,
                 handleChange,
@@ -76,7 +72,7 @@ const CreateTaskForm = ({ addTaskToBoard, addTaskToBacklog }) => {
                                     isInvalid={!!errors.boardId}
                                     onChange={handleChange}>
 
-                                    <option value={backlogId}></option>
+                                    <option value={backlogID}></option>
                                     {boards.map((board, i) =>
                                         <option value={board.id} key={i}>{board.title}</option>
                                     )}
@@ -104,11 +100,6 @@ const CreateTaskForm = ({ addTaskToBoard, addTaskToBacklog }) => {
 
         </Formik>
     );
-};
-
-CreateTaskForm.propTypes = {
-    addTaskToBoard: PropTypes.func.isRequired,
-    addTaskToBacklog: PropTypes.func.isRequired,
 };
 
 export default CreateTaskForm;

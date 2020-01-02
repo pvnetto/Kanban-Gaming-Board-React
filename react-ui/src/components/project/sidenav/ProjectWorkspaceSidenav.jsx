@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArrowLeft, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
+import { addTaskToBoard, addTaskToBacklog } from '../../../firebase/actions/task-actions';
 import Sidenav from '../../commons/sidenav/Sidenav';
 import SidenavLink from '../../commons/sidenav/SidenavLink';
 import ModalBase from '../../commons/ModalBase';
 import CreateBoardForm from './CreateBoardForm';
 import CreateTaskForm from './CreateTaskForm';
 import SidenavExpand from '../../commons/sidenav/SidenavExpand';
-import { useTasks } from '../../contexts/TasksContext';
 
 
 const ProjectWorkspaceSidenav = ({ url, onExpand }) => {
@@ -19,7 +19,6 @@ const ProjectWorkspaceSidenav = ({ url, onExpand }) => {
     const [showCreateTask, setShowCreateTask] = useState(false);
 
     const boards = useSelector(state => state.boards.boards);
-    const { addTaskToBoard, addTaskToBacklog } = useTasks();
 
     const showExpandLinks = (show, isExpanded) => (
         <>

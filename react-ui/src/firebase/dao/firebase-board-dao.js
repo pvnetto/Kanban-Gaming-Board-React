@@ -8,7 +8,8 @@ export default class BoardDAO {
 
     getBoardRef = async (projectRef, boardId) => {
         return await projectRef
-            .collection('boards').doc(boardId);
+            .collection('boards')
+            .doc(boardId);
     }
 
     insertBoard = async (projectRef, board) => {
@@ -64,7 +65,7 @@ export default class BoardDAO {
     }
 
     fetchBoardRefsByProject = async (projectRef) => {
-        let boards = [];
+        const boards = [];
 
         await projectRef.collection('boards').get().then((querySnapshot) => {
             querySnapshot.forEach(doc => {

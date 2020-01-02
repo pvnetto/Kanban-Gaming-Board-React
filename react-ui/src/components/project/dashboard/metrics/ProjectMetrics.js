@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import TaskStatus from '../../../commons/TaskStatus';
 import LoadingSpinner from '../../../commons/spinners/LoadingSpinner';
-import { useTasks } from '../../../contexts/TasksContext';
 import MetricsBase from '../../../commons/MetricsBase';
+import { fetchTasksFromProject } from '../../../../firebase/actions/task-actions';
 
 const ProjectMetrics = () => {
     const [data, setData] = useState({});
-    const { fetchTasksFromProject } = useTasks();
+    const firebaseClient = useSelector(state => state.auth.firebaseClient);
+    const currentProject = useSelector(state => state.boards.currentProject);
 
     useEffect(() => {
         getMetricsData();
-    }, []);
+    }, [currentProject]);
 
     const getMetricsData = async () => {
-        let taskData = await fetchTasksFromProject();
+        let taskData = await fetchTasksFromProject(currentProject.id, firebaseClient.taskService);
 
         let completedCount = taskData[TaskStatus.COMPLETED].length;
         let totalCount = 0;

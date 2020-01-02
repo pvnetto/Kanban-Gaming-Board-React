@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
@@ -7,43 +7,18 @@ import BoardContainer from './BoardContainer';
 import TaskStatus from '../../commons/TaskStatus';
 import SectionNavbarLink from '../../commons/SectionNavbarLink';
 import { removeBoardAction } from '../../../firebase/actions/board-actions';
-import { useTasks } from '../../contexts/TasksContext';
+import { updateBoardTasks, removeTaskFromBoard, fetchTasksFromBoard } from '../../../firebase/actions/task-actions';
 
 const ProjectBoard = ({ match }) => {
 
-    let [tasks, setTasks] = useState(null);
-    const firebaseClient = useSelector(state => state.auth.firebaseClient);
+    const tasks = useSelector(state => state.tasks.board.tasks);
     const currentProject = useSelector(state => state.boards.currentProject);
     const dispatch = useDispatch();
 
-    const { listenToBoardTaskChanges, addTaskToBoard, addTaskToBacklog, updateBoardTasks, removeTaskFromBoard } = useTasks();
-
     useEffect(() => {
-        setTasks(null);
-        let listener = null;
-
-        const listenToTasks = async () => {
-            const boardId = match.params.boardId;
-            listener = await listenToBoardTaskChanges(boardId, (snapshotTasks) => {
-                setTasks(Object.assign({}, snapshotTasks));
-            });
-        }
-
-        listenToTasks();
-
-        return () => {
-            listener && listener();
-        }
+        const boardId = match.params.boardId;
+        dispatch(fetchTasksFromBoard(boardId));
     }, [match]);
-
-    const addTaskToBoardWithPreview = (boardId, name, description, category) => {
-        const newTask = addTaskToBoard(boardId, name, description, category, firebaseClient.boardService);
-
-        let tasksCopy = Object.assign({}, tasks);
-        tasksCopy[newTask.status].push(newTask);
-
-        setTasks(tasksCopy);
-    }
 
     return (
         <BoardContainer tasks={tasks}
@@ -51,7 +26,7 @@ const ProjectBoard = ({ match }) => {
             removeTask={(task) => removeTaskFromBoard(match.params.boardId, task)}
             columns={[TaskStatus.PLANNED, TaskStatus.IN_PROGRESS, TaskStatus.TESTING, TaskStatus.COMPLETED]}>
 
-            <BoardContainer.Header addTaskToBoard={addTaskToBoardWithPreview} addTaskToBacklog={addTaskToBacklog} title={"Boards"}>
+            <BoardContainer.Header title={"Boards"}>
                 <SectionNavbarLink
                     title={"Close board"}
                     icon={faWindowClose}

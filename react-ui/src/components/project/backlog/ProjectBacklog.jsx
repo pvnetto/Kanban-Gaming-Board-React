@@ -1,41 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { fetchTasksFromBacklog, updateBacklogTasks, removeTaskFromBacklog } from '../../../firebase/actions/task-actions';
 import BoardContainer from '../board/BoardContainer';
 import TaskStatus from '../../commons/TaskStatus';
-import { useTasks } from '../../contexts/TasksContext';
 
 const ProjectBacklog = () => {
 
-    let [tasks, setTasks] = useState(null);
-    const { listenToBacklogTaskChanges, addTaskToBoard, addTaskToBacklog, updateBacklogTasks, removeTaskFromBacklog } = useTasks();
+    const tasks = useSelector(state => state.tasks.backlog.tasks);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        let listener = null;
-        const listenToTasks = async () => {
-            listener = await listenToBacklogTaskChanges((snapshotTasks) => {
-                setTasks(Object.assign({}, snapshotTasks));
-            });
-        }
-
-        listenToTasks();
-
-        return () => {
-            listener && listener();
-        }
+        dispatch(fetchTasksFromBacklog());
     }, []);
-
-    const addTaskToBacklogWithPreview = (name, description, category) => {
-        const newTask = addTaskToBacklog(name, description, category);
-
-        let tasksCopy = Object.assign({}, tasks);
-        tasksCopy[newTask.status].push(newTask);
-
-        setTasks(tasksCopy);
-    }
 
     return (
         <BoardContainer tasks={tasks} removeTask={removeTaskFromBacklog} updateTasks={updateBacklogTasks} columns={[TaskStatus.BACKLOG]}>
-            <BoardContainer.Header addTaskToBoard={addTaskToBoard} addTaskToBacklog={addTaskToBacklogWithPreview} title={"Backlog"}>
+            <BoardContainer.Header title={"Backlog"}>
             </BoardContainer.Header>
         </BoardContainer>
     );

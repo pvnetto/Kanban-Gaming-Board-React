@@ -7,7 +7,6 @@ import { loadProject } from '../../firebase/actions/board-actions';
 import ProjectWorkspaceRoutes from './routes';
 import ProjectWorkspaceSidenav from './sidenav';
 import NavigationBar from '../commons/NavigationBar';
-import { TasksProvider } from '../contexts/TasksContext';
 
 import { Link } from "react-router-dom";
 
@@ -48,7 +47,7 @@ const ProjectWorkspace = ({ history, match, location }) => {
     }
 
     return (
-        <TasksProvider>
+        <>
             <ProjectWorkspaceSidenav {...match} onExpand={toggleExpandWorkspace} />
             <Container fluid={true} className="full-height bg-primary p-0">
                 <div className={`workspace ${expandWorkspace ? 'expand' : ''} d-flex flex-column h-100`}>
@@ -56,7 +55,7 @@ const ProjectWorkspace = ({ history, match, location }) => {
                     <ProjectWorkspaceRoutes url={match.url} />
                 </div>
             </Container>
-        </TasksProvider>
+        </>
     );
 };
 
