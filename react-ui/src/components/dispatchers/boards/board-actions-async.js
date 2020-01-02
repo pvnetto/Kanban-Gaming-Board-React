@@ -1,11 +1,11 @@
 import { loadingBoard, setCurrentProject, fetchBoardsSuccess, addBoardSuccess, removeBoardSuccess } from './board-actions';
 
-export const loadProject = (projectId, projects) => {
+export const loadProject = (projectId) => {
     return async (dispatch, getState) => {
-        const { auth } = getState();
+        const { auth, projects } = getState();
         const boardService = auth.firebaseClient.boardService;
 
-        const currentProject = projects.find(project => project.id == projectId);
+        const currentProject = projects.projects.find(project => project.id == projectId);
         dispatch(setCurrentProject(currentProject));
         dispatch(fetchBoardsAction(boardService));
     }
@@ -16,7 +16,7 @@ export const fetchBoardsAction = () => {
         const { auth, boards } = getState();
         const boardService = auth.firebaseClient.boardService;
 
-        if(boards.currentProject) {
+        if (boards.currentProject) {
             dispatch(loadingBoard());
             const projectBoards = await boardService.fetchBoardsByProject(boards.currentProject.id);
             dispatch(fetchBoardsSuccess(projectBoards));

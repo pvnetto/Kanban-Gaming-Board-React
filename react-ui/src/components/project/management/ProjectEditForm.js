@@ -15,10 +15,12 @@ const ProjectEditForm = () => {
 
     // Initializing state on useEffect, instead of initializing with props as default values
     useEffect(() => {
-        setTitle(currentProject.title);
-        setDescription(currentProject.description);
-        setGeneralInfo(currentProject.generalInfo);
-    }, []);
+        if (currentProject) {
+            setTitle(currentProject.title);
+            setDescription(currentProject.description);
+            setGeneralInfo(currentProject.generalInfo);
+        }
+    }, [currentProject]);
 
     const onClick = () => {
         dispatch(updateProjectAction(currentProject, title, description, generalInfo));

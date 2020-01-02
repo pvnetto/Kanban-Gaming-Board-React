@@ -22,7 +22,7 @@ const ProjectWorkspace = ({ history, match, location }) => {
     useEffect(() => {
         if(isAuthenticated) {
             const projectId = match.params.projectId;
-            dispatch(loadProject(projectId, projects));
+            dispatch(loadProject(projectId));
         }
     }, [projects]);
 

@@ -12,28 +12,29 @@ import DesignLogForm from './DesignLogForm';
 
 const ProjectDesignLog = () => {
 
-    let [showModal, setShowModal] = useState(false);
-    let [logs, setLogs] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [logs, setLogs] = useState([]);
 
     const firebaseClient = useSelector(state => state.auth.firebaseClient);
     const currentProject = useSelector(state => state.boards.currentProject);
 
     useEffect(() => {
         let listener = null;
-
         const listenToLogs = async () => {
             listener = await firebaseClient.designLogService.setDesignLogListener(currentProject.id, (snapshotLogs) => {
                 setLogs([...snapshotLogs]);
             });
         }
 
-        listenToLogs();
+        if (currentProject) {
+            listenToLogs();
+        }
 
         // Cleanup function. Calling a listener unsubscribes it from firestore.
         return () => {
             listener && listener();
         }
-    }, []);
+    }, [currentProject]);
 
     const addLog = async (title, content) => {
         let newLog = {

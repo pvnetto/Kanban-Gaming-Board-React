@@ -35,7 +35,7 @@ export const removeTaskFromBacklog = (task) => {
         if (boards.currentProject) {
             dispatch(backlogPending());
             await taskService.removeTaskFromBacklog(boards.currentProject.id, task);
-            dispatch(removeTaskBacklogSuccess(task.id));
+            dispatch(removeTaskBacklogSuccess(task));
         }
     }
 }
@@ -73,7 +73,7 @@ export const removeTaskFromBoard = (boardId, task) => {
 
         dispatch(boardPending());
         await taskService.removeTaskFromBoard(boards.currentProject.id, boardId, task);
-        dispatch(removeTaskBoardSuccess(task.id));
+        dispatch(removeTaskBoardSuccess(task));
     }
 }
 

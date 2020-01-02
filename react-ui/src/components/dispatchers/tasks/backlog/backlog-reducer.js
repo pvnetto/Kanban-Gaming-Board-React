@@ -19,7 +19,7 @@ const backlogTasksReducer = (state = defaultState, action) => {
             }
         }
         case REMOVE_TASK_BACKLOG_SUCCESS: {
-            const tasksCopy = Object.assign({}, tasksCopy);
+            const tasksCopy = Object.assign({}, state.tasks);
             const taskIdx = tasksCopy[action.data.status].findIndex(task => task.id === action.data.id);
             tasksCopy[action.data.status].splice(taskIdx, 1);
             return {
