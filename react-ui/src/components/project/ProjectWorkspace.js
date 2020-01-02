@@ -20,8 +20,10 @@ const ProjectWorkspace = ({ history, match, location }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const projectId = match.params.projectId;
-        dispatch(loadProject(projectId, projects));
+        if(isAuthenticated) {
+            const projectId = match.params.projectId;
+            dispatch(loadProject(projectId, projects));
+        }
     }, [projects]);
 
     useEffect(() => {
@@ -33,6 +35,8 @@ const ProjectWorkspace = ({ history, match, location }) => {
     const toggleExpandWorkspace = () => {
         setExpandWorkspace(!expandWorkspace);
     }
+
+    if (!isAuthenticated) return null;
 
     return (
         <>

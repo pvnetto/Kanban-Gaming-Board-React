@@ -20,6 +20,8 @@ const UserWorkspace = ({ history, match }) => {
         }
     });
 
+    if (!isAuthenticated) return null;
+
     return (
         <>
             <UserWorkspaceSidenav url={match.url} onExpand={() => setExpandWorkspace(!expandWorkspace)} />
