@@ -51,7 +51,7 @@ The Node server files are on the root folder and the React client files are on t
   
 ## Roadmap
 
-* [] Testing
-* [] Sign In/Sign Up with custom provider
-* [] Assign tasks to project contributors
-* [] Edit tasks
+* [ ] Testing
+* [ ] Sign In/Sign Up with custom provider
+* [ ] Assign tasks to project contributors
+* [ ] Edit tasks
