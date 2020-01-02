@@ -20,8 +20,8 @@ A project management application for game development, based on kanban board. Ma
 Clone the project:
 ```
 cd project/save/path
-git clone https://github.com/pvnetto/Hacker-News-React.git
-cd Hackers-News-React
+git clone https://github.com/pvnetto/Kanban-Gaming-Board-React.git
+cd Kanban-Gaming-Board-React
 ```
 
 
