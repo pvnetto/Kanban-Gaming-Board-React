@@ -15,6 +15,11 @@ A project management application for game development, based on kanban board. Ma
 - Drag and drop tasks
 - Invite other users to project
 
+
+## Layout
+
+[Figma Draft](https://www.figma.com/file/mVYqs3Wc1bwvd0uTeumvZn/Kanban-Board).
+
 ## Running the project
 
 Clone the project:
