@@ -3,7 +3,7 @@
 .navButton {
     font-size: 1.2rem;
 
-    &:hover {
+    &:hover, &.active {
         background: $primary;
         color: var(--font-color-secondary);
     }

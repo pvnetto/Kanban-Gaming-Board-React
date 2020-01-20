@@ -5,7 +5,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
-import BoardSidenav from './BoardSidenav';
+import BoardSidenav from './sidenav';
 import BoardColumn from './BoardColumn';
 import SectionNavbar from '../../layout/section/SectionNavbar';
 import SectionNavbarButton from '../../layout/section/SectionNavbarButton';

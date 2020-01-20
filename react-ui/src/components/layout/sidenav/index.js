@@ -1,2 +1,1 @@
-import Sidenav from './Sidenav';
-export default Sidenav;
+export { default } from './Sidenav.js';

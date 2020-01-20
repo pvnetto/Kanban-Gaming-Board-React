@@ -4,40 +4,11 @@
     --inner-sidenav-width: 200px;
 }
 
-.sidenav-base {
-    height: 100%;
-    position: fixed;
-    z-index: 1;
-    display: flex;
-    overflow-x: hidden;
-
-    
-    .nav-link {
-        font-size: 1.2rem;
-    
-        &:hover, &.active {
-            background: $primary;
-            color: var(--font-color-secondary);
-        }
-    }
-}
-
 .workspace {
     margin-left: var(--sidenav-width); 
 
     &.expand {
         margin-left: var(--sidenav-width-expand);      // Offsets the content horizontally by the width of the sidebar.
-    }
-}
-
-.inner-sidenav {
-    @extend .sidenav-base;
-    width: var(--inner-sidenav-width);
-
-    position: fixed;
-
-    .nav-link {
-        font-size: 0.9rem;
     }
 }
 

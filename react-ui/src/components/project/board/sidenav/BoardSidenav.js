@@ -2,20 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { faGamepad, faCode, faMusic, faPencilAlt, faBug, faPalette, faPoll, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
-import SidenavButton from '../../layout/sidenav/button';
-import { allCategories } from '../../utils/types/Categories';
+import Sidenav from '../../../layout/sidenav';
+import SidenavButton from '../../../layout/sidenav/button';
+import { allCategories } from '../../../utils/types/Categories';
 
+import styles from './board-sidenav.module.scss';
 
 const BoardSidenav = ({ onClick, activeCategory }) => {
 
     const BoardSidenavBtn = ({ category, icon }) => (
-        <SidenavButton title={category} icon={icon} isExpanded={true} active={activeCategory === category} onClick={() => onClick(category)} />
+        <SidenavButton
+            className={styles.navLink}
+            title={category} icon={icon}
+            isExpanded={true}
+            active={activeCategory === category}
+            onClick={() => onClick(category)} />
     )
 
     return (
         // Placing a fixed element inside an absolute makes it stick to the element, instead of the window 
         <div className="position-absolute">
-            <div className="inner-sidenav bg-dark border-2 border-light">
+            <Sidenav className={`${styles.boardSidenav} bg-dark border-2 border-light`}>
                 <ul className="navbar-nav w-100 d-flex flex-column justify-content-start">
                     <BoardSidenavBtn category={allCategories.ALL} icon={faGamepad} />
                     <BoardSidenavBtn category={allCategories.ART} icon={faPalette} />
@@ -26,7 +33,7 @@ const BoardSidenav = ({ onClick, activeCategory }) => {
                     <BoardSidenavBtn category={allCategories.SOUND} icon={faMusic} />
                     <BoardSidenavBtn category={allCategories.WRITING} icon={faPencilAlt} />
                 </ul>
-            </div>
+            </Sidenav>
         </div>
     );
 };

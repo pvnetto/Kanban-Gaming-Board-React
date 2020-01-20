@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styles from './sidenav-button.module.scss';
 
-const SidenavButton = ({ title, icon, onClick, active, isExpanded = true }) => {
+const SidenavButton = ({ title, icon, onClick, active, className, isExpanded = true }) => {
 
     return (
         <li className="nav-item disable-select w-100">
-            <p className={`${styles.navButton} ${isExpanded ? 'pl-3' : 'pl-0 justify-content-center'} cursor-pointer py-3 d-flex flex-row align-items-center ${active ? 'active' : ''}`}
+            <p className={`${className} ${styles.navButton} ${isExpanded ? 'pl-3' : 'pl-0 justify-content-center'} ${active ? styles.active : ''} cursor-pointer py-3 d-flex flex-row align-items-center`}
                 onClick={onClick}>
 
                 <FontAwesomeIcon style={{ width: '30px' }} icon={icon} />
