@@ -6,12 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { loginWithGoogle, loginWithFacebook } from '../dispatchers/auth/auth-actions-async';
 
+import styles from './login.module.scss';
+
 const LoginForm = () => {
 
     const auth0Client = useSelector(state => state.auth.auth0Client);
 
     return (
-        <div className="p-4" style={{ width: '70%' }}>
+        <div className={`p-md-4 p-2 ${styles.loginForm}`}>
             <form className="form-group d-flex flex-column mb-4" action="">
                 <input className="form-control mb-2" placeholder="Login" type="text" />
                 <input className="form-control mb-2" placeholder="Password" type="password" />

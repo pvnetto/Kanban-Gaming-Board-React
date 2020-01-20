@@ -13,3 +13,52 @@
         font-size: 4.5rem;
     }
 }
+
+.loginForm {
+    width: 75%;
+}
+
+@media screen and (max-width: 768px) {
+    
+    .logoMd {
+        font-size: 1.5rem;
+        
+        .capital {
+            font-size: 2.5rem;
+        }
+    }
+    
+    .logoLg {
+        font-size: 3.5rem;
+        
+        .capital {
+            font-size: 4rem;
+        }
+    }
+
+    .loginForm {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .logoMd {
+        font-size: 1rem;
+
+        .capital {
+            font-size: 2rem;
+        }
+    }
+
+    .logoLg {
+        font-size: 2.5rem;
+
+        .capital {
+            font-size: 3rem;
+        }
+    }
+
+    .loginForm {
+        width: 100%;
+    }
+}

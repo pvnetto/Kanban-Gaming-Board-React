@@ -25,7 +25,7 @@ function LoginPage({ history }) {
       <Container fluid className="h-100 d-flex flex-row justify-content-center align-items-center p-0 bg-primary">
         <Row className="w-100 h-100">
 
-          <Col xs={4} className="d-flex flex-column justify-content-center align-items-center border border-light">
+          <Col xl={4} md={6} xs={12} className="d-flex flex-column justify-content-center align-items-center border border-light">
             <div>
               <Logo>
                 <Logo.Blue className={`${styles.logoMd} align-self-start d-inline`}>
@@ -51,13 +51,16 @@ function LoginPage({ history }) {
             </div>
           </Col>
 
-          <Col style={{ backgroundImage: `url(${XboxImg})`, backgroundPosition: 'center', backgroundSize: 'cover' }} xs={8} className="d-flex flex-column justify-content-center align-items-center">
+          <Col style={{ backgroundImage: `url(${XboxImg})`, backgroundPosition: 'center', backgroundSize: 'cover' }}
+            className="d-md-flex d-none flex-column justify-content-center align-items-center text-center"
+            xl={8} md={6} xs={0}>
+
             <div className="bg-overlay"></div>
 
-            <div className="position-absolute d-flex flex-column align-items-center justify-content-center">
-              <h1>Let's make some awesome games!</h1>
+            <div className="position-absolute d-flex flex-column align-items-center justify-content-center p-4">
+              <h1 className="mb-2">Let's make some awesome games!</h1>
               <p className="text-center">Create a new project, invite your team and assign their tasks. It's that simple!</p>
-              <Button variant="outline-light" className="mt-4">Check this project on GitHub</Button>
+              <Button variant="outline-light" className="mt-2">Check this project on GitHub</Button>
             </div>
           </Col>
         </Row>
