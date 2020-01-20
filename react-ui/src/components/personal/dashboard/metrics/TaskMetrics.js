@@ -5,7 +5,7 @@ import { fetchAllTasksFromAllProjects } from '../../../dispatchers/projects/proj
 
 import MetricsBase from '../../../utils/MetricsBase';
 import TaskStatus from '../../../utils/types/TaskStatus';
-import LoadingSpinner from '../../../utils/spinners/LoadingSpinner';
+import Spinner from '../../../utils/spinners/Spinner';
 
 const TaskMetrics = () => {
 
@@ -40,7 +40,7 @@ const TaskMetrics = () => {
     const buildChartData = (title, value, color) => ({ title, value, color });
 
     if (!data['total']) {
-        return <LoadingSpinner size={"sm"} />;
+        return <Spinner size={"sm"} />;
     }
 
     return (

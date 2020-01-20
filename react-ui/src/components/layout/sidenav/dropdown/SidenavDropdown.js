@@ -5,14 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import SidenavButton from '../button';
 
+import styles from './sidenav-dropdown.module.scss';
+
 export const DropdownLink = ({ title, icon, link = '', url = '', show, isExpanded }) => {
 
-    if (!show) {
-        return null;
-    }
+    if (!show) return null;
 
     return (
-        <NavLink className={`nav-link py-1 ${isExpanded ? 'pl-3' : 'pl-1'} d-flex flex-row align-items-center`} to={`${url}${link}`}>
+        <NavLink activeClassName={styles.active} className={`${styles.navLink} ${isExpanded ? 'pl-3' : 'pl-1'} py-1 d-flex flex-row align-items-center`} to={`${url}${link}`}>
             <FontAwesomeIcon className="ml-4" style={{ width: '15px' }} icon={icon} />
 
             {isExpanded &&
@@ -23,22 +23,12 @@ export const DropdownLink = ({ title, icon, link = '', url = '', show, isExpande
     );
 }
 
-DropdownLink.propTypes = {
-    title: PropTypes.string.isRequired,
-    icon: PropTypes.object.isRequired,
-    link: PropTypes.string,
-    url: PropTypes.string,
-    show: PropTypes.bool,
-    isExpanded: PropTypes.bool,
-}
-
 export const DropdownButton = ({ title, icon, show, isExpanded, onClick }) => {
-    if (!show) {
-        return null;
-    }
+
+    if (!show) return null;
 
     return (
-        <p className={`nav-link cursor-pointer py-1 ${isExpanded ? 'pl-3' : 'pl-1'} d-flex flex-row align-items-center`} onClick={onClick}>
+        <p className={`${styles.navLink} cursor-pointer py-1 ${isExpanded ? 'pl-3' : 'pl-1'} d-flex flex-row align-items-center`} onClick={onClick}>
             <FontAwesomeIcon className="ml-4" style={{ width: '15px' }} icon={icon} />
 
             {isExpanded &&
@@ -47,14 +37,6 @@ export const DropdownButton = ({ title, icon, show, isExpanded, onClick }) => {
                 </span>}
         </p>
     );
-}
-
-DropdownButton.propTypes = {
-    title: PropTypes.string.isRequired,
-    icon: PropTypes.object.isRequired,
-    show: PropTypes.bool,
-    isExpanded: PropTypes.bool,
-    onClick: PropTypes.func,
 }
 
 const SidenavDropdown = (props) => {
@@ -70,14 +52,31 @@ const SidenavDropdown = (props) => {
             {show &&
                 <div className="my-1">
                     {props.children(show, props.isExpanded)}
-                </div>
-            }
+                </div>}
         </>
     );
 };
 
 SidenavDropdown.Button = DropdownButton;
 SidenavDropdown.Link = DropdownLink;
+
+DropdownLink.propTypes = {
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.object.isRequired,
+    link: PropTypes.string,
+    url: PropTypes.string,
+    show: PropTypes.bool,
+    isExpanded: PropTypes.bool,
+}
+
+DropdownButton.propTypes = {
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.object.isRequired,
+    show: PropTypes.bool,
+    isExpanded: PropTypes.bool,
+    onClick: PropTypes.func,
+}
+
 SidenavDropdown.propTypes = {
     title: PropTypes.string.isRequired,
     icon: PropTypes.object.isRequired,

@@ -5,6 +5,9 @@ import { Row, Col, Container, Button } from 'react-bootstrap';
 
 import LoginForm from './LoginForm';
 import XboxImg from '../../assets/images/action-analogue.jpg';
+import Logo from '../layout/logo/Logo';
+
+import styles from './login.module.scss';
 
 function LoginPage({ history }) {
 
@@ -24,12 +27,19 @@ function LoginPage({ history }) {
 
           <Col xs={4} className="d-flex flex-column justify-content-center align-items-center border border-light">
             <div>
-              <div className="logo logo-md">
-                <h1 className="logo-blue logo-md align-self-start d-inline"><span className="capital">K</span>anban</h1>
-                <h1 className="logo-red logo-lg d-inline"><span className="capital">G</span>aming</h1>
-                <h1 className="logo-green logo-md align-self-end d-inline"><span className="capital">B</span>oard</h1>
-              </div>
-              <div className="my-4 text-center">
+              <Logo>
+                <Logo.Blue className={`${styles.logoMd} align-self-start d-inline`}>
+                  <span className={styles.capital}>K</span>anban
+                </Logo.Blue>
+                <Logo.Red className={`${styles.logoLg} d-inline`}>
+                  <span className={styles.capital}>G</span>aming
+                </Logo.Red>
+                <Logo.Green className={`${styles.logoMd} align-self-end d-inline`}>
+                  <span className={styles.capital}>B</span>oard
+                </Logo.Green>
+              </Logo>
+
+              <div className="mb-4 text-center">
                 <p>Welcome to Kanban Gaming Board!</p>
               </div>
             </div>

@@ -5,11 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styles from './sidenav-link.module.scss';
 
-const SidenavLink = ({ title, icon, url = '', link = '', isExpanded }) => {
+const SidenavLink = ({ title, icon, url = '', link = '', isExpanded, className }) => {
     return (
         <li className="nav-item w-100">
-            <NavLink activeClassName={styles.active} className={`${styles.navLink} py-3 ${isExpanded ? 'pl-3' : 'pl-0 justify-content-center'} d-flex flex-row align-items-center`} to={`${url}${link}`}>
-                <FontAwesomeIcon className={styles.linkIcon} icon={icon} />
+            <NavLink
+                activeClassName={styles.active}
+                className={`${className} ${styles.navLink} ${isExpanded ? 'pl-3' : 'pl-0 justify-content-center'} py-3 d-flex flex-row align-items-center`} to={`${url}${link}`}
+            >
+                <FontAwesomeIcon style={{ width: 30 }} icon={icon} />
                 {isExpanded &&
                     <span className="ml-3">
                         {" " + title}

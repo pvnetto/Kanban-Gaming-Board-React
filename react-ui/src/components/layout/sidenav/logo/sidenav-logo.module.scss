@@ -1,7 +1,10 @@
 .logo {
+    display: flex;
+    flex-direction: column;
     font-size: 2.3rem;
-
+    
     &.expand {
+        display: block;
         font-size: 3rem;
     }
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import LoadingSpinner from './LoadingSpinner';
+import Spinner from './Spinner';
 
-import './FullPageSpinner.scss';
+import styles from './spinner.module.scss';
 
 const FullPageSpinner = () => {
     return (
-        <div className="full-page-overlay full-page-overlay-bg d-flex flex-row align-items-center justify-content-center">
-            <LoadingSpinner size={'lg'} />
+        <div className={`${styles.fullPageOverlay} d-flex flex-row align-items-center justify-content-center`}>
+            <Spinner size={'lg'} />
         </div>
     );
 };

@@ -12,7 +12,7 @@ import SectionNavbarButton from '../../layout/section/SectionNavbarButton';
 import TaskCreateForm from '../../layout/forms/TaskCreateForm';
 import { allCategories } from '../../utils/types/Categories';
 import ModalBase from '../../utils/ModalBase';
-import LoadingSpinner from '../../utils/spinners/LoadingSpinner';
+import Spinner from '../../utils/spinners/Spinner';
 
 import { handleDragEnd } from './task-drag';
 
@@ -70,7 +70,7 @@ const BoardContainer = ({ tasks, isPending, updateTasks, removeTask, columns, ch
                                     <BoardColumn type={status} tasks={getFilteredTasksByStatus(status)} removeTask={removeTask} category={category} />
                                 </Col>
                             )) :
-                            <LoadingSpinner size={'sm'} />}
+                            <Spinner size={'sm'} />}
                     </Col>
 
                 </Row>

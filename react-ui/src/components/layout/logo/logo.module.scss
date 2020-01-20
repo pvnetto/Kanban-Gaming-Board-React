@@ -1,0 +1,35 @@
+@import '../../../assets/scss/_variables';
+@import url('https://fonts.googleapis.com/css?family=Megrim&display=swap');
+
+
+.logo {
+    font-family: 'Megrim';
+
+    &-md {
+        font-size: 2rem;
+
+        .capital {
+            font-size: 3rem;
+        }
+    }
+
+    &-lg {
+        font-size: 4rem;
+
+        .capital {
+            font-size: 4.5rem;
+        }
+    }
+}
+
+.red {
+    color: $red;
+}
+
+.green {
+    color: $green;
+}
+
+.blue {
+    color: $blue;
+}

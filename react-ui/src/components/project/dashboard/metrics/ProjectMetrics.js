@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import TaskStatus from '../../../utils/types/TaskStatus';
-import LoadingSpinner from '../../../utils/spinners/LoadingSpinner';
+import Spinner from '../../../utils/spinners/Spinner';
 import MetricsBase from '../../../utils/MetricsBase';
 import { fetchTasksFromProject } from '../../../dispatchers/tasks/task-actions-async';
 
@@ -36,7 +36,7 @@ const ProjectMetrics = () => {
     const buildChartData = (title, value, color) => ({ title, value, color });
 
     if (!data['total']) {
-        return <LoadingSpinner size={'sm'} />;
+        return <Spinner size={'sm'} />;
     }
 
     return (

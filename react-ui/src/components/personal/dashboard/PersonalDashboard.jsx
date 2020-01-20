@@ -7,7 +7,7 @@ import { faGamepad, faDiceD20, faHourglassEnd, faChartPie } from '@fortawesome/f
 import ProjectItem from '../../utils/ProjectItem';
 import SectionContainer from '../../layout/section/SectionContainer'
 import SectionNavbar from '../../layout/section/SectionNavbar';
-import LoadingSpinner from '../../utils/spinners/LoadingSpinner';
+import Spinner from '../../utils/spinners/Spinner';
 import TaskMetrics from './metrics/TaskMetrics';
 
 
@@ -32,13 +32,13 @@ const PersonalDashboard = () => {
 
                     <SectionContainer title={"Your Projects"} icon={faDiceD20}>
                         {isLoading ?
-                            <LoadingSpinner size={'sm'} /> :
+                            <Spinner size={'sm'} /> :
                             projects.map((project, idx) => <ProjectItem key={idx} {...project} />)}
                     </SectionContainer>
 
                     <SectionContainer title={"Closed Projects"} icon={faHourglassEnd} >
                         {isLoading ?
-                            <LoadingSpinner size={'sm'} /> :
+                            <Spinner size={'sm'} /> :
 
                             closedProjects.length > 0 ?
                                 closedProjects
@@ -50,7 +50,7 @@ const PersonalDashboard = () => {
                 <Col xs={6} className="pl-2">
                     <SectionContainer title={"Metrics"} icon={faChartPie}>
                         {isLoading ?
-                            <LoadingSpinner size={'sm'} /> :
+                            <Spinner size={'sm'} /> :
                             <TaskMetrics />}
                     </SectionContainer>
                 </Col>

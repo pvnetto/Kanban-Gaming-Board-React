@@ -1,2 +1,1 @@
-import SidenavLogo from './SidenavLogo';
-export default SidenavLogo;
+export { default } from './SidenavLogo';

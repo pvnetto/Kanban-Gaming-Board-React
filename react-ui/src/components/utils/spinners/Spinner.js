@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
+import styles from './spinner.module.scss';
+
 const getDimensions = (size) => {
     switch (size) {
         case 'lg':
@@ -16,18 +18,18 @@ const getDimensions = (size) => {
     }
 }
 
-const LoadingSpinner = ({ size }) => {
+const Spinner = ({ size }) => {
     return (
         <div className={"d-flex flex-row justify-content-center align-items-center"} style={{ width: '100%', zIndex: '100' }}>
-            <div className="loading-spinner">
+            <div className={styles.spinner}>
                 <FontAwesomeIcon style={{ ...getDimensions(size) }} icon={faSpinner} />
             </div>
         </div>
     );
 };
 
-LoadingSpinner.propTypes = {
+Spinner.propTypes = {
     size: PropTypes.oneOf(['sm', 'md', 'lg']).isRequired,
 }
 
-export default LoadingSpinner;
+export default Spinner;
