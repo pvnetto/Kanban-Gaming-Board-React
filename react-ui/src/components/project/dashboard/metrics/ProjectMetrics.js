@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import TaskStatus from '../../../utils/types/TaskStatus';
 import Spinner from '../../../utils/spinners/Spinner';
-import MetricsBase from '../../../utils/MetricsBase';
+import MetricsBase from '../../../utils/metrics/MetricsBase';
 import { fetchTasksFromProject } from '../../../dispatchers/tasks/task-actions-async';
 
 const ProjectMetrics = () => {

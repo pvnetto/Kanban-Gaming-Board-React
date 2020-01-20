@@ -25,7 +25,7 @@ const PersonalDashboard = () => {
 
             <Row noGutters={true} className="w-100 p-2">
                 {/* Left dashboard section */}
-                <Col xs={6}>
+                <Col xl={6} xs={12}>
                     <div className="p-4 mb-2 bg-dark border-2 border-radius-5 border-light d-flex flex-row justify-content-center">
                         <h3 className="font-weight-bold">Welcome, {user.name}!</h3>
                     </div>
@@ -47,7 +47,7 @@ const PersonalDashboard = () => {
                 </Col>
 
                 {/* Right dashboard section */}
-                <Col xs={6} className="pl-2">
+                <Col xl={6} xs={12} className="pl-xl-2 pl-0">
                     <SectionContainer title={"Metrics"} icon={faChartPie}>
                         {isLoading ?
                             <Spinner size={'sm'} /> :

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { faPowerOff, faWindowMinimize } from '@fortawesome/free-solid-svg-icons';
@@ -13,11 +13,34 @@ import style from './workspace-sidenav.module.scss';
 const WorkspaceSidenav = ({ children, onExpand }) => {
 
     let [isExpanded, setExpanded] = useState(true);
+    const [isLocked, setLocked] = useState(false);
 
     const toggleExpanded = () => {
+        if (isLocked) return;
         setExpanded(!isExpanded);
         onExpand();
     }
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (!window) return;
+
+            const width = window.innerWidth;
+
+            if (width <= 1025) {
+                setExpanded(false);
+                setLocked(true);
+                onExpand();
+            }
+            else {
+                if (isLocked) setLocked(false);
+            }
+        }
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize)
+    }, []);
 
     return (
         <Sidenav className={`${style.workspaceSidenav} ${isExpanded ? style.expand : ''} bg-secondary border-2 border-light`}>

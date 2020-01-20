@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { fetchAllTasksFromAllProjects } from '../../../dispatchers/projects/project-actions-async';
 
-import MetricsBase from '../../../utils/MetricsBase';
+import MetricsBase from '../../../utils/metrics/MetricsBase';
 import TaskStatus from '../../../utils/types/TaskStatus';
 import Spinner from '../../../utils/spinners/Spinner';
 

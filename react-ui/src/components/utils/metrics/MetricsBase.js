@@ -4,7 +4,7 @@ import ReactMinimalPieChart from 'react-minimal-pie-chart';
 
 export const MetricsItem = (props) => {
     return (
-        <div className="d-flex flex-column align-items-center justify-content-center">
+        <div className={`d-flex flex-column align-items-center justify-content-center p-2`}>
             <p className="font-weight-bold">{props.label}</p>
             <p>{props.count}</p>
         </div>
@@ -39,7 +39,7 @@ const MetricsBase = ({ data, children }) => {
                 }}
             />
 
-            <div className="d-flex flex-row justify-content-around align-items-center mt-4">
+            <div className="d-flex flex-row flex-wrap justify-content-between align-items-start mt-4">
                 {children}
             </div>
         </div>
