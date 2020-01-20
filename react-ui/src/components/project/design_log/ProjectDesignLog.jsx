@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import { faPlusSquare, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
-import ModalBase from '../../commons/ModalBase';
-import SectionNavbar from '../../commons/SectionNavbar';
+import ModalBase from '../../utils/ModalBase';
+import SectionNavbar from '../../layout/section/SectionNavbar';
+import SectionNavbarButton from '../../layout/section/SectionNavbarButton';
 import DesignLogItem from './DesignLogItem';
-import SectionNavbarButton from '../../commons/SectionNavbarButton';
 import DesignLogForm from './DesignLogForm';
 
 

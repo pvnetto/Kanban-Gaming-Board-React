@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchTasksFromBacklog, updateBacklogTasks, removeTaskFromBacklog } from '../../dispatchers/tasks/task-actions-async';
 import BoardContainer from '../board/BoardContainer';
-import TaskStatus from '../../commons/TaskStatus';
+import TaskStatus from '../../utils/types/TaskStatus';
 
 const ProjectBacklog = () => {
 

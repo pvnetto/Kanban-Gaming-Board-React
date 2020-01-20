@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
@@ -6,9 +7,8 @@ import { Container } from 'react-bootstrap';
 import { loadProject } from '../dispatchers/boards/board-actions-async';
 import ProjectWorkspaceRoutes from './routes';
 import ProjectWorkspaceSidenav from './sidenav';
-import NavigationBar from '../commons/NavigationBar';
+import NavigationBar from '../utils/NavigationBar';
 
-import { Link } from "react-router-dom";
 
 const ProjectWorkspace = ({ history, match, location }) => {
     let [expandWorkspace, setExpandWorkspace] = useState(true);
@@ -20,7 +20,7 @@ const ProjectWorkspace = ({ history, match, location }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(isAuthenticated) {
+        if (isAuthenticated) {
             const projectId = match.params.projectId;
             dispatch(loadProject(projectId));
         }

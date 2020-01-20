@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { faGamepad, faCode, faMusic, faPencilAlt, faBug, faPalette, faPoll, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
-import SidenavButton from '../../commons/sidenav/SidenavButton';
-import { allCategories } from '../../commons/Categories';
+import SidenavButton from '../../layout/sidenav/button';
+import { allCategories } from '../../utils/types/Categories';
 
 
 const BoardSidenav = ({ onClick, activeCategory }) => {

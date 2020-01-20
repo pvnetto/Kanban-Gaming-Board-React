@@ -22,28 +22,6 @@
     }
 }
 
-.sidenav {
-    @extend .sidenav-base;
-
-    width: var(--sidenav-width);
-
-    &.expand {
-        width: var(--sidenav-width-expand);            // This is the sidebar's width. The page's content should be offset horizontally by this size.
-    }
-
-    .logo {
-        font-size: 2.3rem;
-
-        &.expand {
-            font-size: 3rem;
-        }
-    }
-
-    svg {
-        font-size: 1.8rem;
-    }
-}
-
 .workspace {
     margin-left: var(--sidenav-width); 
 

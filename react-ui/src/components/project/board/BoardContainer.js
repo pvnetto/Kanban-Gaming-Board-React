@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Row, Col } from 'react-bootstrap';
 import { faGamepad, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
-import SectionNavbar from '../../commons/SectionNavbar';
-import SectionNavbarButton from '../../commons/SectionNavbarButton';
-import { allCategories } from '../../commons/Categories';
-import ModalBase from '../../commons/ModalBase';
-import CreateTaskForm from '../sidenav/CreateTaskForm';
 import BoardSidenav from './BoardSidenav';
 import BoardColumn from './BoardColumn';
-import LoadingSpinner from '../../commons/spinners/LoadingSpinner';
+import SectionNavbar from '../../layout/section/SectionNavbar';
+import SectionNavbarButton from '../../layout/section/SectionNavbarButton';
+import TaskCreateForm from '../../layout/forms/TaskCreateForm';
+import { allCategories } from '../../utils/types/Categories';
+import ModalBase from '../../utils/ModalBase';
+import LoadingSpinner from '../../utils/spinners/LoadingSpinner';
 
 import { handleDragEnd } from './task-drag';
 
@@ -22,7 +22,7 @@ export const BoardContainerHeader = ({ title, children }) => {
         <>
             {/* Form used to create a new task */}
             <ModalBase title={"Add Task"} showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} >
-                <CreateTaskForm />
+                <TaskCreateForm />
             </ModalBase>
 
             <SectionNavbar title={title} icon={faGamepad}>

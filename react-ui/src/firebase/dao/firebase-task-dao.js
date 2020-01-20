@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 
-import TaskStatus from '../../components/commons/TaskStatus';
+import TaskStatus from '../../components/utils/types/TaskStatus';
 
 export default class TaskDAO {
 

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import BoardContainer from './BoardContainer';
-import TaskStatus from '../../commons/TaskStatus';
-import SectionNavbarLink from '../../commons/SectionNavbarLink';
+import TaskStatus from '../../utils/types/TaskStatus';
+import SectionNavbarLink from '../../layout/section/SectionNavbarLink';
 import { removeBoardAction } from '../../dispatchers/boards/board-actions-async';
 import { updateBoardTasks, removeTaskFromBoard, fetchTasksFromBoard } from '../../dispatchers/tasks/task-actions-async';
 

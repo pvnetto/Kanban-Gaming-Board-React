@@ -2,10 +2,10 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { faEdit, faUsers, faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 
-import SectionContainer from '../../commons/SectionContainer';
-import ProjectEditForm from './ProjectEditForm';
-import ProjectInviteForm from './ProjectInviteForm';
-import ProjectDeleteForm from './ProjectDeleteForm';
+import SectionContainer from '../../layout/section/SectionContainer';
+import ProjectEditForm from '../../layout/forms/ProjectEditForm';
+import ProjectInviteForm from '../../layout/forms//ProjectInviteForm';
+import ProjectDeleteForm from '../../layout/forms//ProjectDeleteForm';
 
 const ProjectManagement = () => {
 

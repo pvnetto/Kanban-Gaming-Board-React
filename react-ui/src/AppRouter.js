@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import LoginPage from './components/login/LoginPage';
-import UserWorkspace from './components/user/UserWorkspace';
+import PersonalWorkspace from './components/personal/PersonalWorkspace';
 import ProjectWorkspace from './components/project/ProjectWorkspace';
-import ErrorPage from './components/commons/ErrorPage';
-import PageAlert from './components/commons/PageAlert';
+import ErrorPage from './components/utils/ErrorPage';
+import PageAlert from './components/utils/PageAlert';
 import LoginRedirect from './components/login/LoginRedirect';
 
-import FullPageSpinner from './components/commons/spinners/FullPageSpinner';
+import FullPageSpinner from './components/utils/spinners/FullPageSpinner';
 import LogoutRedirect from './components/login/LogoutRedirect';
 
 import useLoadProjects from './components/dispatchers/projects/useLoadProjects';
@@ -35,7 +35,7 @@ const AppRouter = () => {
 
                     <Route exact path="/logout" component={LogoutRedirect} />
 
-                    <Route path="/workspace" component={UserWorkspace} />
+                    <Route path="/workspace" component={PersonalWorkspace} />
                     <Route path="/project/:projectId" component={ProjectWorkspace} />
 
                     <Route component={ErrorPage} />

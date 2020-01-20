@@ -1,0 +1,13 @@
+@import '../../../../assets/scss/variables';
+
+.workspaceSidenav {
+    width: var(--sidenav-width);
+
+    &.expand {
+        width: var(--sidenav-width-expand);            // This is the sidebar's width. The page's content should be offset horizontally by this size.
+    }
+
+    svg {
+        font-size: 1.8rem;
+    }
+}

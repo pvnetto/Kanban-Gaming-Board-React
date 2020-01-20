@@ -1,0 +1,14 @@
+@import '../../../../assets/scss/_variables';
+
+.navLink {
+    font-size: 1.2rem;
+
+    &:hover, &.active {
+        background: $primary;
+        color: var(--font-color-secondary);
+    }
+}
+
+.linkIcon {
+    width: 30px;
+}

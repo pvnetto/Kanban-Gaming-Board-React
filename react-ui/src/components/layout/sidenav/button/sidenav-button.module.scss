@@ -1,0 +1,10 @@
+@import '../../../../assets/scss/_variables';
+
+.navButton {
+    font-size: 1.2rem;
+
+    &:hover {
+        background: $primary;
+        color: var(--font-color-secondary);
+    }
+}

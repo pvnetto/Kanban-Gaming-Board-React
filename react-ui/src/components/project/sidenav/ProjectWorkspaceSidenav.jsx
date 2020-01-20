@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { faPlusSquare, faGamepad, faCogs, faClipboardList, faEdit, faList, faArrowLeft, faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
 import { addTaskToBoard, addTaskToBacklog } from '../../dispatchers/tasks/task-actions-async';
-import Sidenav from '../../commons/sidenav/Sidenav';
-import SidenavLink from '../../commons/sidenav/SidenavLink';
-import ModalBase from '../../commons/ModalBase';
-import CreateBoardForm from './CreateBoardForm';
-import CreateTaskForm from './CreateTaskForm';
-import SidenavExpand from '../../commons/sidenav/SidenavExpand';
+import WorkspaceSidenav from '../../layout/sidenav/workspace';
+import SidenavLink from '../../layout/sidenav/link';
+import ModalBase from '../../utils/ModalBase';
+import BoardCreateForm from '../../layout/forms/BoardCreateForm';
+import TaskCreateForm from '../../layout/forms/TaskCreateForm';
+import SidenavDropdown from '../../layout/sidenav/dropdown';
 
 
 const ProjectWorkspaceSidenav = ({ url, onExpand }) => {
@@ -22,55 +22,54 @@ const ProjectWorkspaceSidenav = ({ url, onExpand }) => {
 
     const showExpandLinks = (show, isExpanded) => (
         <>
-            <SidenavExpand.Button title="Board" icon={faList} show={show} isExpanded={isExpanded} onClick={() => setShowCreateBoard(true)} />
-            <SidenavExpand.Button title="Task" icon={faEdit} show={show} isExpanded={isExpanded} onClick={() => setShowCreateTask(true)} />
+            <SidenavDropdown.Button title="Board" icon={faList} show={show} isExpanded={isExpanded} onClick={() => setShowCreateBoard(true)} />
+            <SidenavDropdown.Button title="Task" icon={faEdit} show={show} isExpanded={isExpanded} onClick={() => setShowCreateTask(true)} />
         </>
     );
 
     const showBoardLinks = (show, isExpanded) => (
         <>
             {boards.map((board, idx) => (
-                <SidenavExpand.Link key={idx} title={board.title} icon={faClipboardList}
+                <SidenavDropdown.Link key={idx} title={board.title} icon={faClipboardList}
                     link={`/boards/${board.id}`} url={url}
                     show={show} isExpanded={isExpanded} />
             ))}
         </>
     )
 
-    // Sidenav buttons components
-    const renderSidenavBtns = (isExpanded) => (
-        <>
-            <SidenavExpand title={"CREATE"} icon={faPlusSquare} url={url} isExpanded={isExpanded}>
-                {showExpandLinks}
-            </ SidenavExpand>
-
-            <SidenavLink title={"DASHBOARD"} icon={faGamepad} link={"/dashboard"} url={url} isExpanded={isExpanded} />
-            <SidenavExpand title={"BOARDS"} icon={faClipboardList} url={url} isExpanded={isExpanded}>
-                {showBoardLinks}
-            </ SidenavExpand>
-            <SidenavLink title={"BACKLOG"} icon={faList} link={"/backlog"} url={url} isExpanded={isExpanded} />
-            <SidenavLink title={"DESIGN LOG"} icon={faPencilRuler} link={"/design_log"} url={url} isExpanded={isExpanded} />
-            <SidenavLink title={"MANAGEMENT"} icon={faCogs} link={"/management"} url={url} isExpanded={isExpanded} />
-
-            <hr className="m-1 border border-light" />
-
-            <SidenavLink title={"Back to Workspace"} icon={faArrowLeft} url={"/workspace"} isExpanded={isExpanded} />
-        </>
-    );
-
     return (
         <>
             <ModalBase title={"Create Board"} showModal={showCreateBoard} handleClose={() => setShowCreateBoard(false)}>
-                <CreateBoardForm />
+                <BoardCreateForm />
             </ModalBase>
 
             <ModalBase showModal={showCreateTask} handleClose={() => setShowCreateTask(false)} title={"Create Task"}>
-                <CreateTaskForm {...{ addTaskToBoard, addTaskToBacklog }} />
+                <TaskCreateForm {...{ addTaskToBoard, addTaskToBacklog }} />
             </ ModalBase>
 
-            <Sidenav onExpand={onExpand}>
-                {renderSidenavBtns}
-            </Sidenav>
+            <WorkspaceSidenav onExpand={onExpand}>
+                {(isExpanded) => (
+                    <>
+                        <SidenavDropdown title={"CREATE"} icon={faPlusSquare} url={url} isExpanded={isExpanded}>
+                            {showExpandLinks}
+                        </ SidenavDropdown>
+
+                        <SidenavLink title={"DASHBOARD"} icon={faGamepad} link={"/dashboard"} url={url} isExpanded={isExpanded} />
+
+                        <SidenavDropdown title={"BOARDS"} icon={faClipboardList} url={url} isExpanded={isExpanded}>
+                            {showBoardLinks}
+                        </ SidenavDropdown>
+
+                        <SidenavLink title={"BACKLOG"} icon={faList} link={"/backlog"} url={url} isExpanded={isExpanded} />
+                        <SidenavLink title={"DESIGN LOG"} icon={faPencilRuler} link={"/design_log"} url={url} isExpanded={isExpanded} />
+                        <SidenavLink title={"MANAGEMENT"} icon={faCogs} link={"/management"} url={url} isExpanded={isExpanded} />
+
+                        <hr className="m-1 border border-light" />
+
+                        <SidenavLink title={"Back to Workspace"} icon={faArrowLeft} url={"/workspace"} isExpanded={isExpanded} />
+                    </>
+                )}
+            </WorkspaceSidenav>
         </>
     );
 }

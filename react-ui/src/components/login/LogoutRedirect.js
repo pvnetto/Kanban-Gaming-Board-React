@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { signOut } from '../dispatchers/auth/auth-actions-async';
-import FullPageSpinner from '../commons/spinners/FullPageSpinner';
+import FullPageSpinner from '../utils/spinners/FullPageSpinner';
 
 
 const LogoutRedirect = ({ history }) => {

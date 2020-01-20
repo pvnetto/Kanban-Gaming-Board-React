@@ -1,6 +1,6 @@
 import { fetchBoardTasksSuccess, addTaskBoardSuccess, removeTaskBoardSuccess, boardPending, updateBoardTasksSuccess } from './board/board-actions';
 import { fetchBacklogTasksSuccess, addTaskBacklogSuccess, removeTaskBacklogSuccess, backlogPending, updateTasksBacklogSuccess } from './backlog/backlog-actions';
-import TaskStatus from '../../commons/TaskStatus';
+import TaskStatus from '../../utils/types/TaskStatus';
 
 export const fetchTasksFromBacklog = () => {
     return async (dispatch, getState) => {

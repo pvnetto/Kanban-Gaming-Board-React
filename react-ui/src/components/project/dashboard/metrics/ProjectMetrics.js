@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import TaskStatus from '../../../commons/TaskStatus';
-import LoadingSpinner from '../../../commons/spinners/LoadingSpinner';
-import MetricsBase from '../../../commons/MetricsBase';
+import TaskStatus from '../../../utils/types/TaskStatus';
+import LoadingSpinner from '../../../utils/spinners/LoadingSpinner';
+import MetricsBase from '../../../utils/MetricsBase';
 import { fetchTasksFromProject } from '../../../dispatchers/tasks/task-actions-async';
 
 const ProjectMetrics = () => {

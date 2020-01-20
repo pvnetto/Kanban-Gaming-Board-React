@@ -4,7 +4,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import TaskStatus from '../../commons/TaskStatus';
+import TaskStatus from '../../utils/types/TaskStatus';
 import TaskItem from './tasks/TaskItem';
 
 const columnBorder = (status) => {

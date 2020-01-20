@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import SectionNavbar from '../../commons/SectionNavbar';
-import SectionContainer from '../../commons/SectionContainer';
-
 import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faChartPie, faDiceD20, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+
+import SectionNavbar from '../../layout/section/SectionNavbar';
+import SectionContainer from '../../layout/section/SectionContainer';
 import ProjectMetrics from './metrics/ProjectMetrics';
 
 const ProjectDescSection = ({ title, description }) => {
