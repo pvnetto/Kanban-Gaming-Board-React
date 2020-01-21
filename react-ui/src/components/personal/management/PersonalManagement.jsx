@@ -14,7 +14,7 @@ const PersonalManagement = () => {
     return (
 
         <Row noGutters={true}>
-            <Col className="w-100 p-2" xs={4}>
+            <Col className="w-100 p-2" xl={4} md={6} xs={12}>
                 <SectionContainer title={"Your Projects"} icon={faDiceD20}>
                     {projectItems.length > 0 ?
                         projectItems :

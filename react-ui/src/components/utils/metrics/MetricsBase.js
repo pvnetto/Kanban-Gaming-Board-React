@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 
+import styles from './metrics.module.scss'
+
 export const MetricsItem = (props) => {
     return (
-        <div className={`d-flex flex-column align-items-center justify-content-center p-2`}>
+        <div className={`d-flex flex-column align-items-center justify-content-center p-1`}>
             <p className="font-weight-bold">{props.label}</p>
             <p>{props.count}</p>
         </div>
@@ -27,7 +29,7 @@ const MetricsBase = ({ data, children }) => {
 
     return (
         <div>
-            <ReactMinimalPieChart className="w-50 mx-auto my-2"
+            <ReactMinimalPieChart className={`${styles.pieChart} mx-auto my-2`}
                 data={isEmpty ? emptyData : data}
                 lineWidth={15}
                 paddingAngle={isEmpty ? 0 : 5}

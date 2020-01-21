@@ -30,7 +30,7 @@ const ProjectDashboard = () => {
             <SectionNavbar title={"My Dashboard"} icon={faGamepad} />
 
             <Row noGutters={true} className="w-100 p-2">
-                <Col xs={6}>
+                <Col lg={6} xs={12}>
                     <ProjectDescSection {...currentProject} />
 
                     <SectionContainer title={"General Info"} icon={faInfoCircle} >
@@ -38,8 +38,7 @@ const ProjectDashboard = () => {
                     </SectionContainer>
                 </Col>
 
-
-                <Col xs={6} className="pl-2">
+                <Col lg={6} xs={12} className="pl-lg-2 pl-0">
                     <SectionContainer title={"Metrics"} icon={faChartPie}>
                         <ProjectMetrics />
                     </SectionContainer>

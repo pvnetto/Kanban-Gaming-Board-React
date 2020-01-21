@@ -11,7 +11,7 @@ const ProjectManagement = () => {
 
     return (
         <Row className="p-2" noGutters={true}>
-            <Col xs={12} lg={6} className="pr-2">
+            <Col xs={12} lg={6} className="pr-lg-2 pr-0">
                 <SectionContainer title={"Edit Project"} icon={faEdit}>
                     <ProjectEditForm />
                 </SectionContainer>
