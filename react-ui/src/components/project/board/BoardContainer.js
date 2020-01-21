@@ -63,10 +63,10 @@ const BoardContainer = ({ tasks, isPending, updateTasks, removeTask, columns, ch
 
                     <BoardSidenav onClick={setCategory} activeCategory={category} />
 
-                    <Col className="inner-workspace d-flex flex-row align-items-stretch">
+                    <Col className="inner-workspace d-flex flex-md-row flex-column align-items-stretch">
                         {areTasksLoaded() && !isPending ?
                             columns.map((status, idx) => (
-                                <Col key={idx} xs={12 / columns.length}>
+                                <Col key={idx} md={12 / columns.length} xs={12}>
                                     <BoardColumn type={status} tasks={getFilteredTasksByStatus(status)} removeTask={removeTask} category={category} />
                                 </Col>
                             )) :

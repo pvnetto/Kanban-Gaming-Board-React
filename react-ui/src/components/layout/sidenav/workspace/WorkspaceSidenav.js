@@ -33,7 +33,7 @@ const WorkspaceSidenav = ({ children, onExpand }) => {
                 onExpand();
             }
             else {
-                if (isLocked) setLocked(false);
+                setLocked(false);
             }
         }
 

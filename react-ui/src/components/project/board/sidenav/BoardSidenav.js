@@ -12,7 +12,7 @@ const BoardSidenav = ({ onClick, activeCategory }) => {
 
     const BoardSidenavBtn = ({ category, icon }) => (
         <SidenavButton
-            className={styles.navLink}
+            className={`${styles.navLink}`}
             title={category} icon={icon}
             isExpanded={true}
             active={activeCategory === category}

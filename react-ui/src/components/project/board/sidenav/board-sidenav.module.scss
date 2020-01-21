@@ -4,5 +4,28 @@
 }
 
 .navLink {
-    font-size: 0.9rem;
+    span {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 992px) {
+
+    :root {
+        --inner-sidenav-width: 50px;
+    }
+
+    .navLink {    
+        p {
+            padding-left: 0 !important;
+    
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        span {
+            display: none !important; 
+        }
+    }
 }

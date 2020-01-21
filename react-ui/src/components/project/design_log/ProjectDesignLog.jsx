@@ -19,54 +19,54 @@ const ProjectDesignLog = () => {
     const currentProject = useSelector(state => state.boards.currentProject);
 
     useEffect(() => {
-        let listener = null;
+        if (!currentProject) return;
+
         const listenToLogs = async () => {
-            listener = await firebaseClient.designLogService.setDesignLogListener(currentProject.id, (snapshotLogs) => {
+            return await firebaseClient.designLogService.setDesignLogListener(currentProject.id, (snapshotLogs) => {
                 setLogs([...snapshotLogs]);
             });
         }
 
-        if (currentProject) {
-            listenToLogs();
-        }
+        let listener;
+        listenToLogs().then(newListener => listener = newListener);
 
-        // Cleanup function. Calling a listener unsubscribes it from firestore.
-        return () => {
-            listener && listener();
-        }
-    }, [currentProject]);
-
-    const addLog = async (title, content) => {
-        let newLog = {
-            title,
-            content
-        };
-
-        newLog = await firebaseClient.designLogService.insertDesignLog(currentProject.id, newLog);
+    // Cleanup function. Calling a listener unsubscribes it from firestore.
+    return () => {
+        listener && listener();
     }
+}, [currentProject]);
 
-    const removeLog = async (logId) => {
-        await firebaseClient.designLogService.removeDesignLog(currentProject.id, logId);
-    }
+const addLog = async (title, content) => {
+    let newLog = {
+        title,
+        content
+    };
 
-    return (
-        <Row noGutters={true}>
+    newLog = await firebaseClient.designLogService.insertDesignLog(currentProject.id, newLog);
+}
 
-            <ModalBase title="Add Design Log" showModal={showModal} handleClose={() => setShowModal(false)}>
-                <DesignLogForm addLog={addLog} />
-            </ModalBase>
+const removeLog = async (logId) => {
+    await firebaseClient.designLogService.removeDesignLog(currentProject.id, logId);
+}
 
-            <SectionNavbar title={"Design Logs"} icon={faPencilRuler}>
-                <SectionNavbarButton onClick={() => setShowModal(true)} title={"Add Log"} icon={faPlusSquare} />
-            </SectionNavbar>
+return (
+    <Row noGutters={true}>
 
-            <Col xs={12} className="p-4 d-flex flex-column-reverse">
-                {logs && logs.length > 0 ?
-                    logs.map((entry, idx) => <DesignLogItem key={entry.id} removeLog={removeLog} {...entry} index={idx} />) :
-                    "No log entries found :("}
-            </Col>
-        </Row>
-    );
+        <ModalBase title="Add Design Log" showModal={showModal} handleClose={() => setShowModal(false)}>
+            <DesignLogForm addLog={addLog} />
+        </ModalBase>
+
+        <SectionNavbar title={"Design Logs"} icon={faPencilRuler}>
+            <SectionNavbarButton onClick={() => setShowModal(true)} title={"Add Log"} icon={faPlusSquare} />
+        </SectionNavbar>
+
+        <Col xs={12} className="p-4 d-flex flex-column-reverse">
+            {logs && logs.length > 0 ?
+                logs.map((entry, idx) => <DesignLogItem key={entry.id} removeLog={removeLog} {...entry} index={idx} />) :
+                "No log entries found :("}
+        </Col>
+    </Row>
+);
 };
 
 export default ProjectDesignLog;
